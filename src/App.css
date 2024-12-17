@@ -17,17 +17,29 @@
 
 .subjects {
   height: 100dvh;
-  display: flex; 
-  flex-wrap: wrap; 
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
   padding: 20px; 
+  margin: 20px;
+  
 }
 
 .subject {
-  flex: 0 1 calc(50% - 20px); 
-  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  flex-direction: column;
+  margin: 50px;
   border: 1px solid #ccc; 
   padding: 10px;
-  text-align: center;
-  background-color: lightgoldenrodyellow;
+  background-color: rgb(180, 231, 231);
   height: 100px;
+  color: #000;
+  font-family: serif;
+  font-size: 25px;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+  box-shadow: 5px 10px 40px rgb(189, 240, 240) ;
+  text-decoration: none;
 }
