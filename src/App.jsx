@@ -4,22 +4,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function App() {
-  // const [selectedSub, setSelectedSub] = useState("");
-  // const [isSubHidden, setIsSubHidden] = useState(false);
-
-  // const handleSubjectSelection = (event) => {
-  //   const subSelected = event.target.dataset.id;
-    // console.log('subselected', event);
-    // console.log('subselected', event.target);
-    // console.log('subselected', event.target.dataset);
-    // console.log('subselected', event.target.dataset.id);
-
-    // if (subSelected) {
-    //   setSelectedSub(subSelected);
-    //   setIsSubHidden(true);
-    //   console.log("Selected Subject: ", subSelected); // Log the selected subject
-    // }
-  // };
 
   return (
     <div className="mainContainer">
