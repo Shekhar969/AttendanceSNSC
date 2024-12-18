@@ -8,7 +8,7 @@ const StudentsData = [
     name: "Shekhar Singh Rawal",
     rollno: 32,
     address: "Bhashi",
-    imgSrc:"./src/assets/shekhar.png",
+    imgSrc:"./src/assets/shekhar.jpeg",
   },
   {
     name: "Yojana Pandey",
