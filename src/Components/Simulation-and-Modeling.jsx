@@ -26,7 +26,7 @@ import { useState } from 'react'
     };
   return (
 
-    <>
+    <div className="mainAttendancePage">
       <Link to="/">
         <button type="button" className="back-button">
           Back
@@ -66,7 +66,7 @@ import { useState } from 'react'
 
         </div>
       </main>
-    </>
+    </div>
 
   )
 }

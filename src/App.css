@@ -45,6 +45,24 @@
   transform: scale(1.05); 
 }
 
+.mainAttendancePage{
+margin:  10px 0;
+
+}
+.back-button{
+  color: #000;
+  background-color: rgba(63, 143, 87, 0.788);
+  width: 90%;
+  height: 3rem;
+  font-size: 25px;
+  font-family: serif;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin: 50px auto;
+}
 .particularSubject{
   display: flex;
   margin-top: 10px;
@@ -89,6 +107,8 @@
 }
 
 .student-photo{
+  height: 200px;
+  width: 200px;
   border: #4c6774 3px solid;
   border-radius: 50%;
   padding: 2px;
@@ -96,7 +116,7 @@
 
 .student-details{
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 17px;
   /* text-align: center; */
 }
 
