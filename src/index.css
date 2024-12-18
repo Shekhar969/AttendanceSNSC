@@ -1,0 +1,31 @@
+/* tables */
+table,tr,td,th{
+    border: 1px solid black;
+} 
+table{
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 5px;
+    text-align: center;
+}
+
+input[type="radio"].present{
+    accent-color: green;
+}
+input[type="radio"].absent{
+    /* border:1px solid green; */
+    accent-color: red;
+}
+
+/* back button */
+.back-button{
+    padding: 8px;
+    background-color: rgb(105, 172, 105);
+    border-radius: 10px;
+    border: none;
+    color: black;
+    max-width: fit-content;
+    margin: 0 auto;
+}

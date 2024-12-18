@@ -57,16 +57,6 @@ function App() {
           </button>
           </Link>
         </div>
-
-      
-        <>
-          <div>
-            <h2>You have selected: </h2>
-          </div>
-         
-        </>
-    
-
     </div>
   );
 }
