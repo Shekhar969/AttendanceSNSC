@@ -7,7 +7,7 @@
 .snscLogo {
   user-select: none;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 50%; 
@@ -17,6 +17,7 @@
 
 .subjects {
   display: grid;
+  width: 100%;
   padding: 10px;
   margin-top: 20px; 
 }
@@ -28,21 +29,53 @@
   justify-content: center;
   flex-direction: column;
   height: 5rem;
+  width: 100%;
   padding: 10px; 
   margin-top: 20px; 
-  background-color: rgb(180, 231, 231);
-  color: #000;
+  background-color: rgba(88, 175, 175, 0.61);
+  color: #140401;
   font-family: serif;
   font-size: 15px;
   letter-spacing: 0.5px;
   border-radius: 5px;
   box-shadow: 5px 10px 40px rgb(189, 240, 240);
   cursor: pointer;
-  transition: transform 0.2s; 
+  text-decoration: none;
+  transform: translateY(0px); 
+  opacity: 0; 
+  animation: slideIn 0.65s ease-out forwards;
 }
 
-.subject:hover {
-  transform: scale(1.05); 
+@keyframes slideIn {
+  0% {
+    transform: translateY(100px); 
+    opacity: 0; 
+    scale: 0.1;
+  }
+  100% {
+    transform: translateY(0); 
+    opacity: 1; 
+    scale: 1;
+  }
+}
+.subject:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.subject:nth-child(2) {
+  animation-delay: 0.4s; 
+}
+
+.subject:nth-child(3) {
+  animation-delay: 0.6s; 
+}
+
+.subject:nth-child(4) {
+  animation-delay: 0.8s; 
+}
+
+.subject:nth-child(5) {
+  animation-delay: 1s; 
 }
 
 .mainAttendancePage{
@@ -61,7 +94,7 @@ margin:  10px 0;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  margin: 50px auto;
+  margin: 40px auto;
 }
 .particularSubject{
   display: flex;
@@ -79,7 +112,7 @@ margin:  10px 0;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgb(224, 211, 187);
   font-size: 13px;
-  background-color: #e2e2e2;
+  background-color: #f3f3f3;
 }
 
 

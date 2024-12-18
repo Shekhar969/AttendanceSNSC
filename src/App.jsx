@@ -8,13 +8,12 @@ function App() {
   return (
     <div className="mainContainer">
       <img src={snscLogo} className="snscLogo" alt="SnscLogo" />
-
         <div className="subjects">
          <Link to="cryptography"> <button
             className="subject"
             data-id="Cryptography"
           >
-            <h3>Cryptography</h3>
+            <h3>CRYPTOGRAPHY</h3>
             <h4>sir</h4>
           </button></Link>
           
