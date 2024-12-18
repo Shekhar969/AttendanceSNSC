@@ -19,13 +19,3 @@ input[type="radio"].absent{
     accent-color: red;
 }
 
-/* back button */
-.back-button{
-    padding: 8px;
-    background-color: rgb(105, 172, 105);
-    border-radius: 10px;
-    border: none;
-    color: black;
-    max-width: fit-content;
-    margin: 0 auto;
-}
