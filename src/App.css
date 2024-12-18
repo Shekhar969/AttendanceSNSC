@@ -44,3 +44,93 @@
 .subject:hover {
   transform: scale(1.05); 
 }
+
+.particularSubject{
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+.student-item{
+  margin-top: 10px;
+}
+.student-list{
+  width: 20%;
+  margin: 3px;
+  border: 2px solid rgb(207, 203, 203);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgb(224, 211, 187);
+  font-size: 13px;
+  background-color: #e2e2e2;
+}
+
+
+
+.eachStudent{
+  /* height: 100dvh; */
+  width: 70%;
+  margin: 3px;
+  border: 3px solid rgb(191, 191, 214);
+  border-radius: 5px;
+  box-shadow: 0 -10px 40px rgb(241, 232, 213);
+}
+
+.serial-number{
+  margin: 5px ;
+  font-family: serif;
+  font-size: 20px;
+}
+
+.student-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center ;
+}
+
+.student-photo{
+  border: #4c6774 3px solid;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.student-details{
+  margin-top: 20px;
+  font-size: 20px;
+  /* text-align: center; */
+}
+
+.student-details p{
+  margin: 20px;
+}
+
+.buttonAbs {
+  background-color: rgba(253, 72, 72, 0.836);
+  border-radius: 5px;
+  margin: 10px;
+  height: 3rem;
+  width: 40%;
+  font-size: 20px;
+  font-family: serif;
+  transition: background-color 1s ease-in-out; 
+
+  &:hover {
+    background-color: rgba(236, 12, 12, 0.836); 
+    scale: 1.05;
+  }
+}
+.buttonPre {
+  background-color: rgba(86, 226, 31, 0.836);
+  border-radius: 5px;
+  margin: 10px;
+  height: 3rem;
+  width: 40%;
+  font-size: 20px;
+  font-family: serif;
+  transition: background-color 1s ease-in-out; 
+
+  &:hover {
+    background-color: rgba(123, 255, 0, 0.836); 
+    scale: 1.05;
+  }
+}
