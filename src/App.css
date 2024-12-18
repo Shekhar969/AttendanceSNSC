@@ -1,45 +1,50 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.snscLogo{
+.snscLogo {
   user-select: none;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 50%;
+  opacity: 50%; 
   height: 25rem;
   width: 25rem;
+  pointer-events: none; 
 }
 
 .subjects {
-  height: 100dvh;
+  height: 100vh; 
   display: grid;
-  grid-template-columns: repeat(2,1fr);
-  padding: 20px; 
-  margin: 20px;
-  
+  grid-template-columns: repeat(2, 1fr); 
+  padding: 20px;
+  margin: 0; 
+  column-gap: 30%; 
 }
 
 .subject {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
   flex-direction: column;
-  margin: 50px;
-  border: 1px solid #ccc; 
-  padding: 10px;
+  height: 10rem;
+  padding: 20px; 
   background-color: rgb(180, 231, 231);
-  height: 100px;
   color: #000;
   font-family: serif;
   font-size: 25px;
   letter-spacing: 0.5px;
   border-radius: 5px;
-  box-shadow: 5px 10px 40px rgb(189, 240, 240) ;
+  box-shadow: 5px 10px 40px rgb(189, 240, 240);
   text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s; 
+}
+
+.subject:hover {
+  transform: scale(1.05); 
 }
