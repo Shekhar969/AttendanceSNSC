@@ -12,7 +12,7 @@ function App() {
     if (subSelected) {
       setSelectedSub(subSelected);
       setIsSubHidden(true);
-      console.log("Selected Subject: ", subSelected); // Log the selected subject
+      console.log("Selected Subject: ", subSelected);
     }
   };
 
