@@ -5,13 +5,13 @@ import { useState } from 'react'
 
   const SM = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const Attendance ="";
+    const Status ="";
     const currentStudent = StudentsData[currentIndex];
   
     const isPresent = () => {
       if (currentIndex < StudentsData.length - 1) {
         setCurrentIndex(currentIndex + 1);
-        Attendance =true;
+        Status =true;
       } else {
         setCurrentIndex(0); 
       }
@@ -19,7 +19,7 @@ import { useState } from 'react'
     const isAbsent = () => {
       if (currentIndex < StudentsData.length - 1) {
         setCurrentIndex(currentIndex + 1);
-        Attendance =false;
+        Status =false;
       } else {
         setCurrentIndex(0); 
       }
