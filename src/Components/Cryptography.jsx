@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import StudentsData from './student-details';
 import { useAttendance, AttendancePage } from './attendanceHandler';
 
