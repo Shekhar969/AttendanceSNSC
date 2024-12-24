@@ -5,7 +5,7 @@ import { useState } from 'react'
 
   const SM = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const Status ="";
+    let Status ="";
     const currentStudent = StudentsData[currentIndex];
   
     const isPresent = () => {
