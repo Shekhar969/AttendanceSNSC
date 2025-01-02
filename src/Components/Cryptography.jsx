@@ -17,4 +17,4 @@ const Cryptography = () => {
   )
 }
 
-export default Cryptography
+export default Cryptography;
