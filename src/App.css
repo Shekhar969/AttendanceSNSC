@@ -113,7 +113,6 @@ margin:  10px 0;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgb(224, 211, 187);
   font-size: 10px;
-  text-align: left;
   background-color: #f3f3f3;
 }
 
@@ -134,20 +133,22 @@ margin:  10px 0;
   font-size: 20px;
 }
 
-.student-item{
+.student-item {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center ;
+  padding-left: 3px;
 }
 
-.student-photo{
+.student-photo {
   height: 200px;
   width: 200px;
   border: #4c6774 3px solid;
   border-radius: 50%;
   padding: 2px;
+  margin: 0 auto;         
+   object-fit: cover;     
 }
+
 
 .student-details{
   margin-top: 20px;
@@ -191,19 +192,20 @@ margin:  10px 0;
 }
 
 .popup-message {
-  height: 40dvh;
+  height: 20dvh;
   width: 40dvb;
   position: fixed; 
   top: 50%;         
   left: 50%;        
   transform: translate(-50%, -50%); 
-  background-color: #ffe9e8dc; 
-  color: #721c24;  
+  background-color: rgba(153, 206, 169, 0.788); 
+  color: #000000;  
   padding: 15px 25px; 
-  border: 2px solid #f5c6cb; 
+  border: 2px solid #78af73; 
   border-radius: 15px; 
   font-size: 3rem; 
   font-weight: bold; 
+  font-family: serif;
   display: flex;
   align-items: center;
   text-align: center; 
@@ -222,4 +224,26 @@ margin:  10px 0;
   100% {
     opacity: 1; /* End as fully visible */
   }
+}
+
+.attendance-summary{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+  padding: 1rem;
+  margin: 2rem 3rem;
+  border: 2px solid rgb(207, 203, 203);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgb(224, 211, 187);
+  font-size: 10px;
+}
+
+.attendance-summary h2{
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+.attendance-item{
+
 }
