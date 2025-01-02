@@ -229,8 +229,6 @@ margin:  10px 0;
 .attendance-summary{
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
   padding: 1rem;
   margin: 2rem 3rem;
   border: 2px solid rgb(207, 203, 203);
@@ -245,5 +243,7 @@ margin:  10px 0;
 }
 
 .attendance-item{
-
+  font-size: 12px;
+  font-family: serif;
+  padding: 4px 0;
 }
