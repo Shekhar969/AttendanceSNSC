@@ -103,12 +103,14 @@ margin:  10px 0;
   justify-content: space-between;
 }
 
-.student-item{
-  margin-top: 10px;
+.student-listitem{
+  padding:  2px 0  6px 3px;
 }
 .student-list{
+  height: 70dvh;
   width: 22%;
-  margin: 3px;
+  margin: 5px;
+  overflow: scroll;
   border: 2px solid rgb(207, 203, 203);
   border-radius: 5px;
   box-shadow: 0 10px 20px rgb(224, 211, 187);
@@ -119,9 +121,9 @@ margin:  10px 0;
 
 
 .eachStudent{
-  /* height: 100dvh; */
+  height: 60dvh;
   width: 70%;
-  margin: 3px;
+  margin:2rem 0 0 3px ;
   border: 3px solid rgb(207, 203, 203);
   border-radius: 5px;
   box-shadow: 0 -10px 40px rgb(241, 232, 213);
@@ -136,7 +138,6 @@ margin:  10px 0;
 .student-item {
   display: flex;
   flex-direction: column;
-  padding-left: 3px;
 }
 
 .student-photo {
@@ -157,10 +158,10 @@ margin:  10px 0;
 }
 
 .student-details p{
-  margin: 20px;
+  margin: 20px 0 20px 10px;
 }
 
-.buttonAbs {
+.buttonAbs, .reset {
   background-color: rgba(253, 72, 72, 0.836);
   border-radius: 5px;
   margin: 10px;
@@ -175,7 +176,7 @@ margin:  10px 0;
     scale: 1.05;
   }
 }
-.buttonPre {
+.buttonPre, .send {
   background-color: rgba(86, 226, 31, 0.836);
   border-radius: 5px;
   margin: 10px;
@@ -238,6 +239,7 @@ margin:  10px 0;
 }
 
 .attendance-summary h2{
+  font-size: large;
   text-align: center;
   margin: 0 0 1rem 0;
 }
@@ -247,3 +249,10 @@ margin:  10px 0;
   font-family: serif;
   padding: 4px 0;
 }
+
+.summary-buttons {
+  display: flex;
+  margin-top: 4px;
+  scale: 0.9;
+}
+

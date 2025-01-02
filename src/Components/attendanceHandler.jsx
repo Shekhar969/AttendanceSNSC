@@ -9,19 +9,6 @@ export const useAttendance = (StudentsData) => {
   );
   const [showSummary, setShowSummary] = useState(false);
 
-  function lastStudent() {
-    const popup = document.createElement('div');
-    popup.textContent = "Attendance Completed";
-    popup.className = 'popup-message';
-    document.body.appendChild(popup);
-
-    setTimeout(() => {
-      popup.remove();
-    }, 1000);
-
-    setShowSummary(true);
-  }
-
   const isPresent = () => {
     const updatedStatus = [...attendanceStatus];
     updatedStatus[currentIndex] = { status: 'Present' };
@@ -30,7 +17,7 @@ export const useAttendance = (StudentsData) => {
     if (currentIndex < StudentsData.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      lastStudent();
+      setShowSummary(true);
     }
   };
 
@@ -42,15 +29,43 @@ export const useAttendance = (StudentsData) => {
     if (currentIndex < StudentsData.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      lastStudent();
+      setShowSummary(true);
     }
   };
 
-  return { currentIndex, isPresent, isAbsent, attendanceStatus, showSummary };
+  const resetAttendance = () => {
+    setAttendanceStatus(StudentsData.map(() => ({ status: 'Not Marked' })));
+    setCurrentIndex(0);
+    setShowSummary(false);
+  };
+
+  const sendDataToDatabase = () => {
+    console.log("Sending attendance data to the database:", attendanceStatus);
+    alert("Attendance data sent to the database!");
+  };
+
+  return {
+    currentIndex,
+    isPresent,
+    isAbsent,
+    attendanceStatus,
+    showSummary,
+    resetAttendance,
+    sendDataToDatabase,
+  };
 };
 
 export const AttendancePage = ({ StudentsData }) => {
-  const { currentIndex, isPresent, isAbsent, attendanceStatus, showSummary } = useAttendance(StudentsData);
+  const {
+    currentIndex,
+    isPresent,
+    isAbsent,
+    attendanceStatus,
+    showSummary,
+    resetAttendance,
+    sendDataToDatabase,
+  } = useAttendance(StudentsData);
+
   const currentStudent = StudentsData[currentIndex];
 
   return (
@@ -60,39 +75,42 @@ export const AttendancePage = ({ StudentsData }) => {
           Back
         </button>
       </Link>
-      <main className="particularSubject">
-        <div className="student-list">
-          {StudentsData.map((student, index) => (
-            <div key={student.rollno} className="student-item">
-              <span className="student-name">
-                {index + 1}. {student.name}
-              </span>
-            </div>
-          ))}
-        </div>
-        <div className="eachStudent">
-          <span className="serial-number">{currentIndex + 1}. </span> <br />
-          <div className="student-item">
-            <img
-              className="student-photo"
-              src={currentStudent.imgSrc}
-              alt={currentStudent.name}
-            />
-            <div className="student-details">
-              <p>Name: {currentStudent.name}</p>
-              <p>Roll No: {currentStudent.rollno}</p>
-              <p>Address: {currentStudent.address}</p>
-            </div>
-          </div>
 
-          <button className="buttonAbs" onClick={isAbsent}>
-            Absent
-          </button>
-          <button className="buttonPre" onClick={isPresent}>
-            Present
-          </button>
-        </div>
-      </main>
+      {!showSummary && (
+        <main className="particularSubject">
+          <div className="student-list">
+            {StudentsData.map((student, index) => (
+              <div key={student.rollno} className="student-listitem">
+                <span className="student-name">
+                  {index + 1}. {student.name}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="eachStudent">
+            <span className="serial-number">{currentIndex + 1}. </span> <br />
+            <div className="student-item">
+              <img
+                className="student-photo"
+                src={currentStudent.imgSrc}
+                alt={currentStudent.name}
+              />
+              <div className="student-details">
+                <p>Name: {currentStudent.name}</p>
+                <p>Roll No: {currentStudent.rollno}</p>
+                <p>Address: {currentStudent.address}</p>
+              </div>
+            </div>
+
+            <button className="buttonAbs" onClick={isAbsent}>
+              Absent
+            </button>
+            <button className="buttonPre" onClick={isPresent}>
+              Present
+            </button>
+          </div>
+        </main>
+      )}
 
       {showSummary && (
         <div className="attendance-summary">
@@ -105,6 +123,15 @@ export const AttendancePage = ({ StudentsData }) => {
               </p>
             </div>
           ))}
+
+          <div className="summary-buttons">
+            <button className="reset" onClick={resetAttendance}>
+              Redo
+            </button>
+            <button className="send" onClick={sendDataToDatabase}>
+              Submit
+            </button>
+          </div>
         </div>
       )}
     </div>
