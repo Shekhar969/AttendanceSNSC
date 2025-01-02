@@ -1,20 +1,19 @@
-import React from 'react'
+// Parent Component (e.g., Cryptography.js)
+import React from 'react';
+import { AttendancePage } from './attendanceHandler'; 
 import StudentsData from './student-details';
-import { useAttendance, AttendancePage } from './attendanceHandler';
 
 const Cryptography = () => {
-  const { currentIndex, isPresent, isAbsent } = useAttendance(StudentsData);
+  const subject = "Cryptography"; 
 
   return (
     <main>
-    <AttendancePage 
-      StudentsData={StudentsData} 
-      currentIndex={currentIndex} 
-      isPresent={isPresent} 
-      isAbsent={isAbsent}
-    />
-</main>
-  )
+      <AttendancePage 
+        StudentsData={StudentsData} 
+        subject={subject} 
+      />
+    </main>
+  );
 }
 
 export default Cryptography;

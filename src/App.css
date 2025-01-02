@@ -95,12 +95,20 @@ margin:  10px 0;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  margin: 40px auto;
+  margin: 20px auto;
 }
 .particularSubject{
   display: flex;
   margin-top: 10px;
   justify-content: space-between;
+}
+
+.subjectName{
+  text-align: center;
+  margin: 35px 0 20px 0 ;
+  font-size: 30px;
+  font-family: serif;
+  letter-spacing: 0.7px;
 }
 
 .student-listitem{
