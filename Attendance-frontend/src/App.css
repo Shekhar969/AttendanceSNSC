@@ -1,0 +1,229 @@
+* {
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.snscLogo {
+  user-select: none;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 50%; 
+  height: 25rem;
+  width: 25rem;
+}
+
+.subjects {
+  display: grid;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px; 
+}
+
+.subject {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 5rem;
+  width: 100%;
+  padding: 10px; 
+  margin-top: 20px; 
+  background-color: rgba(88, 175, 175, 0.61);
+  color: #140401;
+  font-family: serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+  box-shadow: 5px 10px 40px rgb(189, 240, 240);
+  cursor: pointer;
+  text-decoration: none;
+  transform: translateY(0px); 
+  opacity: 0; 
+  animation: slideIn 0.65s ease-out forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(100px); 
+    opacity: 0; 
+    scale: 0.1;
+  }
+  100% {
+    transform: translateY(0); 
+    opacity: 1; 
+    scale: 1;
+  }
+}
+.subject:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.subject:nth-child(2) {
+  animation-delay: 0.4s; 
+}
+
+.subject:nth-child(3) {
+  animation-delay: 0.6s; 
+}
+
+.subject:nth-child(4) {
+  animation-delay: 0.8s; 
+}
+
+.subject:nth-child(5) {
+  animation-delay: 1s; 
+}
+
+.mainAttendancePage{
+margin:  10px 0;
+
+}
+.back-button{
+  color: #000;
+  background-color: rgba(63, 143, 87, 0.788);
+  width: 90%;
+  height: 3rem;
+  font-size: 25px;
+  font-family: serif;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin: 40px auto;
+}
+.particularSubject{
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+.student-item{
+  margin-top: 10px;
+}
+.student-list{
+  width: 22%;
+  margin: 3px;
+  border: 2px solid rgb(207, 203, 203);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgb(224, 211, 187);
+  font-size: 10px;
+  text-align: left;
+  background-color: #f3f3f3;
+}
+
+
+
+.eachStudent{
+  /* height: 100dvh; */
+  width: 70%;
+  margin: 3px;
+  border: 3px solid rgb(207, 203, 203);
+  border-radius: 5px;
+  box-shadow: 0 -10px 40px rgb(241, 232, 213);
+}
+
+.serial-number{
+  margin: 5px ;
+  font-family: serif;
+  font-size: 20px;
+}
+
+.student-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center ;
+}
+
+.student-photo{
+  height: 200px;
+  width: 200px;
+  border: #4c6774 3px solid;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.student-details{
+  margin-top: 20px;
+  font-size: 17px;
+  /* text-align: center; */
+}
+
+.student-details p{
+  margin: 20px;
+}
+
+.buttonAbs {
+  background-color: rgba(253, 72, 72, 0.836);
+  border-radius: 5px;
+  margin: 10px;
+  height: 3rem;
+  width: 40%;
+  font-size: 20px;
+  font-family: serif;
+  transition: background-color 1s ease-in-out; 
+
+  &:hover {
+    background-color: rgba(236, 12, 12, 0.836); 
+    scale: 1.05;
+  }
+}
+.buttonPre {
+  background-color: rgba(86, 226, 31, 0.836);
+  border-radius: 5px;
+  margin: 10px;
+  height: 3rem;
+  width: 40%;
+  font-size: 20px;
+  font-family: serif;
+  transition: background-color 1s ease-in-out; 
+
+  &:hover {
+    background-color: rgba(123, 255, 0, 0.836); 
+    scale: 1.05;
+  }
+}
+
+.popup-message {
+  height: 40dvh;
+  width: 40dvb;
+  position: fixed; 
+  top: 50%;         
+  left: 50%;        
+  transform: translate(-50%, -50%); 
+  background-color: #ffe9e8dc; 
+  color: #721c24;  
+  padding: 15px 25px; 
+  border: 2px solid #f5c6cb; 
+  border-radius: 15px; 
+  font-size: 3rem; 
+  font-weight: bold; 
+  display: flex;
+  align-items: center;
+  text-align: center; 
+  justify-content: center;
+  z-index: 1000; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  opacity: 0; 
+  animation: fadeIn 0.5s ease-out forwards; 
+}
+
+/* Animation for fading in the popup */
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Start from invisible */
+  }
+  100% {
+    opacity: 1; /* End as fully visible */
+  }
+}
+
+
+
+
