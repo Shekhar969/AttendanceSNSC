@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import { db } from "../config/fireBase";
+import { addDoc, collection } from "firebase/firestore";
 
 export const useAttendance = (StudentsData) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,6 +10,7 @@ export const useAttendance = (StudentsData) => {
     StudentsData.map(() => ({ status: "Not Marked" }))
   );
   const [showSummary, setShowSummary] = useState(false);
+  const attendanceCollectionRef=collection(db,"StudentAttendance")
 
   const isPresent = () => {
     const updatedStatus = [...attendanceStatus];
@@ -39,19 +42,27 @@ export const useAttendance = (StudentsData) => {
     setShowSummary(false);
   };
 
-  const sendDataToDatabase = (subject) => {
-    const data = {
-      subject,
-      attendance: StudentsData.map((student, index) => ({
-        name: student.name,
-        rollno: student.rollno,
-        status: attendanceStatus[index]?.status,
-      })),
-    };
-
-    console.log("Sending attendance data to the database:", data);
-    // alert("Attendance data sent to the database!");
+ const sendDataToDatabase = async (subject) => {
+  const data = {
+    subject,
+    attendance: StudentsData.map((student, index) => ({
+      name: student.name,
+      rollno: student.rollno,
+      status: attendanceStatus[index]?.status,
+    })),
   };
+
+  try {
+    // Send the data to Firestore
+    await addDoc(attendanceCollectionRef, data);
+    console.log("Attendance data successfully sent to the database");
+    alert("Attendance submitted successfully!");
+  } catch (error) {
+    console.error("Error submitting attendance:", error);
+    alert("There was an error submitting the attendance. Please try again.");
+  }
+};
+
   return {
     currentIndex,
     isPresent,
@@ -62,6 +73,7 @@ export const useAttendance = (StudentsData) => {
     sendDataToDatabase,
   };
 };
+
 export const AttendancePage = ({ StudentsData, subject }) => {
   const {
     currentIndex,

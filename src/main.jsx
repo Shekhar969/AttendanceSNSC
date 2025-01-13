@@ -3,11 +3,11 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Cryptography from './Components/Cryptography.jsx'
-import DAA from './Components/Design-and-Analysis-of-Algorithms.jsx'
-import SAD from './Components/System-Analysis-and-Design.jsx'
-import WebTech from './Components/Web-Technology.jsx'
-import SM from './Components/Simulation-and-Modeling.jsx'
+import Cryptography from './Components/subjects/Cryptography.jsx'
+import DAA from './Components/subjects/Design-and-Analysis-of-Algorithms.jsx'
+import SAD from './Components/subjects/System-Analysis-and-Design.jsx'
+import WebTech from './Components/subjects/Web-Technology.jsx'
+import SM from './Components/subjects/Simulation-and-Modeling.jsx'
 
 const routes = createBrowserRouter([
   {
@@ -38,6 +38,7 @@ const routes = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={routes}/>
+    {/* <RouterProvider router={routes}/> */}
+    <RouterProvider router={routes} future={{ v7_startTransition: true }} />
   </StrictMode>,
 )

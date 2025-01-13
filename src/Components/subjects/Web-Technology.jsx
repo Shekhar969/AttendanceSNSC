@@ -1,6 +1,6 @@
 import React from 'react'
-import StudentsData from './student-details';
-import { useAttendance, AttendancePage } from './attendanceHandler';
+import StudentsData from '../student-details';
+import { useAttendance, AttendancePage } from '../attendanceHandler';
 
 const WebTechnology = () => {
   const subject = "WebTechnology"; 
