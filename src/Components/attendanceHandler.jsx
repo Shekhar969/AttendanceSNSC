@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import snscLogo from '../assets/logo.png';
 import "../App.css";
 import { db } from "../config/fireBase";
 import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
-import { format } from "date-fns";  // For date formatting
+import { format } from "date-fns";  
 
 export const useAttendance = (StudentsData) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -114,7 +115,8 @@ export const AttendancePage = ({ StudentsData, subject }) => {
 
   return (
     <div className="mainAttendancePage">
-      <Link to="/">
+       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+      <Link to="/Subjects">
         <button type="button" className="back-button">
           Back
         </button>
