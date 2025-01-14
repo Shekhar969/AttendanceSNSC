@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import { db } from "../../config/fireBase";
 import { getDocs, collection } from "firebase/firestore";
 import snscLogo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+import "../../App.css";
 
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState(null);
-
+  const [isDateSelected, setIsDateSelected] = useState(false); 
+  const [isCalendarVisible, setIsCalendarVisible] = useState(true); 
   const fetchAttendanceData = async () => {
     try {
       const data = await getDocs(collection(db, "StudentAttendance"));
@@ -16,7 +22,7 @@ function LastMonthAttendance() {
         return {
           id: doc.id,
           ...record,
-          date: record.date?.toDate().toLocaleString() || "Unknown Date", // Convert Firestore Timestamp
+          date: record.date?.toDate() || new Date(), 
         };
       });
       setAttendanceData(attendanceArray);
@@ -27,11 +33,31 @@ function LastMonthAttendance() {
   };
 
   useEffect(() => {
+    const filtered = attendanceData.filter((record) => {
+      return (
+        record.date.toDateString() === selectedDate.toDateString() 
+      );
+    });
+    setFilteredData(filtered);
+  }, [selectedDate, attendanceData]);
+
+  useEffect(() => {
     fetchAttendanceData();
+    setIsCalendarVisible(false);
   }, []);
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setIsDateSelected(true); 
+     
+  };
+
+  const toggleCalendarVisibility = () => {
+    setIsCalendarVisible((prevState) => !prevState);
+  };
+
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <>
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/">
         <button type="button" className="back-button">
@@ -39,57 +65,67 @@ function LastMonthAttendance() {
         </button>
       </Link>
 
-      <h1 style={{ textAlign: "center", margin: "20px 0" }}>
-        Attendance Records
-      </h1>
+      <h1 className="attendanceRecordHeading">Attendance Records</h1>
 
-      {error ? (
-        <p style={{ color: "red", textAlign: "center" }}>{error}</p>
-      ) : attendanceData.length === 0 ? (
-        <p style={{ textAlign: "center" }}>No attendance data found.</p>
+      <div style={{ padding: "20px" }}>
+        <h2 className="atendanceReordCalendarHeading">
+          Select a Date{" "}
+          <button onClick={toggleCalendarVisibility}>
+            {isCalendarVisible ? "﹀" : "︿"}
+          </button>
+        </h2>
+
+        {isCalendarVisible && (
+          <Calendar className="calendar" onChange={handleDateChange} value={selectedDate} />
+        )}
+
+        {isDateSelected && <p className="atendanceReordCalendarHeading">Selected Date: {selectedDate.toDateString()}</p>}
+      </div>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {filteredData.length === 0 ? (
+        <p className="atendanceReordCalendarHeading">No attendance data found for the selected date.</p>
       ) : (
-        attendanceData.map((record) => (
-          <div
-            key={record.id}
-            style={{
-              marginBottom: "20px",
-              padding: "15px",
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-            }}
-          >
-            <h2 style={{ marginBottom: "10px" }}>
-              <strong>Date:</strong> {record.date}
-            </h2>
-            <h3 style={{ marginBottom: "10px" }}>
-              <strong>Subject:</strong> {record.subject || "Unknown Subject"}
-            </h3>
-            {record.attendance.map((student, index) => (
-              <div
-                key={index}
-                style={{
-                  margin: "10px 0",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  backgroundColor: "#f9f9f9",
-                }}
-              >
-                <p>
-                  <strong>Name:</strong> {student.name || "Unknown"}
-                </p>
-                <p>
-                  <strong>Roll No:</strong> {student.rollno || "Unknown"}
-                </p>
-                <p>
-                  <strong>Status:</strong> {student.status || "Unknown"}
-                </p>
+        filteredData.map((record, index) => (
+          <div className="attendanceRecordMainDiv" key={index}>
+            <div>
+              <h2 className="attendanceRecordSubjectName">
+                Subject: {record.subject || "Unknown Subject"}
+              </h2>
+              <h2 className="attendanceRecordDate">
+                Date: {record.date.toLocaleString()}
+              </h2>
+            </div>
+            <div className="attendanceRecordInner">
+              <div>
+                <strong>Name & Roll No</strong> <br />
+                {record.attendance.map((student, studentIndex) => (
+                  <p
+                    key={studentIndex}
+                    className="attendanceRecordInnerEachStudent"
+                  >
+                    {student.name || "Unknown"}, {student.rollno || "Unknown"}
+                  </p>
+                ))}
               </div>
-            ))}
+
+              <div>
+                <strong>Status</strong>
+                {record.attendance.map((student, studentIndex) => (
+                  <p
+                    key={studentIndex}
+                    className="attendanceRecordInnerEachStudent"
+                  >
+                    {student.status || "Unknown"}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         ))
       )}
-    </div>
+    </>
   );
 }
 

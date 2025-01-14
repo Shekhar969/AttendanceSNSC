@@ -1,76 +1,79 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Cryptography from './Components/subjects/Cryptography.jsx';
-import DAA from './Components/subjects/Design-and-Analysis-of-Algorithms.jsx';
-import SAD from './Components/subjects/System-Analysis-and-Design.jsx';
-import WebTech from './Components/subjects/Web-Technology.jsx';
-import SM from './Components/subjects/Simulation-and-Modeling.jsx';
-import snscLogo from './assets/logo.png';
-import './App.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { db } from "../../config/fireBase";
+import { getDocs, collection } from "firebase/firestore";
+import snscLogo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
+import "../../App.css";
 
-// Define routes
-const routes = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/cryptography",
-    element: <Cryptography />,
-  },
-  {
-    path: "/DAA",
-    element: <DAA />,
-  },
-  {
-    path: "/SAD",
-    element: <SAD />,
-  },
-  {
-    path: "/WebTechnology",
-    element: <WebTech />,
-  },
-  {
-    path: "/SM",
-    element: <SM />,
-  },
-]);
+function LastMonthAttendance() {
+  const [attendanceData, setAttendanceData] = useState([]);
+  const [error, setError] = useState(null);
 
-const subjects = [
-  { name: "Cryptography", path: "cryptography" },
-  { name: "Design and Analysis of Algorithms", path: "DAA" },
-  { name: "System Analysis and Design", path: "SAD" },
-  { name: "Simulation and Modeling", path: "SM" },
-  { name: "Web Technology", path: "WebTechnology" },
-];
+  const fetchAttendanceData = async () => {
+    try {
+      const data = await getDocs(collection(db, "StudentAttendance"));
+      const attendanceArray = data.docs.map((doc) => {
+        const record = doc.data();
+        return {
+          id: doc.id,
+          ...record,
+          date: record.date?.toDate().toLocaleString() || "Unknown Date",
+        };
+      });
+      setAttendanceData(attendanceArray);
+    } catch (error) {
+      console.error("Error fetching attendance data:", error);
+      setError("Failed to fetch attendance data. Please try again later.");
+    }
+  };
 
-function App() {
+  useEffect(() => {
+    fetchAttendanceData();
+  }, []);
+
+ 
+
   return (
-    <div className="mainContainer">
-      <img src={snscLogo} className="snscLogo" alt="SnscLogo" />
-      <div className="subjects">
-        {subjects.map((subject) => (
-          <Link
-            to={subject.path}
-            key={subject.path}
-            aria-label={`Go to ${subject.name} subject`}
-          >
-            <button className="subject" data-id={subject.name}>
-              <h3>{subject.name}</h3>
-              <h4>sir</h4>
-            </button>
-          </Link>
-        ))}
-      </div>
-    </div>
+    <>
+      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+      <Link to="/">
+        <button type="button" className="back-button">
+          Back
+        </button>
+      </Link>
+
+      <h1 className="attendanceRecordHeading"> Attendance Records</h1>
+
+      {attendanceData.map((record, index) => (
+        <div className="attendanceRecordMainDiv" key={index}>
+          <div>
+            <h2 className="attendanceRecordSubjectName">Subject: {record.subject || "Unknown Subject"}</h2>
+            <h2 className="attendanceRecordDate">Date: {record.date}</h2>
+          </div>
+          <div className="attendanceRecordInner">
+            <div>
+            <strong>Name & RollNo</strong> <br />
+              {record.attendance.map((student, studentIndex) => (
+                <p key={studentIndex} className="attendanceRecordInnerEachStudent"> 
+                  {student.name || "Unknown"},
+                   { student.rollno || "Unknown"}
+                </p>
+              ))}
+            </div>
+            
+            <div>
+            <strong>Status</strong> 
+              {record.attendance.map((student, studentIndex) => (
+                <p key={studentIndex}  className="attendanceRecordInnerEachStudent">
+                 {student.status || "Unknown"}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
   );
 }
 
-function App() {
-  return (
-    <RouterProvider router={routes} />
-  );
-}
-
-export default App;
+export default LastMonthAttendance;
