@@ -14,6 +14,7 @@
   opacity: 50%; 
   height: 25rem;
   width: 25rem;
+  z-index: -1000;
 }
 
 .subjects {
@@ -267,3 +268,54 @@ margin:  10px 0;
   scale: 0.9;
 }
 
+.attendanceRecordHeading{
+  font-size: 30px;
+  text-align: center;
+  color: #00413d;
+}
+
+.attendanceRecordSubjectName, .attendanceRecordDate{
+  font-size: 15px;
+  text-align: center;
+}
+.atendanceReordCalendarHeading{
+text-align: center;
+}
+
+
+  .calendar {
+        height: fit-content;
+        margin: 0 auto;
+        backdrop-filter: blur(10px);
+  }
+  
+
+.attendanceRecordMainDiv {
+  display: grid;
+  justify-content: space-evenly;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  padding: 15px;
+  border-radius: 5px;
+  backdrop-filter: blur(6px);
+}
+
+
+.attendanceRecordInner {
+  gap: 3rem;
+  display: flex;
+  min-height: 200px;
+  min-width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  backdrop-filter: blur(8px);
+}
+
+.attendanceRecordInnerEachStudent{
+  height: fit-content;
+  padding: 7px 0;
+  font-size: 18px;
+}
