@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import snscLogo from '../assets/logo.png';
 import "../App.css";
 import { db } from "../config/fireBase";
-import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
-import { format } from "date-fns";  
+import { addDoc, collection, query, where, getDocs, Timestamp } from "firebase/firestore";
 
 export const useAttendance = (StudentsData) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,8 +14,8 @@ export const useAttendance = (StudentsData) => {
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);  
   const attendanceCollectionRef = collection(db, "StudentAttendance");
 
-  const todayDate = format(new Date(), "yyyy-MM-dd"); 
-
+  // Firestore's Timestamp for today's date
+  const todayDate = Timestamp.fromDate(new Date());  
 
   const checkIfSubmitted = async (subject) => {
     const q = query(
@@ -72,11 +71,10 @@ export const useAttendance = (StudentsData) => {
         rollno: student.rollno,
         status: attendanceStatus[index]?.status,
       })),
-      date: todayDate,  
+      date: Timestamp.now(),  // Using Firestore's Timestamp
     };
 
     try {
-     
       await addDoc(attendanceCollectionRef, data);
       console.log("Attendance data successfully sent to the database");
       alert("Attendance submitted successfully!");
@@ -115,7 +113,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
 
   return (
     <div className="mainAttendancePage">
-       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/Subjects">
         <button type="button" className="back-button">
           Back
@@ -163,7 +161,6 @@ export const AttendancePage = ({ StudentsData, subject }) => {
       {showSummary && !isDataSubmitted && (
         <div className="attendance-summary">
           <h2>Attendance Summary for {subject}</h2>{" "}
-          {/* Show subject in summary */}
           {StudentsData.map((student, index) => (
             <div key={student.rollno} className="attendance-item">
               <p>

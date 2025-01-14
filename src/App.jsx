@@ -13,7 +13,7 @@ function App() {
         </Link>
       </div>
       <div>
-      <Link to="/" className="subject" >
+      <Link to="/AttendanceHistory" className="subject" >
           <h3 >Check Attendance</h3>
         </Link>
       </div>
