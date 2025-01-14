@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="mainContainer">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+      
       <div>
         <Link to="/Subjects" className="subject">
           <h3>Subjects</h3>
