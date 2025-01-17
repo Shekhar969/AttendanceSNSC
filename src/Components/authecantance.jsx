@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { auth, googleProvider, db } from "../config/fireBase";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword,signInWithPopup,signOut,onAuthStateChanged,} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
-import "../App.css";
-import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa"; // React Icons for visibility toggle
+import { FaUserAlt, FaUser, FaEye, FaEyeSlash } from "react-icons/fa"; 
 import { IoIosMail } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { IoCloseSharp } from "react-icons/io5";
+import homeLogo from "../assets/homePageLogo.png";
+import "../App.css";
 
 function SignUp() {
   const [Email, setEmail] = useState("");
@@ -21,22 +19,40 @@ function SignUp() {
   const [userName, setUserName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false); // Sidebar state
+  const [flipThePage, setFlipThePage] = useState(true); // State for SignUp and LogIn toggle
   const navigate = useNavigate();
 
-  const handlePasswordToggle = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+  const toggleSidebar = () => {
+    setIsSidebarVisible((prev) => !prev);
   };
+
   const passwordIcon = showConfirmPassword ? (
     <FaEye className="signUpPageIcons" />
   ) : (
     <FaEyeSlash className="signUpPageIcons" />
   );
-  // Google Sign-Up
+
+  const logIn = async () => {
+    if (!Email || !Password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+    
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, Email, Password);
+      console.log("Logged in successfully:", userCredential.user);
+      
+    } catch (error) {
+      console.error("Login failed:", error.message);
+      setError("Login failed. Please check your credentials.");
+    }
+  };
+
   const googleSignUp = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const googleUser = result.user;
-
       console.log("Google Sign-Up successful");
       handlePostSignUp(googleUser, googleUser.displayName);
     } catch (err) {
@@ -44,7 +60,6 @@ function SignUp() {
     }
   };
 
-  // Email/Password Sign-Up
   const signUp = async () => {
     if (!Email || !Password || !ConfirmPassword) {
       console.warn("Please fill out all fields");
@@ -70,7 +85,6 @@ function SignUp() {
     }
   };
 
-  // Save User Data to Firestore
   const saveUserData = async (user, userName) => {
     try {
       await setDoc(doc(db, "users", user.uid), {
@@ -85,7 +99,6 @@ function SignUp() {
     }
   };
 
-  // Handle Post-Sign-Up Actions
   const handlePostSignUp = (user, userName) => {
     console.log(`Welcome, ${userName || user.email}`);
     saveUserData(user, userName);
@@ -93,27 +106,31 @@ function SignUp() {
     navigate("/");
   };
 
-  // Log Out User
   const LogOutUser = async () => {
     try {
       await signOut(auth);
       console.log("Successfully logged out");
-      setUser(null);
+      setUser(null); // Clear user state in React
     } catch (err) {
       console.error("Failed to log out:", err);
     }
   };
 
-  // Auth State Listener
+  const flipPage = () => {
+    setFlipThePage((prev) => !prev); // Toggle between SignUp and LogIn
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("User logged in:", user.email);
         setUser(user);
+        setIsSidebarVisible(false); // Set the sidebar to false when the user logs in
         navigate("/");
       } else {
         console.log("No user logged in");
         setUser(null);
+        setIsSidebarVisible(false); // Ensure sidebar is closed when logged out
       }
     });
 
@@ -123,88 +140,181 @@ function SignUp() {
   return (
     <div>
       {user ? (
-        <div>
-          <p>{userName || user.displayName || user.email}</p>
-          <button onClick={LogOutUser}>Log Out</button>
-          <div>
-            <Link to="/Subjects" className="subject">
-              <h3>Subjects</h3>
-            </Link>
+        <div className="mainPageCointiner">
+          <div className="navbarHome">
+            <div className="logoScsn">
+              <img src={homeLogo} className="homeLogo" alt="MainLogo" />
+            </div>
+            <div>
+              {!isSidebarVisible && (
+                <FaUserAlt className="userPhoto" onClick={toggleSidebar} />
+              )}
+
+              <div className={`sideBar ${isSidebarVisible ? "visible" : ""}`}>
+                <IoCloseSharp className="closeNavBar" onClick={toggleSidebar} />
+                <div>
+                  <p className="userName">
+                    {" "}
+                    Hello, {userName || user.displayName || "User"}
+                  </p>
+                  <p className="userEmail">
+                    {user.email || "No email provided"}
+                  </p>
+                </div>
+                <button onClick={LogOutUser} className="userLogOutBtn">
+                  Log Out
+                </button>
+              </div>
+            </div>
           </div>
-          <div>
-            <Link to="/AttendanceHistory" className="subject">
-              <h3>Check Attendance</h3>
-            </Link>
+          <div className="menu">
+            <div>
+              <Link to="/Subjects" className="subject">
+                <h3>Subjects</h3>
+              </Link>
+            </div>
+            <div>
+              <Link to="/AttendanceHistory" className="subject">
+                <h3>Check Attendance</h3>
+              </Link>
+            </div>
           </div>
         </div>
       ) : (
-        <div className="mainSignUpContainer">
-          <h3 className="userSignUpHeading">Sign Up</h3>
-
-          <label htmlFor="username">Username</label>
-          <div className="inputContainers">
-            <input
-              id="username"
-              type="text"
-              placeholder="Choose a username"
-              className="userName"
-              onChange={(e) => setUserName(e.target.value)}
-            />{" "}
-            <div>
-              <FaUser className="signUpPageIcons" />
+        <div
+          className={flipThePage ? "mainSignUpContainer" : "mainLogInContainer"}
+        >
+          {flipThePage ? (
+            <>
+              <div className="topSection">
+                <h3 className="userSignUpHeading">Sign Up</h3>
+                <div className="goTOLogIn">
+                  <FaArrowRightLong onClick={flipPage} />
+                </div>
+              </div>
+              <label htmlFor="username">Username</label>
+              <div className="inputContainers">
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Choose a username"
+                  className="userName"
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+                <div>
+                  <FaUser className="signUpPageIcons" />
+                </div>
+              </div>
+              <label htmlFor="email">Email</label>
+              <div className="inputContainers">
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  className="userEmail"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <div>
+                  <IoIosMail className="signUpPageIcons" />
+                </div>
+              </div>
+              <label htmlFor="password">Password</label>
+              <div className="inputContainers">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="userPassword"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="passwordToggleIcon"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </div>
+              </div>
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <div className="inputContainers">
+                <input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm password"
+                  className="confirmPassword"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="passwordToggleIcon"
+                >
+                  {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                </div>
+              </div>
+              <button onClick={signUp} className="signUpBtn">
+                Sign Up
+              </button>
+              <span>OR</span>
+              <button onClick={googleSignUp} className="googleSignUPBtn">
+                <FcGoogle className="googleSignUPBtnIcon" />
+                <span>Sign Up with Google</span>
+              </button>
+            </>
+          ) : (
+            <div className="loginSection">
+              <div className="topSection">
+                <h3 className="userSignUpHeading">Log In</h3>
+                <div className="goTOLogIn">
+                  <FaArrowRightLong onClick={flipPage} className="logInPageIcons" />
+                </div>
+              </div>
+              <label htmlFor="username">Username</label>
+              <div className="inputContainers">
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Choose a username"
+                  className="userName"
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+                <div>
+                  <FaUser className="signUpPageIcons" />
+                </div>
+              </div>
+              <label htmlFor="email">Email</label>
+              <div className="inputContainers">
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  className="userEmail"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <div>
+                  <IoIosMail className="signUpPageIcons" />
+                </div>
+              </div>
+              <label htmlFor="password">Password</label>
+              <div className="inputContainers">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="userPassword"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="passwordToggleIcon"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </div>
+              </div>
+            
+              <button onClick={logIn} className="logInBtn">
+                Log In
+              </button>
             </div>
-          </div>
-
-          <label htmlFor="email">Email</label>
-          <div className="inputContainers">
-            <input
-              id="email"
-              type="email"
-              placeholder="Email"
-              className="userEmail"
-              onChange={(e) => setEmail(e.target.value)}
-            />{" "}
-            <div>
-              <IoIosMail className="signUpPageIcons" />
-            </div>
-          </div>
-
-          <label htmlFor="password">Password</label>
-          <div className="inputContainers">
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              className="userPassword"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div onClick={handlePasswordToggle} className="passwordToggleIcon">
-              {passwordIcon}
-            </div>
-          </div>
-
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <div className="inputContainers">
-            <input
-              id="confirmPassword"
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm password"
-              className="confirmPassword"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <div onClick={handlePasswordToggle} className="passwordToggleIcon">
-              {passwordIcon}
-            </div>
-          </div>
-
-          <button onClick={signUp} className="signUpBtn">
-            Sign Up
-          </button>
-          <span>OR</span>
-          <button onClick={googleSignUp} className="googleSignUPBtn">
-            <FcGoogle className="googleSignUPBtnIcon" />
-            <span>Sign Up with Google</span>
-          </button>
+          )}
         </div>
       )}
     </div>
