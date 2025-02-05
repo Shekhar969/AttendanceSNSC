@@ -7,11 +7,17 @@ import WebTech from './subjects/Web-Technology.jsx';
 import SM from './subjects/Simulation-and-Modeling.jsx';
 import SB from './subjectLinks.jsx'
 import AH from './attendanceHistory/lastMonthAttendance.jsx'
+import AuthHandler from './auth/handelar.jsx';
+
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/auth",
+    element: <AuthHandler />,
   },
   {
     path: "/AttendanceHistory",

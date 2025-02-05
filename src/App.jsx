@@ -1,12 +1,19 @@
 import React from 'react';
 import snscLogo from './assets/logo.png';
 import './App.css';
-import Auth from './Components/authecantance'
+import {Link} from 'react-router-dom'
+import './Components/routing.jsx'
+// import Auth from './Components/authecantance'
+import AuthHandelar from './Components/auth/handelar.jsx'
 
 function App() {
   return (
     <div className="mainContainer">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+
+    <div className="authHandelar">
+      <AuthHandelar/>
+    </div>
       
       {/* <div>
         <Link to="/Subjects" className="subject">
@@ -18,9 +25,9 @@ function App() {
           <h3 >Check Attendance</h3>
         </Link>
       </div> */}
-      <div>
+      {/* <div>
         <Auth/>
-      </div>
+      </div> */}
     </div>
   );
 }
