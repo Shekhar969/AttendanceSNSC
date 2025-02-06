@@ -8,8 +8,14 @@ import DAA from './Components/Design-and-Analysis-of-Algorithms.jsx'
 import SAD from './Components/System-Analysis-and-Design.jsx'
 import WebTech from './Components/Web-Technology.jsx'
 import SM from './Components/Simulation-and-Modeling.jsx'
+import Login from './Components/Login.jsx'
 
 const routes = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login/>
+
+  },
   {
     path: "/",
     element: <App/>
