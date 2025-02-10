@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import './Components/routing.jsx'
 // import Auth from './Components/authecantance'
 import AuthHandelar from './Components/auth/handelar.jsx'
+import Navbar from './Components/navBar.jsx'
 
 function App() {
   return (
@@ -14,8 +15,10 @@ function App() {
     <div className="authHandelar">
       <AuthHandelar/>
     </div>
-      
-      {/* <div>
+      <div className="navBar">
+        <Navbar/>
+      </div>
+       <div>
         <Link to="/Subjects" className="subject">
           <h3>Subjects</h3>
         </Link>
@@ -24,10 +27,10 @@ function App() {
       <Link to="/AttendanceHistory" className="subject" >
           <h3 >Check Attendance</h3>
         </Link>
-      </div> */}
-      {/* <div>
+      </div> 
+       {/* <div>
         <Auth/>
-      </div> */}
+      </div>  */}
     </div>
   );
 }

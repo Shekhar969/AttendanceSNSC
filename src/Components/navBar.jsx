@@ -1,30 +1,35 @@
-import { FaUserAlt } from 'react-icons/fa';
-import { IoCloseSharp } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
-import homeLogo from '../assets/homePageLogo.png';
+// Navbar.js
+import React from "react";
+import { FaUserAlt } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
+import homeLogo from "../assets/homePageLogo.png";
+import { useAuth } from "../config/fireBase"; 
 
-const Navbar = ({ user, userName, isSidebarVisible, toggleSidebar, LogOutUser }) => (
-  <div className="navbarHome">
-    <div className="logoScsn">
-      <img src={homeLogo} className="homeLogo" alt="MainLogo" />
-    </div>
-    <div>
+const Navbar = ({ isSidebarVisible, toggleSidebar, LogOutUser }) => {
+  const { user, userName } = useAuth();
+
+  return (
+    <div className="navbarHome">
+      <div className="logoScsn">
+        <img src={homeLogo} className="homeLogo" alt="MainLogo" />
+      </div>
       {!isSidebarVisible && (
         <FaUserAlt className="userPhoto" onClick={toggleSidebar} />
       )}
-
       <div className={`sideBar ${isSidebarVisible ? "visible" : ""}`}>
         <IoCloseSharp className="closeNavBar" onClick={toggleSidebar} />
         <div>
-          <p className="userName">Hello, {userName || user.displayName || "User"}</p>
-          <p className="userEmail">{user.email || "No email provided"}</p>
+          <p className="userName">
+            Hello, {userName || (user && user.displayName) || "User"}
+          </p>
+          <p className="userEmail">{(user && user.email) || "No email provided"}</p>
         </div>
         <button onClick={LogOutUser} className="userLogOutBtn">
           Log Out
         </button>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Navbar;
