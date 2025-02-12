@@ -3,10 +3,11 @@ import { FaUserAlt } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import homeLogo from "../assets/homePageLogo.png";
 import { auth } from "../config/fireBase";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -15,12 +16,23 @@ const useAuth = () => {
     return () => unsubscribe();
   }, []);
 
-  return { user, userName: user?.displayName };
+  return { user, userName: user?.displayName, setUser };
 };
 
-const Navbar = ({ LogOutUser }) => {
+const Navbar = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const { user, userName } = useAuth();
+  const { user, userName, setUser } = useAuth();
+
+  const LogOutUser = async () => {
+      // console.log("log out button clicked")
+      try {
+        await signOut(auth);
+        console.log("Successfully logged out");
+        setUser(null); // Clear user state in React
+      } catch (err) {
+        console.error("Failed to log out:", err);
+      }
+    };
 
   const toggleSidebar = () => {
     setIsSidebarVisible((prev) => !prev);
