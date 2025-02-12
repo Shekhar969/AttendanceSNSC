@@ -117,7 +117,7 @@ function SignUp() {
   };
 
   const flipPage = () => {
-    setFlipThePage((prev) => !prev); // Toggle between SignUp and LogIn
+    setFlipThePage((prev) => !prev); 
   };
 
   useEffect(() => {
