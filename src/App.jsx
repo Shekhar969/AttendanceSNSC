@@ -4,7 +4,7 @@ import './App.css';
 import {Link} from 'react-router-dom'
 import './Components/routing.jsx'
 // import Auth from './Components/authecantance'
-import AuthHandelar from './Components/auth/handelar.jsx'
+import AuthHandelar from './Components/auth/handler.jsx'
 import Navbar from './Components/navBar.jsx'
 
 function App() {
