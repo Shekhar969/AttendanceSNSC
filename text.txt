@@ -1,0 +1,79 @@
+import React, { useEffect, useState } from "react";
+import { db } from "../../config/fireBase";
+import { getDocs, collection } from "firebase/firestore";
+import snscLogo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
+import "../../App.css";
+
+function LastMonthAttendance() {
+  const [attendanceData, setAttendanceData] = useState([]);
+  const [error, setError] = useState(null);
+
+  const fetchAttendanceData = async () => {
+    try {
+      const data = await getDocs(collection(db, "StudentAttendance"));
+      const attendanceArray = data.docs.map((doc) => {
+        const record = doc.data();
+        return {
+          id: doc.id,
+          ...record,
+          date: record.date?.toDate().toLocaleString() || "Unknown Date",
+        };
+      });
+      setAttendanceData(attendanceArray);
+    } catch (error) {
+      console.error("Error fetching attendance data:", error);
+      setError("Failed to fetch attendance data. Please try again later.");
+    }
+  };
+
+  useEffect(() => {
+    fetchAttendanceData();
+  }, []);
+
+ 
+
+  return (
+    <>
+      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+      <Link to="/">
+        <button type="button" className="back-button">
+          Back
+        </button>
+      </Link>
+
+      <h1 className="attendanceRecordHeading"> Attendance Records</h1>
+
+      {attendanceData.map((record, index) => (
+        <div className="attendanceRecordMainDiv" key={index}>
+          <div>
+            <h2 className="attendanceRecordSubjectName">Subject: {record.subject || "Unknown Subject"}</h2>
+            <h2 className="attendanceRecordDate">Date: {record.date}</h2>
+          </div>
+          <div className="attendanceRecordInner">
+            <div>
+            <strong>Name & RollNo</strong> <br />
+              {record.attendance.map((student, studentIndex) => (
+                <p key={studentIndex} className="attendanceRecordInnerEachStudent"> 
+                  {student.name || "Unknown"},
+                   { student.rollno || "Unknown"}
+                </p>
+              ))}
+            </div>
+            
+            <div>
+            <strong>Status</strong> 
+              {record.attendance.map((student, studentIndex) => (
+                <p key={studentIndex}  className="attendanceRecordInnerEachStudent">
+                 {student.status || "Unknown"}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+export default LastMonthAttendance;
