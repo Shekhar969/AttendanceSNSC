@@ -1,44 +1,49 @@
+import sakshi from '../assets/sakshi.png'
+import yogana from '../assets/yojana.jpg'
+import shekhar from '../assets/shekhar.jpeg'
+
+
 const StudentsData = [
   {
     name:"Aayush Chand Thakuri",
     rollno: 1,
     address:"Bhansi",
-    imgSrc:"./src/assets/sakshi.png",
+    imgSrc:sakshi,
   },
   {
     name:"Alisha Joshi",
     rollno: 2,
     address:"mahakali",
-    imgSrc:"./src/assets/sakshi.png",
+    imgSrc:yogana,
   },
   {
     name:"Sameer Dangaura",
     rollno: 30,
     address:"IDK",
-    imgSrc:"./src/assets/sakshi.png",
+    imgSrc:shekhar,
   },
   {
     name:"Urmila Thalal",
     rollno: 37,
     address:"School Nera",
-    imgSrc:"./src/assets/sakshi.png",
+    imgSrc:yogana,
   },
   { name: "Sakshi Khatiwada", 
     rollno: 29, 
     address: "Bankhet",
-    imgSrc: "./src/assets/sakshi.png"
+    imgSrc: shekhar,
   },
   {
     name: "Shekhar Singh Rawal",
     rollno: 32,
     address: "Bhashi",
-    imgSrc:"./src/assets/shekhar.jpeg",
+    imgSrc:yogana,
   },
   {
     name: "Yojana Pandey",
     rollno: 38,
     address: "Bhashi",
-    imgSrc:"./src/assets/yojana.jpg",
+    imgSrc:sakshi,
   },
   // {
   //   name: "Yojana Pandey",

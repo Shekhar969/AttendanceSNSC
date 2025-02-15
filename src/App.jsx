@@ -1,29 +1,36 @@
-import snscLogo from "./assets/logo.png";
-import "./App.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import snscLogo from './assets/logo.png';
+import './App.css';
+import {Link} from 'react-router-dom'
+import './Components/routing.jsx'
+// import Auth from './Components/authecantance'
+// import AuthHandelar from './Components/auth/handler.jsx'
+import Navbar from './Components/navBar.jsx'
 
 function App() {
-  const subjects = [
-    { name: "Cryptography", path: "cryptography" },
-    { name: "Design and Analysis of Algorithms", path: "DAA" },
-    { name: "System Analysis and Design", path: "SAD" },
-    { name: "Simulation and Modeling", path: "SM" },
-    { name: "Web Technology", path: "WebTechnology" }
-  ];
-
   return (
     <div className="mainContainer">
-      <img src={snscLogo} className="snscLogo" alt="SnscLogo" />
-      <div className="subjects">
-        {subjects.map(subject => (
-          <Link to={subject.path} key={subject.path} aria-label={`Go to ${subject.name} subject`}>
-            <button className="subject" data-id={subject.name}>
-              <h3>{subject.name}</h3>
-              <h4>sir</h4>
-            </button>
-          </Link>
-        ))}
+      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+
+    {/* <div className="authHandelar">
+      <AuthHandelar/>
+    </div> */}
+      <div className="navBar">
+        <Navbar/>
       </div>
+       <div>
+        <Link to="/Subjects" className="subject">
+          <h3>Subjects</h3>
+        </Link>
+      </div>
+      <div>
+      <Link to="/AttendanceHistory" className="subject" >
+          <h3 >Check Attendance</h3>
+        </Link>
+      </div> 
+       {/* <div>
+        <Auth/>
+      </div>  */}
     </div>
   );
 }
