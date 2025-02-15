@@ -318,6 +318,7 @@ text-align: center;
   padding: 7px 0;
   font-size: 18px;
 }
+
 .mainSignUpContainer{
   display: flex;
   flex-direction: column;
@@ -525,6 +526,7 @@ opacity: 0.5;
   height: fit-content;
 }
 
+/* navbar css start here */
 .navbarHome{
   height: 60px;
   width: 100%;
@@ -564,16 +566,26 @@ opacity: 0.5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: right 0.8s ease-in-out; 
+  transition: right 2s ease-in-out; 
   z-index: 1000;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
+  animation: fadeIn 1s ease-out forwards;
 }
 
-
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+  100% {
+    opacity: 3;
+    transform: scale();
+  }
+}
 .sideBar.visible {
-  right: 0; 
+  right: 0;
 }
 
 
@@ -583,7 +595,7 @@ opacity: 0.5;
   font-size: 40px;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 
@@ -599,6 +611,17 @@ opacity: 0.5;
   width: 90%;
 }
 
+.userSignUpBtn{
+  background: rgb(67 227 56 / 82%);
+  box-shadow: 0 3px 10px rgb(18 134 22 / 68%);
+  padding: 5px 5px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(133, 133, 45);
+  cursor: pointer;
+  color: #0e480d;
+}
+
 .userLogOutBtn{
   background: rgba(248, 25, 25, 0.815);
   box-shadow: 0 3px 10px rgba(134, 18, 18, 0.678);
@@ -607,4 +630,5 @@ opacity: 0.5;
   border-radius: 10px;
   border: 1px solid rgb(133, 133, 45);
   cursor: pointer;
+  color: #90221b;  
 }
