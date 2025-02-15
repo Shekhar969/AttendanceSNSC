@@ -13,7 +13,7 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import { FaArrowRightLong } from "react-icons/fa6";
-import homeLogo from "../../assets/logo.png";
+import snscLogo from '../../assets/logo.png';
 import "../../App.css";
 
 const SignUp = () => {
@@ -139,9 +139,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="logoScsn">
-        <img src={homeLogo} className="homeLogo" alt="MainLogo" />
-      </div>
+ <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <div
         className={flipThePage ? "mainSignUpContainer" : "mainLogInContainer"}
       >

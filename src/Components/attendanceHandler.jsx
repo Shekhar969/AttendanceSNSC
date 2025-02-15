@@ -28,7 +28,6 @@ export const useAttendance = (StudentsData, subject) => {
   };
 
   useEffect(() => {
-    
     const hasAlreadyBeenSubmitted = localStorage.getItem(`attendanceSubmitted_${subject}`);
     if (hasAlreadyBeenSubmitted) {
       setIsDataSubmitted(true); 
