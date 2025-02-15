@@ -4,6 +4,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import homeLogo from "../assets/homePageLogo.png";
 import { auth } from "../config/fireBase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -28,7 +29,7 @@ const Navbar = () => {
       try {
         await signOut(auth);
         console.log("Successfully logged out");
-        setUser(null); // Clear user state in React
+        setUser(null);
       } catch (err) {
         console.error("Failed to log out:", err);
       }
@@ -53,10 +54,14 @@ const Navbar = () => {
           <div>
             <p className="userName">Hello, {displayName}</p>
             <p className="userEmail">{email}</p>
-          </div>
-          <button onClick={LogOutUser} className="userLogOutBtn">
+          </div> 
+            <Link to="/auth" className="userSignUpBtn">
+              Verify You
+            </Link>
+            <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
             Log Out
-          </button>
+            </Link>
+          
         </div>
       ) : (
         <FaUserAlt className="userPhoto" onClick={toggleSidebar} />

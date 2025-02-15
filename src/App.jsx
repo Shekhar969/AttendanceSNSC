@@ -4,7 +4,7 @@ import './App.css';
 import {Link} from 'react-router-dom'
 import './Components/routing.jsx'
 // import Auth from './Components/authecantance'
-import AuthHandelar from './Components/auth/handler.jsx'
+// import AuthHandelar from './Components/auth/handler.jsx'
 import Navbar from './Components/navBar.jsx'
 
 function App() {
@@ -12,9 +12,9 @@ function App() {
     <div className="mainContainer">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
 
-    <div className="authHandelar">
+    {/* <div className="authHandelar">
       <AuthHandelar/>
-    </div>
+    </div> */}
       <div className="navBar">
         <Navbar/>
       </div>

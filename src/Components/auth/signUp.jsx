@@ -149,9 +149,13 @@ const SignUp = () => {
           <div className="signUpForm">
             <div className="topSection">
               <h3 className="userSignUpHeading">Sign Up</h3>
+              <div className="" onClick={flipPage}>
               <div className="goTOLogIn">
-                <FaArrowRightLong onClick={flipPage} />
+            {/* <label>login</label> */}
+                <FaArrowRightLong  />
+              </div>                
               </div>
+
             </div>
             <label htmlFor="username">Username</label>
             <div className="inputContainers">
