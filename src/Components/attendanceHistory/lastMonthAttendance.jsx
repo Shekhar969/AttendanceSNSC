@@ -131,12 +131,10 @@ function LastMonthAttendance() {
             {/* </div> */}
             
           </div>
-attendanceHandler
+
         ))
       )}
       <ToastContainer autoClose={2000} />
-))
-)}
 </div>
     </>
   );
