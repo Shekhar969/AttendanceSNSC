@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import snscLogo from '../assets/logo.png';
+import snscLogo from "../assets/logo.png";
 import "../App.css";
 import { db } from "../config/fireBase";
-import { addDoc, collection, query, where, getDocs, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  Timestamp,
+} from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
 
 export const useAttendance = (StudentsData, subject) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,7 +22,6 @@ export const useAttendance = (StudentsData, subject) => {
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
   const attendanceCollectionRef = collection(db, "StudentAttendance");
 
-  
   const todayDate = Timestamp.fromDate(new Date());
 
   const checkIfSubmitted = async () => {
@@ -24,13 +31,15 @@ export const useAttendance = (StudentsData, subject) => {
       where("date", "==", todayDate)
     );
     const querySnapshot = await getDocs(q);
-    return !querySnapshot.empty; 
+    return !querySnapshot.empty;
   };
 
   useEffect(() => {
-    const hasAlreadyBeenSubmitted = localStorage.getItem(`attendanceSubmitted_${subject}`);
+    const hasAlreadyBeenSubmitted = localStorage.getItem(
+      `attendanceSubmitted_${subject}`
+    );
     if (hasAlreadyBeenSubmitted) {
-      setIsDataSubmitted(true); 
+      setIsDataSubmitted(true);
     }
   }, [subject]);
 
@@ -67,8 +76,9 @@ export const useAttendance = (StudentsData, subject) => {
   const sendDataToDatabase = async () => {
     const alreadySubmitted = await checkIfSubmitted();
     if (alreadySubmitted) {
-      alert(`Attendance for ${subject} has already been submitted today.`);
-      return;  
+      // alert();
+      toast(`Attendance for ${subject} has already been submitted today.`);
+      return;
     }
 
     const data = {
@@ -78,18 +88,20 @@ export const useAttendance = (StudentsData, subject) => {
         rollno: student.rollno,
         status: attendanceStatus[index]?.status,
       })),
-      date: Timestamp.now(),  
+      date: Timestamp.now(),
     };
 
     try {
       await addDoc(attendanceCollectionRef, data);
       console.log("Attendance data successfully sent to the database");
-      alert("Attendance submitted successfully!");
-      setIsDataSubmitted(true);  
-      localStorage.setItem(`attendanceSubmitted_${subject}`, "true"); 
+      toast("Attendance submitted successfully!");
+      setIsDataSubmitted(true);
+      localStorage.setItem(`attendanceSubmitted_${subject}`, "true");
     } catch (error) {
       console.error("Error submitting attendance:", error);
-      alert("There was an error submitting the attendance. Please try again.");
+      toast.error(
+        "There was an error submitting the attendance. Please try again."
+      );
     }
   };
 
@@ -97,7 +109,11 @@ export const useAttendance = (StudentsData, subject) => {
   const clearLocalStorage = () => {
     localStorage.removeItem(`attendanceSubmitted_${subject}`);
     setIsDataSubmitted(false); // Reset the submission state
-    alert(`Local storage for attendance submission for ${subject} has been reset.`);
+    console.log("local storage cleared");
+    toast(
+      `Local storage for attendance submission for ${subject} has been reset.`
+    );
+    // alert("local storage has been reset")
   };
 
   return {
@@ -109,7 +125,7 @@ export const useAttendance = (StudentsData, subject) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    clearLocalStorage, 
+    clearLocalStorage,
   };
 };
 
@@ -142,6 +158,8 @@ export const AttendancePage = ({ StudentsData, subject }) => {
           <p className="subjectName">{subject}</p>
           <main className="particularSubject">
             <div className="student-list">
+              <h1>Student Names</h1>
+              <hr />
               {StudentsData.map((student, index) => (
                 <div key={student.rollno} className="student-listitem">
                   <span className="student-name">
@@ -155,8 +173,8 @@ export const AttendancePage = ({ StudentsData, subject }) => {
               <div className="student-item">
                 <img
                   className="student-photo"
-                  src={currentStudent.imgSrc}
-                  alt={currentStudent.name}
+                  src={currentStudent?.imgSrc}
+                  alt={currentStudent?.name}
                 />
                 <div className="student-details">
                   <p>Name: {currentStudent.name}</p>
@@ -178,7 +196,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
       {showSummary && !isDataSubmitted && (
         <div className="attendance-summary">
           <h2>Attendance Summary for {subject}</h2>
-          {StudentsData.map((student, index) => (
+          {StudentsData?.map((student, index) => (
             <div key={student.rollno} className="attendance-item">
               <p>
                 {index + 1}. {student.name} ( Roll No: {student.rollno} ) -{" "}
@@ -203,11 +221,15 @@ export const AttendancePage = ({ StudentsData, subject }) => {
         </div>
       )}
 
-      
       <div className="reset-localstorage">
-        <button onClick={clearLocalStorage} className="reset-localstorage-button">
+        <button
+          onClick={clearLocalStorage}
+          className="reset-localstorage-button"
+        >
           Reset Local Storage for Admins
         </button>
+    <ToastContainer autoClose={2000}/>
+
       </div>
     </div>
   );

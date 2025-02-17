@@ -13,8 +13,9 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import { FaArrowRightLong } from "react-icons/fa6";
-import snscLogo from '../../assets/logo.png';
+import snscLogo from "../../assets/logo.png";
 import "../../App.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const [Email, setEmail] = useState("");
@@ -42,12 +43,12 @@ const SignUp = () => {
   // Sign Up logic
   const signUp = async () => {
     if (!Email || !Password || !ConfirmPassword) {
-      console.warn("Please fill out all fields");
+      toast.warning("Please fill out all fields");
       return;
     }
 
     if (Password !== ConfirmPassword) {
-      alert("Passwords do not match");
+      toast.warning("Passwords do not match");
       return;
     }
 
@@ -61,13 +62,14 @@ const SignUp = () => {
       handlePostSignUp(userCredential.user, userName);
     } catch (err) {
       console.error("Sign-Up failed:", err.message);
+      toast.error("Sign-Up failed:", err.message);
     }
   };
 
   // Log In logic
   const logIn = async () => {
     if (!Email || !Password) {
-      alert("Please enter both email and password.");
+      toast.warning("Please enter both email and password.");
       return;
     }
 
@@ -77,12 +79,13 @@ const SignUp = () => {
         Email,
         Password
       );
+      toast.success(`Logged in successfully:, ${userCredential.user}`);
       console.log("Logged in successfully:", userCredential.user);
       setUser(userCredential.user);
       navigate("/"); // Redirect to home page
     } catch (err) {
       console.error("Login failed:", err.message);
-      alert("Login failed. Please check your credentials.");
+      toast.error("Login failed. Please check your credentials.");
     }
   };
 
@@ -92,8 +95,10 @@ const SignUp = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const googleUser = result.user;
       console.log("Google Sign-Up successful");
+      toast.success("Google Sign-Up successful");
       handlePostSignUp(googleUser, googleUser.displayName);
     } catch (err) {
+      toast.error("Google Sign-Up failed:", err);
       console.error("Google Sign-Up failed:", err);
     }
   };
@@ -101,6 +106,7 @@ const SignUp = () => {
   // Post Sign-Up user data handling
   const handlePostSignUp = (user, userName) => {
     console.log(`Welcome, ${userName || user.email}`);
+    toast.info(`Welcome, ${userName || user.email}`);
     saveUserData(user, userName);
     setUser(user);
     navigate("/");
@@ -117,7 +123,7 @@ const SignUp = () => {
       console.log("User data saved successfully");
     } catch (err) {
       console.error("Failed to save user data:", err);
-      alert("Error saving user data. Please try again.");
+      toast.error("Error saving user data. Please try again.");
     }
   };
 
@@ -139,7 +145,7 @@ const SignUp = () => {
 
   return (
     <>
- <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <div
         className={flipThePage ? "mainSignUpContainer" : "mainLogInContainer"}
       >
@@ -148,12 +154,11 @@ const SignUp = () => {
             <div className="topSection">
               <h3 className="userSignUpHeading">Sign Up</h3>
               <div className="" onClick={flipPage}>
-              <div className="goTOLogIn">
-            {/* <label>login</label> */}
-                <FaArrowRightLong  />
-              </div>                
+                <div className="goTOLogIn">
+                  {/* <label>login</label> */}
+                  <FaArrowRightLong />
+                </div>
               </div>
-
             </div>
             <label htmlFor="username">Username</label>
             <div className="inputContainers">
@@ -212,8 +217,10 @@ const SignUp = () => {
             <button onClick={signUp} className="signUpBtn">
               Sign Up
             </button>
+            <ToastContainer autoClose={2000} />
             <span>OR</span>
             <button onClick={googleSignUp} className="googleSignUPBtn">
+              <ToastContainer autoClose={2000} />
               <FcGoogle className="googleSignUPBtnIcon" />
               <span>Sign Up with Google</span>
             </button>
@@ -256,6 +263,7 @@ const SignUp = () => {
             <button onClick={logIn} className="logInBtn">
               Log In
             </button>
+            <ToastContainer autoClose={2000} />
           </div>
         )}
       </div>
