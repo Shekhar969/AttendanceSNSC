@@ -6,7 +6,7 @@ import { getDocs, collection } from "firebase/firestore";
 import snscLogo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import "../../App.css";
-
+import { ToastContainer, toast } from "react-toastify";
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -29,6 +29,7 @@ function LastMonthAttendance() {
     } catch (error) {
       console.error("Error fetching attendance data:", error);
       setError("Failed to fetch attendance data. Please try again later.");
+      toast("fail to fetch Data")
     }
   };
 
@@ -125,6 +126,7 @@ function LastMonthAttendance() {
           </div>
         ))
       )}
+      <ToastContainer autoClose={2000} />
     </>
   );
 }
