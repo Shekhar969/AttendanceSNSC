@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import snscLogo from "../assets/logo.png";
 import "../App.css";
 import { db } from "../config/fireBase";
-import {
-  addDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  Timestamp,
-} from "firebase/firestore";
+import { addDoc,setDoc, collection,doc, Timestamp } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
-
 export const useAttendance = (StudentsData, subject) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [attendanceStatus, setAttendanceStatus] = useState(
@@ -20,29 +12,48 @@ export const useAttendance = (StudentsData, subject) => {
   );
   const [showSummary, setShowSummary] = useState(false);
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
-  const attendanceCollectionRef = collection(db, "StudentAttendance");
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  const todayDate = Timestamp.fromDate(new Date());
+  const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
 
-  const checkIfSubmitted = async () => {
-    const q = query(
-      attendanceCollectionRef,
-      where("subject", "==", subject),
-      where("date", "==", todayDate)
-    );
-    const querySnapshot = await getDocs(q);
-    return !querySnapshot.empty;
-  };
+  const attendanceDocRef = doc(db, "StudentAttendance", dbDocId); 
 
   useEffect(() => {
-    const hasAlreadyBeenSubmitted = localStorage.getItem(
-      `attendanceSubmitted_${subject}`
-    );
-    if (hasAlreadyBeenSubmitted) {
+    const storedData = localStorage.getItem(`attendanceSubmitted_${subject}`);
+    if (storedData === "true") {
       setIsDataSubmitted(true);
     }
   }, [subject]);
 
+  const localClear = () => {
+    localStorage.removeItem(`attendanceSubmitted_${subject}`);
+   setTimeout(()=>{
+    window.location.reload();
+   },500) 
+    console.log('Attendance data cleared from localStorage');
+    toast("Attendance data cleared from localStorage")
+  };
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      const promises = StudentsData.map((student) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = student.imgSrc;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      });
+      try {
+        await Promise.all(promises);
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error("Error preloading images:", error);
+      }
+    };
+
+    preloadImages();
+  }, [StudentsData]);
   const isPresent = () => {
     const updatedStatus = [...attendanceStatus];
     updatedStatus[currentIndex] = { status: "Present" };
@@ -74,13 +85,6 @@ export const useAttendance = (StudentsData, subject) => {
   };
 
   const sendDataToDatabase = async () => {
-    const alreadySubmitted = await checkIfSubmitted();
-    if (alreadySubmitted) {
-      // alert();
-      toast(`Attendance for ${subject} has already been submitted today.`);
-      return;
-    }
-
     const data = {
       subject,
       attendance: StudentsData.map((student, index) => ({
@@ -92,28 +96,16 @@ export const useAttendance = (StudentsData, subject) => {
     };
 
     try {
-      await addDoc(attendanceCollectionRef, data);
+      setIsDataSubmitted(true);
+      await setDoc(attendanceDocRef, data);
       console.log("Attendance data successfully sent to the database");
       toast("Attendance submitted successfully!");
-      setIsDataSubmitted(true);
-      localStorage.setItem(`attendanceSubmitted_${subject}`, "true");
     } catch (error) {
       console.error("Error submitting attendance:", error);
       toast.error(
         "There was an error submitting the attendance. Please try again."
       );
     }
-  };
-
-  // Function to clear attendance submission state from localStorage
-  const clearLocalStorage = () => {
-    localStorage.removeItem(`attendanceSubmitted_${subject}`);
-    setIsDataSubmitted(false); // Reset the submission state
-    console.log("local storage cleared");
-    toast(
-      `Local storage for attendance submission for ${subject} has been reset.`
-    );
-    // alert("local storage has been reset")
   };
 
   return {
@@ -125,8 +117,9 @@ export const useAttendance = (StudentsData, subject) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    clearLocalStorage,
+    localClear
   };
+
 };
 
 export const AttendancePage = ({ StudentsData, subject }) => {
@@ -139,7 +132,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    clearLocalStorage, // Use the function here
+    localClear
   } = useAttendance(StudentsData, subject);
 
   const currentStudent = StudentsData[currentIndex];
@@ -208,7 +201,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
             <button className="reset" onClick={resetAttendance}>
               Redo
             </button>
-            <button className="send" onClick={sendDataToDatabase}>
+            <button className="send" onClick={sendDataToDatabase} disabled={isDataSubmitted}>
               Submit
             </button>
           </div>
@@ -218,19 +211,12 @@ export const AttendancePage = ({ StudentsData, subject }) => {
       {isDataSubmitted && (
         <div className="attendance-summary">
           <h2>Attendance has already been submitted for {subject} today.</h2>
+<button onClick={localClear} >Clear local</button>
         </div>
       )}
 
-      <div className="reset-localstorage">
-        <button
-          onClick={clearLocalStorage}
-          className="reset-localstorage-button"
-        >
-          Reset Local Storage for Admins
-        </button>
-    <ToastContainer autoClose={2000}/>
 
-      </div>
+      <ToastContainer autoClose={2000}  />
     </div>
   );
 };
