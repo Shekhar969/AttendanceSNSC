@@ -114,6 +114,8 @@ margin:  10px 0;
 .student-listitem{
   padding:  2px 0  6px 3px;
 }
+
+
 .student-list{
   height: 70dvh;
   width: 22%;
@@ -127,7 +129,10 @@ margin:  10px 0;
   backdrop-filter: blur(1.5px);
 }
 
-
+.student-list h1{
+  font-size: 20px;
+  text-align: center;
+}
 
 .eachStudent{
   height: 60dvh;
@@ -137,6 +142,7 @@ margin:  10px 0;
   border-radius: 5px;
   box-shadow: 0 -10px 40px rgb(241, 232, 213);
   backdrop-filter: blur(1.5px);
+  min-height: fit-content;
 }
 
 .serial-number{

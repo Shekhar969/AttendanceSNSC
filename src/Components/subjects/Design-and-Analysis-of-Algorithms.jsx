@@ -8,7 +8,6 @@ const DAA = () => {
   return (
     <main>
       <AttendancePage StudentsData={StudentsData} subject={subject} />
-      <ToastContainer autoClose={2000}/>
     </main>
   );
 };

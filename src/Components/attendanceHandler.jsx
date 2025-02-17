@@ -113,6 +113,7 @@ export const useAttendance = (StudentsData, subject) => {
     toast(
       `Local storage for attendance submission for ${subject} has been reset.`
     );
+    // alert("local storage has been reset")
   };
 
   return {
@@ -157,6 +158,8 @@ export const AttendancePage = ({ StudentsData, subject }) => {
           <p className="subjectName">{subject}</p>
           <main className="particularSubject">
             <div className="student-list">
+              <h1>Student Names</h1>
+              <hr />
               {StudentsData.map((student, index) => (
                 <div key={student.rollno} className="student-listitem">
                   <span className="student-name">
@@ -170,8 +173,8 @@ export const AttendancePage = ({ StudentsData, subject }) => {
               <div className="student-item">
                 <img
                   className="student-photo"
-                  src={currentStudent.imgSrc}
-                  alt={currentStudent.name}
+                  src={currentStudent?.imgSrc}
+                  alt={currentStudent?.name}
                 />
                 <div className="student-details">
                   <p>Name: {currentStudent.name}</p>
@@ -193,7 +196,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
       {showSummary && !isDataSubmitted && (
         <div className="attendance-summary">
           <h2>Attendance Summary for {subject}</h2>
-          {StudentsData.map((student, index) => (
+          {StudentsData?.map((student, index) => (
             <div key={student.rollno} className="attendance-item">
               <p>
                 {index + 1}. {student.name} ( Roll No: {student.rollno} ) -{" "}
