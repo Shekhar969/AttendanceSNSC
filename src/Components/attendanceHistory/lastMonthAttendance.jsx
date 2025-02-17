@@ -81,6 +81,9 @@ function LastMonthAttendance() {
 
         {isDateSelected && <p className="atendanceReordCalendarHeading">Selected Date: {selectedDate.toDateString()}</p>}
       </div>
+     <div className="records">
+
+      
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -88,7 +91,8 @@ function LastMonthAttendance() {
         <p className="atendanceReordCalendarHeading">No attendance data found for the selected date.</p>
       ) : (
         filteredData.map((record, index) => (
-          <div className="attendanceRecordMainDiv" key={index}>
+         <div className="attendanceRecordMainDiv" key={index}>
+          {/* <div className ="records"> */}
             <div>
               <h2 className="attendanceRecordSubjectName">
                 Subject: {record.subject || "Unknown Subject"}
@@ -109,6 +113,7 @@ function LastMonthAttendance() {
                   </p>
                 ))}
               </div>
+         
 
               <div>
                 <strong>Status</strong>
@@ -122,9 +127,13 @@ function LastMonthAttendance() {
                 ))}
               </div>
             </div>
+            {/* </div> */}
+            
           </div>
-        ))
-      )}
+
+))
+)}
+</div>
     </>
   );
 }
