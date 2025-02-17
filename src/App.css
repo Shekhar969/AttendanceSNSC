@@ -5,6 +5,9 @@
   padding: 0;
 }
 
+.mainContainer{
+  margin:3px 10px ;
+}
 .snscLogo {
   user-select: none;
   position: absolute;
@@ -126,11 +129,12 @@ margin:  10px 0;
   box-shadow: 0 10px 20px rgb(224, 211, 187);
   font-size: 10px;
   /* background-color: #f3f3f3; */
-  backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(8px);
 }
 
 .student-list h1{
-  font-size: 20px;
+  font-size: 10px;
+  margin: 10px 0;
   text-align: center;
 }
 
@@ -141,7 +145,7 @@ margin:  10px 0;
   border: 3px solid rgb(207, 203, 203);
   border-radius: 5px;
   box-shadow: 0 -10px 40px rgb(241, 232, 213);
-  backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(7px);
   min-height: fit-content;
 }
 
@@ -159,9 +163,9 @@ margin:  10px 0;
 .student-photo {
   height: 200px;
   width: 200px;
-  border: #4c6774 3px solid;
+  border: #9aa2a6 3px solid;
   border-radius: 50%;
-  padding: 2px;
+  padding: 4px;
   margin: 0 auto;         
    object-fit: cover;     
 }
@@ -532,9 +536,10 @@ opacity: 0.5;
   height: fit-content;
 }
 
-/* navbar css start here */
+
 .navbarHome{
   height: 60px;
+  margin-bottom: 50px;
   width: 100%;
   /* background: red; */
   display: flex;
@@ -542,15 +547,15 @@ opacity: 0.5;
   align-items: center;
 }
 .homeLogo{
-  margin: 10px 10px 0 0;
-  width: 5rem;
+  margin: 15px 10px 0 0;
+  width: 7rem;
 }
 
 
 .userPhoto{
-  font-size: 40px;
+  font-size: 50px;
   border: 2px solid black;
-  padding: 4px;
+  padding: 5px;
   margin: 10px 10px 0 0;
   border-radius: 50px;
   transition: transform 0.3s ease;
