@@ -2,8 +2,8 @@
 // import yogana from '../assets/yojana.jpg'
 // import shekhar from '../assets/shekhar.jpeg'
 
-import img2 from "../assets/shekhar.jpeg";
-import img4 from "../assets/shekhar.jpeg";
+// import img2 from "../assets/shekhar.jpeg";
+// import img4 from "../assets/shekhar.jpeg";
 
 const StudentsData = [
   {

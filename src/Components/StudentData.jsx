@@ -34,6 +34,7 @@ const Data = ({subID}) => {
       </Link>
       <main className="particularSubject">
         <div className="student-list">
+          <h1>Student Names</h1>
           {StudentsData.map((student, index) => (
             <div key={student.rollno} className="student-item">
               <span className="student-name">{index + 1}. {student.name}</span> 
