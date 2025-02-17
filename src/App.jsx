@@ -15,7 +15,7 @@ function App() {
       <div className="navBar">
         <Navbar/>
       </div>
-       <div>
+       <div >
         <Link to="/Subjects" className="subject">
           <h3>Subjects</h3>
         </Link>
