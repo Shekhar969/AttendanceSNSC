@@ -28,7 +28,7 @@ const SubjectLinks = () => {
         >
           <button className="subject" data-id={subject.name}>
             <h3>{subject.name}</h3>
-            <h4>sir</h4>
+            {/* <h4>sir</h4> */}
           </button>
         </Link>
       ))}
