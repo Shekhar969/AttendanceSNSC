@@ -7,15 +7,16 @@ import snscLogo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
 import { ToastContainer, toast } from "react-toastify";
+import "../attendanceHistory/attendanceColour.css";
 
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState(null);
-  const [isDateSelected, setIsDateSelected] = useState(false); 
-  const [isCalendarVisible, setIsCalendarVisible] = useState(true); 
-const navigate = useNavigate();
+  const [isDateSelected, setIsDateSelected] = useState(false);
+  const [isCalendarVisible, setIsCalendarVisible] = useState(true);
+  const navigate = useNavigate();
 
   const fetchAttendanceData = async () => {
     try {
@@ -25,7 +26,7 @@ const navigate = useNavigate();
         return {
           id: doc.id,
           ...record,
-          date: record.date?.toDate() || new Date(), 
+          date: record.date?.toDate() || new Date(),
         };
       });
       setAttendanceData(attendanceArray);
@@ -34,20 +35,16 @@ const navigate = useNavigate();
       setError("Failed to fetch attendance data. Please try again later.");
       // alert("Not Logged in! Authenticate Yourself.");
       toast.error(`Not Logged in! Authenticate Yourself.`);
-     
-      setTimeout(()=>{
 
+      setTimeout(() => {
         navigate("/auth");
-      },1500);
-      
+      }, 1500);
     }
   };
 
   useEffect(() => {
     const filtered = attendanceData.filter((record) => {
-      return (
-        record.date.toDateString() === selectedDate.toDateString() 
-      );
+      return record.date.toDateString() === selectedDate.toDateString();
     });
     setFilteredData(filtered);
   }, [selectedDate, attendanceData]);
@@ -59,8 +56,7 @@ const navigate = useNavigate();
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setIsDateSelected(true); 
-     
+    setIsDateSelected(true);
   };
 
   const toggleCalendarVisibility = () => {
@@ -87,65 +83,88 @@ const navigate = useNavigate();
         </h2>
 
         {isCalendarVisible && (
-          <Calendar className="calendar" onChange={handleDateChange} value={selectedDate} />
+          <Calendar
+            className="calendar"
+            onChange={handleDateChange}
+            value={selectedDate}
+          />
         )}
 
-        {isDateSelected && <p className="atendanceReordCalendarHeading">Selected Date: {selectedDate.toDateString()}</p>}
+        {isDateSelected && (
+          <p className="atendanceReordCalendarHeading">
+            Selected Date: {selectedDate.toDateString()}
+          </p>
+        )}
       </div>
-     <div className="records">
+      <div className="records">
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-      
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      {filteredData.length === 0 ? (
-        <p className="atendanceReordCalendarHeading">No attendance data found for the selected date.</p>
-      ) : (
-        filteredData.map((record, index) => (
-         <div className="attendanceRecordMainDiv" key={index}>
-          {/* <div className ="records"> */}
-            <div>
-              <h2 className="attendanceRecordSubjectName">
-                Subject: {record.subject || "Unknown Subject"}
-              </h2>
-              <h2 className="attendanceRecordDate">
-                Date: {record.date.toLocaleString()}
-              </h2>
-            </div>
-            <div className="attendanceRecordInner">
+        {filteredData.length === 0 ? (
+          <p className="atendanceReordCalendarHeading">
+            No attendance data found for the selected date.
+          </p>
+        ) : (
+          filteredData.map((record, index) => (
+            <div className="attendanceRecordMainDiv" key={index}>
+              {/* <div className ="records"> */}
               <div>
-                <strong>Name & Roll No</strong> <br />
-                {record.attendance.map((student, studentIndex) => (
-                  <p
-                    key={studentIndex}
-                    className="attendanceRecordInnerEachStudent"
-                  >
-                    {student.name || "Unknown"}, {student.rollno || "Unknown"}
-                  </p>
-                ))}
+                <h2 className="attendanceRecordSubjectName">
+                  Subject: {record.subject || "Unknown Subject"}
+                </h2>
+                <h2 className="attendanceRecordDate">
+                  Date: {record.date.toLocaleString()}
+                </h2>
               </div>
-         
+              {/* <div className="attendanceRecordInner">
+                <div>
+                  <strong>Name & Roll No</strong> <br />
+                  {record.attendance.map((student, studentIndex) => (
+                    <p
+                      key={studentIndex}
+                      className="attendanceRecordInnerEachStudent"
+                    >
+                      {student.name || "Unknown"}, {student.rollno || "Unknown"}
+                    </p>
+                  ))}
+                </div>
+                <div>
+                  <strong>Status</strong>
+                  {record.attendance.map((student, studentIndex) => (
+                    <p
+                      key={studentIndex}
+                      className="attendanceRecordInnerEachStudent"
+                    >
+                      {student.status || "Unknown"}
+                    </p>
+                  ))}
+                </div>
+              </div> */}
 
-              <div>
-                <strong>Status</strong>
-                {record.attendance.map((student, studentIndex) => (
-                  <p
-                    key={studentIndex}
-                    className="attendanceRecordInnerEachStudent"
-                  >
-                    {student.status || "Unknown"}
-                  </p>
-                ))}
+              {/* table */}
+              <div className="attendanceRecordInner data-table-container">
+                <table>
+                  <tr>
+                    <th>Name</th>
+                    <th>Roll no.</th>
+                    <th>Status</th>
+                  </tr>
+                  {record?.attendance.map((student, studentIndex) => (
+                  <tr key={studentIndex} className={student.status == 'Present' ? "present" : "absent"}>
+                      
+                      <td>{student.name || "Unknown"}</td>
+                      <td>{student.rollno || "Unknown"}</td>
+                      <td>{student.status || "Unknown"}</td>
+                  </tr>
+                  ))}
+                </table>
               </div>
+
+              {/* </div> */}
             </div>
-            {/* </div> */}
-            
-          </div>
-
-        ))
-      )}
-            <ToastContainer autoClose={1000} />
-</div>
+          ))
+        )}
+        <ToastContainer autoClose={1000} />
+      </div>
     </>
   );
 }
