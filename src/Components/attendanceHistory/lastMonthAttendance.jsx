@@ -4,9 +4,10 @@ import "react-calendar/dist/Calendar.css";
 import { db } from "../../config/fireBase";
 import { getDocs, collection } from "firebase/firestore";
 import snscLogo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
 import { ToastContainer, toast } from "react-toastify";
+
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -14,6 +15,8 @@ function LastMonthAttendance() {
   const [error, setError] = useState(null);
   const [isDateSelected, setIsDateSelected] = useState(false); 
   const [isCalendarVisible, setIsCalendarVisible] = useState(true); 
+const navigate = useNavigate();
+
   const fetchAttendanceData = async () => {
     try {
       const data = await getDocs(collection(db, "StudentAttendance"));
@@ -29,7 +32,14 @@ function LastMonthAttendance() {
     } catch (error) {
       console.error("Error fetching attendance data:", error);
       setError("Failed to fetch attendance data. Please try again later.");
-      toast("fail to fetch Data")
+      // alert("Not Logged in! Authenticate Yourself.");
+      toast.error(`Not Logged in! Authenticate Yourself.`);
+     
+      setTimeout(()=>{
+
+        navigate("/auth");
+      },1500);
+      
     }
   };
 
@@ -134,7 +144,7 @@ function LastMonthAttendance() {
 
         ))
       )}
-      <ToastContainer autoClose={2000} />
+            <ToastContainer autoClose={1000} />
 </div>
     </>
   );

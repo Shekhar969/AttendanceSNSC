@@ -5,8 +5,8 @@
   padding: 0;
 }
 
-.mainContainer{
-  margin:3px 10px ;
+.mainContainer {
+  margin: 3px 10px;
 }
 .snscLogo {
   user-select: none;
@@ -23,7 +23,7 @@
   display: grid;
   width: 100%;
   padding: 10px;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .subject {
@@ -34,8 +34,8 @@
   flex-direction: column;
   height: 5rem;
   width: 100%;
-  padding: 10px; 
-  margin-top: 20px; 
+  padding: 10px;
+  margin-top: 20px;
   background-color: rgba(88, 175, 175, 0.61);
   color: #140401;
   font-family: serif;
@@ -45,20 +45,20 @@
   box-shadow: 5px 10px 40px rgb(189, 240, 240);
   cursor: pointer;
   text-decoration: none;
-  transform: translateY(0px); 
-  opacity: 0; 
+  transform: translateY(0px);
+  opacity: 0;
   animation: slideIn 0.65s ease-out forwards;
 }
 
 @keyframes slideIn {
   0% {
-    transform: translateY(100px); 
-    opacity: 0; 
+    transform: translateY(100px);
+    opacity: 0;
     scale: 0.1;
   }
   100% {
-    transform: translateY(0); 
-    opacity: 1; 
+    transform: translateY(0);
+    opacity: 1;
     scale: 1;
   }
 }
@@ -67,26 +67,25 @@
 }
 
 .subject:nth-child(2) {
-  animation-delay: 0.4s; 
+  animation-delay: 0.4s;
 }
 
 .subject:nth-child(3) {
-  animation-delay: 0.6s; 
+  animation-delay: 0.6s;
 }
 
 .subject:nth-child(4) {
-  animation-delay: 0.8s; 
+  animation-delay: 0.8s;
 }
 
 .subject:nth-child(5) {
-  animation-delay: 1s; 
+  animation-delay: 1s;
 }
 
-.mainAttendancePage{
-margin:  10px 0;
-
+.mainAttendancePage {
+  margin: 10px 0;
 }
-.back-button{
+.back-button {
   color: #000;
   background-color: rgba(63, 143, 87, 0.788);
   width: 40%;
@@ -100,54 +99,53 @@ margin:  10px 0;
   text-decoration: none;
   margin: 20px auto;
 }
-.particularSubject{
+.particularSubject {
   display: flex;
   margin-top: 10px;
   justify-content: space-between;
 }
 
-.subjectName{
+.subjectName {
   text-align: center;
-  margin: 35px 0 20px 0 ;
+  margin: 35px 0 20px 0;
   font-size: 30px;
   font-family: serif;
   letter-spacing: 0.7px;
 }
 
-.student-listitem{
-  padding:  2px 0  6px 3px;
+.student-listitem {
+  padding: 2px 0 6px 3px;
 }
 
-
-.student-list{
+.student-list {
   height: 70dvh;
   width: 22%;
   margin: 5px;
   /* overflow: scroll; */
-  overflow-y:scroll;
+  overflow-y: scroll;
   border: 2px solid rgb(207, 203, 203);
   border-radius: 5px;
-  padding:10px;
+  padding: 10px;
   box-shadow: 0 10px 20px rgb(224, 211, 187);
   font-size: 5px;
   /* background-color: #f3f3f3; */
   backdrop-filter: blur(8px);
 }
 
-.student-list h1{
+.student-list h1 {
   font-size: 10px;
   margin: 10px 0;
   text-align: center;
 }
 
-.student-name{
-  font-size:15px;
+.student-name {
+  font-size: 15px;
 }
 
-.eachStudent{
+.eachStudent {
   height: 60dvh;
   width: 70%;
-  margin:2rem 0 0 3px ;
+  margin: 2rem 0 0 3px;
   border: 3px solid rgb(207, 203, 203);
   border-radius: 5px;
   box-shadow: 0 -10px 40px rgb(241, 232, 213);
@@ -155,8 +153,8 @@ margin:  10px 0;
   min-height: fit-content;
 }
 
-.serial-number{
-  margin: 5px ;
+.serial-number {
+  margin: 5px;
   font-family: serif;
   font-size: 20px;
 }
@@ -172,22 +170,22 @@ margin:  10px 0;
   border: #9aa2a6 3px solid;
   border-radius: 50%;
   padding: 4px;
-  margin: 0 auto;         
-   object-fit: cover;     
+  margin: 0 auto;
+  object-fit: cover;
 }
 
-
-.student-details{
+.student-details {
   margin-top: 20px;
   font-size: 17px;
   /* text-align: center; */
 }
 
-.student-details p{
+.student-details p {
   margin: 20px 0 20px 10px;
 }
 
-.buttonAbs, .reset {
+.buttonAbs,
+.reset {
   background-color: rgba(253, 72, 72, 0.836);
   border-radius: 5px;
   margin: 10px;
@@ -195,14 +193,15 @@ margin:  10px 0;
   width: 40%;
   font-size: 20px;
   font-family: serif;
-  transition: background-color 1s ease-in-out; 
+  transition: background-color 1s ease-in-out;
 
   &:hover {
-    background-color: rgba(236, 12, 12, 0.836); 
+    background-color: rgba(236, 12, 12, 0.836);
     scale: 1.05;
   }
 }
-.buttonPre, .send {
+.buttonPre,
+.send {
   background-color: rgba(86, 226, 31, 0.836);
   border-radius: 5px;
   margin: 10px;
@@ -210,10 +209,10 @@ margin:  10px 0;
   width: 40%;
   font-size: 20px;
   font-family: serif;
-  transition: background-color 1s ease-in-out; 
+  transition: background-color 1s ease-in-out;
 
   &:hover {
-    background-color: rgba(123, 255, 0, 0.836); 
+    background-color: rgba(123, 255, 0, 0.836);
     scale: 1.05;
   }
 }
@@ -221,39 +220,38 @@ margin:  10px 0;
 .popup-message {
   height: 20dvh;
   width: 40dvb;
-  position: fixed; 
-  top: 50%;         
-  left: 50%;        
-  transform: translate(-50%, -50%); 
-  background-color: rgba(153, 206, 169, 0.788); 
-  color: #000000;  
-  padding: 15px 25px; 
-  border: 2px solid #78af73; 
-  border-radius: 15px; 
-  font-size: 3rem; 
-  font-weight: bold; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(153, 206, 169, 0.788);
+  color: #000000;
+  padding: 15px 25px;
+  border: 2px solid #78af73;
+  border-radius: 15px;
+  font-size: 3rem;
+  font-weight: bold;
   font-family: serif;
   display: flex;
   align-items: center;
-  text-align: center; 
+  text-align: center;
   justify-content: center;
-  z-index: 1000; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  opacity: 0; 
-  animation: fadeIn 0.5s ease-out forwards; 
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 @keyframes fadeIn {
   0% {
-    opacity: 0; 
+    opacity: 0;
   }
   100% {
     opacity: 1;
   }
 }
 
-
-.attendance-summary{
+.attendance-summary {
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -265,13 +263,13 @@ margin:  10px 0;
   backdrop-filter: blur(6px);
 }
 
-.attendance-summary h2{
+.attendance-summary h2 {
   font-size: large;
   text-align: center;
   margin: 0 0 1rem 0;
 }
 
-.attendance-item{
+.attendance-item {
   font-size: 12px;
   font-family: serif;
   padding: 4px 0;
@@ -283,30 +281,29 @@ margin:  10px 0;
   scale: 0.9;
 }
 
-.attendanceRecordHeading{
+.attendanceRecordHeading {
   font-size: 30px;
   text-align: center;
   color: #00413d;
 }
 
-.attendanceRecordSubjectName, .attendanceRecordDate{
+.attendanceRecordSubjectName,
+.attendanceRecordDate {
   font-size: 15px;
   text-align: center;
 }
-.atendanceReordCalendarHeading{
-text-align: center;
+.atendanceReordCalendarHeading {
+  text-align: center;
 }
 
-
-  .calendar {
-        height: fit-content;
-        margin: 0 auto;
-        backdrop-filter: blur(10px);
-  }
-  
+.calendar {
+  height: fit-content;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+}
 
 .attendanceRecordMainDiv {
-   display: grid; 
+  display: grid;
   justify-content: space-evenly;
   border: 1px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -316,13 +313,12 @@ text-align: center;
   backdrop-filter: blur(6px);
 }
 
-.records{
-  display:grid;
-  grid-template-columns: repeat(3,1fr);
+@media (min-width: 480px) {
+  .records {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-
-
-
 
 .attendanceRecordInner {
   gap: 3rem;
@@ -336,13 +332,13 @@ text-align: center;
   backdrop-filter: blur(8px);
 }
 
-.attendanceRecordInnerEachStudent{
+.attendanceRecordInnerEachStudent {
   height: fit-content;
   padding: 7px 0;
   font-size: 18px;
 }
 
-.mainSignUpContainer{
+.mainSignUpContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -356,7 +352,7 @@ text-align: center;
   backdrop-filter: blur(20px);
   margin: 40px auto;
 }
-.topSection{
+.topSection {
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -370,7 +366,7 @@ text-align: center;
   /* align-items: baseline; */
 }
 
-.goTOLogIn{
+.goTOLogIn {
   font-size: 40px;
   border: 3px solid rgba(85, 69, 48, 0.712);
   border-radius: 100%;
@@ -382,10 +378,10 @@ text-align: center;
   width: 100%;
   font-size: 14px;
   color: #555;
-  margin: 10px 10px 5px 0px ;
+  margin: 10px 10px 5px 0px;
   font-weight: bold;
 }
-.inputContainers{
+.inputContainers {
   display: flex;
   width: 100%;
   align-items: center;
@@ -395,9 +391,8 @@ text-align: center;
   padding: 5px;
   font-size: 1rem;
   cursor: pointer;
-  
 }
-.mainSignUpContainer input{
+.mainSignUpContainer input {
   width: 100%;
   height: 100%;
   background: transparent;
@@ -409,21 +404,21 @@ text-align: center;
   text-align: left;
 }
 
-.mainSignUpContainer,.mainLogInContainer input::placeholder{
+.mainSignUpContainer,
+.mainLogInContainer input::placeholder {
   color: #727272;
 }
 
-
-
-.signUpPageIcons,.passwordToggleIcon{
-font-size: 23px;
-opacity: 0.5;
+.signUpPageIcons,
+.passwordToggleIcon {
+  font-size: 23px;
+  opacity: 0.5;
 }
-.logInPageIcons{
+.logInPageIcons {
   opacity: 0.5;
 }
 
-.signUpBtn{
+.signUpBtn {
   width: 100%;
   margin: 40px 0 10px 0;
   padding: 10px 0;
@@ -437,47 +432,45 @@ opacity: 0.5;
   cursor: pointer;
 }
 
-.signUpBtn:hover{
+.signUpBtn:hover {
   background: beige;
 }
 
-.mainSignUpContainer span{
+.mainSignUpContainer span {
   text-align: center;
   font-size: 15px;
 }
 
 .googleSignUPBtn {
   display: flex;
-  justify-content: center;  
-  align-items: center;      
-  width: 100%;              
-  margin: 10px 0 20px 0;    
-  padding: 10px 0;         
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0 20px 0;
+  padding: 10px 0;
   border: 2px solid rgba(145, 145, 145, 0.2);
   border-radius: 30px;
   color: black;
-  background: #35cf3f3b;    
+  background: #35cf3f3b;
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
-
-  
 }
 .googleSignUPBtn:hover {
-  background: #78af73;  
+  background: #78af73;
 }
 
 .googleSignUPBtnIcon {
-  font-size: 30px;           
-  margin-right: 10px;       
+  font-size: 30px;
+  margin-right: 10px;
 }
 
 .googleSignUPBtn span {
-  font-size: 1rem;          
-  font-weight: normal;      
+  font-size: 1rem;
+  font-weight: normal;
 }
 
-.mainLogInContainer{
+.mainLogInContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -492,11 +485,11 @@ opacity: 0.5;
   margin: 20px auto;
 }
 
-.loginSection{
+.loginSection {
   width: 100%;
 }
 
-.mainLogInContainer input{
+.mainLogInContainer input {
   width: 100%;
   height: 100%;
   background: transparent;
@@ -504,7 +497,7 @@ opacity: 0.5;
   border: none;
   font-size: 17px;
   cursor: pointer;
-  margin:  5px;
+  margin: 5px;
   text-align: left;
 }
 
@@ -512,12 +505,11 @@ opacity: 0.5;
   width: 100%;
   font-size: 14px;
   color: #555;
-  margin: 10px 10px 5px 0px ;
+  margin: 10px 10px 5px 0px;
   font-weight: bold;
 }
 
-
-.mainLogInContainer .inputContainers{
+.mainLogInContainer .inputContainers {
   display: flex;
   width: 100%;
   align-items: center;
@@ -530,7 +522,7 @@ opacity: 0.5;
   margin-bottom: 10px;
 }
 
-.logInBtn{
+.logInBtn {
   width: 100%;
   margin: 20px 0 10px 0;
   padding: 10px 0;
@@ -544,13 +536,12 @@ opacity: 0.5;
   cursor: pointer;
 }
 
-.mainPageCointiner{
+.mainPageCointiner {
   width: 100%;
   height: fit-content;
 }
 
-
-.navbarHome{
+.navbarHome {
   height: 60px;
   margin-bottom: 50px;
   width: 100%;
@@ -559,13 +550,12 @@ opacity: 0.5;
   justify-content: space-between;
   align-items: center;
 }
-.homeLogo{
+.homeLogo {
   margin: 15px 10px 0 0;
   width: 7rem;
 }
 
-
-.userPhoto{
+.userPhoto {
   font-size: 50px;
   border: 2px solid black;
   padding: 5px;
@@ -574,23 +564,22 @@ opacity: 0.5;
   transition: transform 0.3s ease;
 }
 
-
 .sideBar {
   width: 250px;
   height: 100%;
   border: 1px solid #ccc;
   border-radius: 10px 0 0 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20px) ;
+  backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.425);
   position: fixed;
   top: 0;
-  right: -300px; 
+  right: -300px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: right 2s ease-in-out; 
+  transition: right 2s ease-in-out;
   z-index: 1000;
   display: flex;
   flex-wrap: wrap;
@@ -612,7 +601,6 @@ opacity: 0.5;
   right: 0;
 }
 
-
 .closeNavBar {
   user-select: none;
   outline: none;
@@ -622,11 +610,11 @@ opacity: 0.5;
   transition: transform 0.2s ease;
 }
 
-
 .closeNavBar:hover {
-  transform: rotate(90deg); 
+  transform: rotate(90deg);
 }
- .userName, .userEmail {
+.userName,
+.userEmail {
   font-size: 13px;
   font-family: sans-serif;
   margin: 20px 0;
@@ -635,7 +623,7 @@ opacity: 0.5;
   width: 90%;
 }
 
-.userSignUpBtn{
+.userSignUpBtn {
   background: rgb(67 227 56 / 82%);
   box-shadow: 0 3px 10px rgb(18 134 22 / 68%);
   padding: 5px 5px;
@@ -646,7 +634,7 @@ opacity: 0.5;
   color: #0e480d;
 }
 
-.userLogOutBtn{
+.userLogOutBtn {
   background: rgba(248, 25, 25, 0.815);
   box-shadow: 0 3px 10px rgba(134, 18, 18, 0.678);
   padding: 8px 10px;
@@ -654,14 +642,14 @@ opacity: 0.5;
   border-radius: 10px;
   border: 1px solid rgb(133, 133, 45);
   cursor: pointer;
-  color: #1e0604;  
+  color: #1e0604;
 }
 
 @media screen and (min-width: 1024px) {
-  .subject{
-    width:50%;
-    margin-left:300px;
-    position:relative;
-    top:50px;
+  .subject {
+    width: 50%;
+    margin-left: 300px;
+    position: relative;
+    top: 50px;
   }
 }
