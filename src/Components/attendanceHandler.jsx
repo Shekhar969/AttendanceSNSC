@@ -34,26 +34,26 @@ export const useAttendance = (StudentsData, subject) => {
     toast("Attendance data cleared from localStorage")
   };
 
-  // useEffect(() => {
-  //   const preloadImages = async () => {
-  //     const promises = StudentsData.map((student) => {
-  //       return new Promise((resolve, reject) => {
-  //         const img = new Image();
-  //         img.src = student.imgSrc;
-  //         img.onload = resolve;
-  //         img.onerror = reject;
-  //       });
-  //     });
-  //     try {
-  //       await Promise.all(promises);
-  //       setImagesLoaded(true);
-  //     } catch (error) {
-  //       console.error("Error preloading images:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const preloadImages = async () => {
+      const promises = StudentsData.map((student) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = student.imgSrc;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      });
+      try {
+        await Promise.all(promises);
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error("Error preloading images:", error);
+      }
+    };
 
-  //   preloadImages();
-  // }, [StudentsData]);
+    preloadImages();
+  }, [StudentsData]);
   const isPresent = () => {
     const updatedStatus = [...attendanceStatus];
     updatedStatus[currentIndex] = { status: "Present" };
