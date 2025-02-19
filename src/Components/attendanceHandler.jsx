@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import snscLogo from "../assets/logo.png";
 import "../App.css";
 import { db } from "../config/fireBase";
-import { addDoc,setDoc, collection,doc, Timestamp } from "firebase/firestore";
+import { addDoc, setDoc, collection, doc, Timestamp } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 export const useAttendance = (StudentsData, subject) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,7 +16,7 @@ export const useAttendance = (StudentsData, subject) => {
 
   const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
 
-  const attendanceDocRef = doc(db, "StudentAttendance", dbDocId); 
+  const attendanceDocRef = doc(db, "StudentAttendance", dbDocId);
 
   useEffect(() => {
     const storedData = localStorage.getItem(`attendanceSubmitted_${subject}`);
@@ -27,11 +27,11 @@ export const useAttendance = (StudentsData, subject) => {
 
   const localClear = () => {
     localStorage.removeItem(`attendanceSubmitted_${subject}`);
-   setTimeout(()=>{
-    window.location.reload();
-   },500) 
-    console.log('Attendance data cleared from localStorage');
-    toast("Attendance data cleared from localStorage")
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+    console.log("Attendance data cleared from localStorage");
+    toast("Attendance data cleared from localStorage");
   };
 
   useEffect(() => {
@@ -45,10 +45,21 @@ export const useAttendance = (StudentsData, subject) => {
           img.onerror = reject;
         });
       });
-    
     };
     preloadImages();
   }, [StudentsData]);
+
+  //Student list stay at center
+  useEffect(() => {
+    const highlightedElement = document.querySelector('.student-listitem.highlighted');
+    if (highlightedElement) {
+      highlightedElement.scrollIntoView({
+        behavior: 'smooth', 
+        block: 'center', 
+      });
+    }
+  }, [currentIndex]);
+  
   const isPresent = () => {
     const updatedStatus = [...attendanceStatus];
     updatedStatus[currentIndex] = { status: "Present" };
@@ -105,6 +116,7 @@ export const useAttendance = (StudentsData, subject) => {
 
   return {
     currentIndex,
+    setCurrentIndex,
     isPresent,
     isAbsent,
     attendanceStatus,
@@ -112,14 +124,14 @@ export const useAttendance = (StudentsData, subject) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    localClear
+    localClear,
   };
-
 };
 
 export const AttendancePage = ({ StudentsData, subject }) => {
   const {
     currentIndex,
+    setCurrentIndex,
     isPresent,
     isAbsent,
     attendanceStatus,
@@ -127,11 +139,12 @@ export const AttendancePage = ({ StudentsData, subject }) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    localClear
+    localClear,
   } = useAttendance(StudentsData, subject);
 
   const currentStudent = StudentsData[currentIndex];
-
+  const isHighlighted = (index) => index === currentIndex;
+  
   return (
     <div className="mainAttendancePage">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
@@ -145,11 +158,15 @@ export const AttendancePage = ({ StudentsData, subject }) => {
         <>
           <p className="subjectName">{subject}</p>
           <main className="particularSubject">
-            <div className="student-list">
+          <div className="student-list">
               <h1>Student Names</h1>
               <hr />
               {StudentsData.map((student, index) => (
-                <div key={student.rollno} className="student-listitem">
+                <div 
+                  key={student.rollno} 
+                  className={`student-listitem ${isHighlighted(index) ? 'highlighted' : ''}`}
+                  onClick={() => setCurrentIndex(index)} 
+                >
                   <span className="student-name">
                     {index + 1}. {student.name}
                   </span>
@@ -159,15 +176,21 @@ export const AttendancePage = ({ StudentsData, subject }) => {
             <div className="eachStudent">
               <span className="serial-number">{currentIndex + 1}. </span> <br />
               <div className="student-item">
-              <img
-  className="student-photo"
-  src={currentStudent?.imgSrc}
-  alt={currentStudent?.name}
-/>
+                <img
+                  className="student-photo"
+                  src={currentStudent?.imgSrc}
+                  alt={currentStudent?.name}
+                />
                 <div className="student-details">
-                  <p>Name: <span>{currentStudent.name}</span></p>
-                  <p>Roll No: <span> {currentStudent.rollno}</span></p>
-                  <p>Address: <span>{currentStudent.address}</span> </p>
+                  <p>
+                    Name: <span>{currentStudent.name}</span>
+                  </p>
+                  <p>
+                    Roll No: <span> {currentStudent.rollno}</span>
+                  </p>
+                  <p>
+                    Address: <span>{currentStudent.address}</span>{" "}
+                  </p>
                 </div>
               </div>
               <button className="buttonAbs" onClick={isAbsent}>
@@ -196,7 +219,11 @@ export const AttendancePage = ({ StudentsData, subject }) => {
             <button className="reset" onClick={resetAttendance}>
               Redo
             </button>
-            <button className="send" onClick={sendDataToDatabase} disabled={isDataSubmitted}>
+            <button
+              className="send"
+              onClick={sendDataToDatabase}
+              disabled={isDataSubmitted}
+            >
               Submit
             </button>
           </div>
@@ -206,12 +233,11 @@ export const AttendancePage = ({ StudentsData, subject }) => {
       {isDataSubmitted && (
         <div className="attendance-summary">
           <h2>Attendance has already been submitted for {subject} today.</h2>
-<button onClick={localClear} >Clear local</button>
+          <button onClick={localClear}>Clear local</button>
         </div>
       )}
 
-
-      <ToastContainer autoClose={2000}  />
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };
