@@ -8,6 +8,61 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "../attendanceHistory/attendanceColour.css";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import { Timestamp, query, where,} from "firebase/firestore";
+
+
+const downloadAttendanceExcel = async () => {
+  const today = new Date();
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(today.getDate() - 30);
+
+  // Convert to Firebase Timestamp format
+  const startTimestamp = Timestamp.fromDate(thirtyDaysAgo);
+  const endTimestamp = Timestamp.fromDate(today);
+
+  // Query attendance data for the last 30 days
+  const attendanceQuery = query(
+    collection(db, "StudentAttendance"),
+    where("date", ">=", startTimestamp),
+    where("date", "<=", endTimestamp)
+  );
+
+  const querySnapshot = await getDocs(attendanceQuery);
+
+  if (querySnapshot.empty) {
+    toast.warn("No attendance data found for the last 30 days.");
+    return;
+  }
+
+  // Prepare Data for Excel
+  const attendanceArray = [];
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    data.attendance.forEach((student) => {
+      attendanceArray.push({
+        Subject: data.subject,
+        Roll_No: student.rollno,
+        Name: student.name,
+        Status: student.status,
+        Date: data.date.toDate().toLocaleDateString(),
+      });
+    });
+  });
+
+  // Convert to Excel format
+  const worksheet = XLSX.utils.json_to_sheet(attendanceArray);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Attendance Report");
+
+  // Create a Blob and download the file
+  const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+  const data = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+  saveAs(data, `Attendance_Report_BSC_CSIT_5thSem${thirtyDaysAgo.toLocaleDateString()}-${today.toLocaleDateString()}.xlsx`);
+};
+
 
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -78,10 +133,10 @@ function LastMonthAttendance() {
         <h2 className="atendanceReordCalendarHeading">
           Select a Date{" "}
           <button onClick={toggleCalendarVisibility}>
-            {isCalendarVisible ? "﹀" : "︿"}
+            {isCalendarVisible ? "︿" : "﹀"}
           </button>
+        <button onClick={downloadAttendanceExcel} className="downloadAttendanceLastMonthBtn">Download Attendance</button>
         </h2>
-
         {isCalendarVisible && (
           <Calendar
             className="calendar"
@@ -101,7 +156,7 @@ function LastMonthAttendance() {
 
         {filteredData.length === 0 ? (
           <p className="atendanceReordCalendarHeading">
-            No attendance data found for the selected date.
+            No attendance data found for this  date
           </p>
         ) : (
           filteredData.map((record, index) => (
@@ -115,30 +170,6 @@ function LastMonthAttendance() {
                   Date: {record.date.toLocaleString()}
                 </h2>
               </div>
-              {/* <div className="attendanceRecordInner">
-                <div>
-                  <strong>Name & Roll No</strong> <br />
-                  {record.attendance.map((student, studentIndex) => (
-                    <p
-                      key={studentIndex}
-                      className="attendanceRecordInnerEachStudent"
-                    >
-                      {student.name || "Unknown"}, {student.rollno || "Unknown"}
-                    </p>
-                  ))}
-                </div>
-                <div>
-                  <strong>Status</strong>
-                  {record.attendance.map((student, studentIndex) => (
-                    <p
-                      key={studentIndex}
-                      className="attendanceRecordInnerEachStudent"
-                    >
-                      {student.status || "Unknown"}
-                    </p>
-                  ))}
-                </div>
-              </div> */}
 
               {/* table */}
               <div className="attendanceRecordInner data-table-container">

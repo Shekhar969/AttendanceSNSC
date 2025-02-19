@@ -12,7 +12,6 @@ export const useAttendance = (StudentsData, subject) => {
   );
   const [showSummary, setShowSummary] = useState(false);
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
 
