@@ -39,19 +39,14 @@ export const useAttendance = (StudentsData, subject) => {
       const promises = StudentsData.map((student) => {
         return new Promise((resolve, reject) => {
           const img = new Image();
+          // Prepend with public URL if needed
           img.src = student.imgSrc;
           img.onload = resolve;
           img.onerror = reject;
         });
       });
-      try {
-        await Promise.all(promises);
-        setImagesLoaded(true);
-      } catch (error) {
-        console.error("Error preloading images:", error);
-      }
+    
     };
-
     preloadImages();
   }, [StudentsData]);
   const isPresent = () => {
@@ -164,11 +159,11 @@ export const AttendancePage = ({ StudentsData, subject }) => {
             <div className="eachStudent">
               <span className="serial-number">{currentIndex + 1}. </span> <br />
               <div className="student-item">
-                <img
-                  className="student-photo"
-                  src={currentStudent?.imgSrc}
-                  alt={currentStudent?.name}
-                />
+              <img
+  className="student-photo"
+  src={currentStudent?.imgSrc}
+  alt={currentStudent?.name}
+/>
                 <div className="student-details">
                   <p>Name: {currentStudent.name}</p>
                   <p>Roll No: {currentStudent.rollno}</p>

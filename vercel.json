@@ -35,10 +35,7 @@
           {
             "src": "/Subjects/SM",
             "dest": "/"
-          },
-          {
-            "src": "/src/assets",
-            "dest": "/"
           }
+
         ]
 }
