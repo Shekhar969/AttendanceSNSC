@@ -3,14 +3,14 @@
 // import shekhar from '../assets/shekhar.jpeg'
 
 // import img2 from "../assets/shekhar.jpeg";
-// import img4 from "../assets/shekhar.jpeg";
+import img4 from "../assets/shekhar.jpeg";
 
 const StudentsData = [
   {
     name: "Aayush Chand Thakuri",
     rollno: 1,
     address: "Bhansi",
-    imgSrc: "/src/assets/1.jpg",
+    imgSrc:img4,
   },
   {
     name: "Abhilasha Pal",
