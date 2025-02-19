@@ -16,13 +16,13 @@ const StudentsData = [
     name: "Abhilasha Pal",
     rollno: 2,
     address: "",
-    imgSrc: "/src/assets/2.jpg",
+    imgSrc: "../assets/2.jpg",
   },
   {
     name: "Alisha Joshi",
     rollno: 3,
     address: "mahakali",
-    imgSrc: "/src/assets/6.png",
+    imgSrc: "../assets/6.png",
   },
   {
     name: "Bhupendra Rana",
