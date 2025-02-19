@@ -26,7 +26,7 @@ import studentImg23 from "../assets/23.png"
 import studentImg24 from "../assets/24.png"
 import studentImg25 from "../assets/25.png"
 import studentImg27 from "../assets/27.png"
-import studentImg28 from "../assets/28.png"
+import studentImg28 from "../assets/28.jpg"
 import studentImg29 from "../assets/29.png"
 
 
