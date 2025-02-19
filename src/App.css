@@ -385,7 +385,9 @@
   width: 50px;
   height: 50px;
   padding: 2px;
+  opacity: 0.5;
 }
+
 .mainSignUpContainer label {
   width: 100%;
   font-size: 14px;
@@ -426,7 +428,7 @@
   font-size: 23px;
   opacity: 0.5;
 }
-.logInPageIcons {
+.logInPageIcons,.signUpPageIcons {
   opacity: 0.5;
 }
 

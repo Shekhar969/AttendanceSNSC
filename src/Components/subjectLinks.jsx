@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import snscLogo from '../assets/logo.png';
+import NavBar from './navBar'
 
 const subjects = [
   { name: "Cryptography", path: "cryptography" },
@@ -15,6 +16,7 @@ const subjects = [
 const SubjectLinks = () => {
   return (
     <div className="subjects">
+      {/* <NavBar/> */}
         <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/">
         <button type="button" className="back-button , subject " >
