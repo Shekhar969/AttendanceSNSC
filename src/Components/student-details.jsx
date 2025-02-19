@@ -1,185 +1,210 @@
-// import sakshi from '../assets/24.png'
-// import yogana from '../assets/yojana.jpg'
-// import shekhar from '../assets/shekhar.jpeg'
+import shekhar from "../assets/shekhar.jpeg"
 
-// import img2 from "../assets/shekhar.jpeg";
-import img4 from "../assets/shekhar.jpeg";
+import studentImg1 from "../assets/1.jpg"
+import studentImg2 from "../assets/2.jpg"
+import studentImg3 from "../assets/3.jpg"
+import studentImg4 from "../assets/4.png"
+import studentImg5 from "../assets/5.png"
+import studentImg6 from "../assets/6.png"
+import studentImg7 from "../assets/7.png"
+import studentImg8 from "../assets/8.png"
+import studentImg9 from "../assets/9.png"
+import studentImg10 from "../assets/10.png"
+import studentImg11 from "../assets/11.png"
+import studentImg12 from "../assets/12.png"
+import studentImg13 from "../assets/13.png"
+import studentImg14 from "../assets/14.png"
+import studentImg15 from "../assets/15.png"
+import studentImg16 from "../assets/16.png"
+import studentImg17 from "../assets/17.png"
+import studentImg18 from "../assets/18.png"
+import studentImg19 from "../assets/19.png"
+import studentImg20 from "../assets/20.png"
+import studentImg21 from "../assets/21.png"
+import studentImg22 from "../assets/22.png"
+import studentImg23 from "../assets/23.png"
+import studentImg24 from "../assets/24.png"
+import studentImg25 from "../assets/25.png"
+import studentImg27 from "../assets/27.png"
+import studentImg28 from "../assets/28.png"
+import studentImg29 from "../assets/29.png"
+
 
 const StudentsData = [
   {
     name: "Aayush Chand Thakuri",
     rollno: 1,
     address: "Bhansi",
-    imgSrc:img4,
+    imgSrc:studentImg1,
   },
   {
     name: "Abhilasha Pal",
     rollno: 2,
     address: "",
-    imgSrc: "../assets/2.jpg",
+    imgSrc: studentImg2,
   },
   {
     name: "Alisha Joshi",
     rollno: 3,
     address: "mahakali",
-    imgSrc: "../assets/6.png",
+    imgSrc: studentImg3,
   },
   {
     name: "Bhupendra Rana",
     rollno: 4,
     address: " ",
-    imgSrc: "/src/assets/4.png",
+    imgSrc: studentImg4,
   },
   {
     name: "Birendra Kalauni",
     rollno: 5,
     address: " ",
-    imgSrc: "/src/assets/5.png",
+    imgSrc:studentImg5,
   },
   {
     name: "Bishesh Airee",
     rollno: 6,
     address: " ",
-    imgSrc: "/src/assets/6.png",
+    imgSrc:studentImg6,
   },
   {
     name: "Dambar Raj Joshi",
     rollno: 7,
     address: " ",
-    imgSrc: "/src/assets/7.png",
+    imgSrc:studentImg7 ,
   },
   {
     name: "Deepak Adhikari",
     rollno: 8,
     address: " ",
-    imgSrc: "/src/assets/8.png",
+    imgSrc:studentImg8,
   },
   {
     name: "Dipak Badu",
     rollno: 9,
     address: " ",
-    imgSrc: "/src/assets/9.png",
+    imgSrc:studentImg9 ,
   },
   {
     name: "Jatin Dewal",
     rollno: 10,
     address: " ",
-    imgSrc: "/src/assets/10.png",
+    imgSrc: studentImg10,
   },
   {
     name: "Jyoti Rana",
     rollno: 11,
     address: " ",
-    imgSrc: "/src/assets/11.png",
+    imgSrc:studentImg11 ,
   },
   {
     name: "Kushal Adhikari",
     rollno: 12,
     address: " ",
-    imgSrc: "/src/assets/12.png",
+    imgSrc: studentImg12,
   },
   {
     name: "Lokesh Bist",
     rollno: 13,
     address: " ",
-    imgSrc: "/src/assets/13.png",
+    imgSrc:studentImg13 ,
   },
   {
     name: "Nabin Saud",
     rollno: 14,
     address: " ",
-    imgSrc: "/src/assets/14.png",
+    imgSrc: studentImg14,
   },
   {
     name: "Narendra Singh Mahara",
     rollno: 15,
     address: " ",
-    imgSrc: "/src/assets/15.png",
+    imgSrc: studentImg15,
   },
   {
     name: "Naresh Chand Thakuri",
     rollno: 16,
     address: " ",
-    imgSrc: "/src/assets/16.png",
+    imgSrc:studentImg16 ,
   },
   {
     name: "Nira Kumari Bohara",
     rollno: 17,
     address: " ",
-    imgSrc: "/src/assets/17.png",
+    imgSrc:studentImg17 ,
   },
   {
     name: "Niraj Kumar Chaudhary",
     rollno: 18,
     address: " ",
-    imgSrc: "/src/assets/18.png",
+    imgSrc: studentImg18,
   },
   {
     name: "Padam Mishra",
     rollno: 19,
     address: " ",
-    imgSrc: "/src/assets/19.png",
+    imgSrc: studentImg19,
   },
   {
     name: "Pawan Kumar Joshi",
     rollno: 20,
     address: " ",
-    imgSrc: "/src/assets/20.png",
+    imgSrc:studentImg20 ,
   },
   {
     name: "Puskar Raj Badu",
     rollno: 21,
     address: " ",
-    imgSrc: "/src/assets/21.png",
+    imgSrc:studentImg21 ,
   },
   {
     name: "Rakesh singh Saud",
     rollno: 22,
     address: " ",
-    imgSrc: "/src/assets/22.png",
+    imgSrc:studentImg22 ,
   },
   {
     name: "Resham Shahi",
     rollno: 23,
     address: " ",
-    imgSrc: "/src/assets/23.png",
+    imgSrc:studentImg23 ,
   },
   {
     name: "Sakshi Khatiwada",
     rollno: 24,
     address: "Bankhet",
-    imgSrc: "/src/assets/24.png",
+    imgSrc: studentImg24,
   },
   {
     name: "Sameer Dangaura",
     rollno: 25,
     address: "Daiji",
-    imgSrc: "/src/assets/25.png",
+    imgSrc: studentImg25,
   },
   {
     name: "Shekhar Singh Rawal",
     rollno: 26,
     address: "Bhashi",
-    imgSrc: "/src/assets/26.jpeg",
+    imgSrc: shekhar,
   },
   {
     name: "Suresh Nath",
     rollno: 27,
     address: " ",
-    imgSrc: "/src/assets/27.png",
+    imgSrc:studentImg27 ,
   },
   {
     name: "Urmila Thalal",
     rollno: 28,
     address: "Katan",
-    imgSrc: "/src/assets/28.jpg",
+    imgSrc:studentImg28 ,
   },
 
   {
     name: "Yojana Pandey",
     rollno: 29,
     address: "Bhashi",
-    imgSrc: "/src/assets/29.png",
+    imgSrc:studentImg29 ,
   },
 ];
 
