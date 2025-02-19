@@ -59,6 +59,8 @@ export const useAttendance = (StudentsData, subject) => {
       });
     }
   }, [currentIndex]);
+
+
   
   const isPresent = () => {
     const updatedStatus = [...attendanceStatus];
@@ -165,7 +167,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
                 <div 
                   key={student.rollno} 
                   className={`student-listitem ${isHighlighted(index) ? 'highlighted' : ''}`}
-                  onClick={() => setCurrentIndex(index)} 
+                  onClick={() =>{ if (index < currentIndex) setCurrentIndex(index);} } 
                 >
                   <span className="student-name">
                     {index + 1}. {student.name}
