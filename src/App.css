@@ -10,9 +10,9 @@
 }
 .snscLogo {
   user-select: none;
-  position: absolute;
-  inset: 0; /* Top, right, bottom, left all set to 0 */
-  margin: auto; /* Center the element */
+  position: fixed;
+  inset: 0; 
+  margin: auto; 
   opacity: 50%;
   height: 25rem;
   width: 25rem;
