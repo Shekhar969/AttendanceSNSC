@@ -1,0 +1,40 @@
+{
+    "routes":[
+        {
+            "src": "/",
+            "dest": "/"
+          },
+          {
+            "src": "/auth",
+           "dest": "/"
+          },
+          {
+            "src": "/AttendanceHistory",
+            "dest": "/"
+          },
+          {
+            "src": "/Subjects",
+            "dest": "/"
+          },
+          {
+            "src": "/Subjects/cryptography",
+            "dest": "/"
+          },
+          {
+            "src": "/Subjects/DAA",
+            "dest": "/"
+          },
+          {
+            "src": "/Subjects/SAD",
+            "dest": "/"
+          },
+          {
+            "src": "/Subjects/WebTechnology",
+            "dest": "/"
+          },
+          {
+            "src": "/Subjects/SM",
+            "dest": "/"
+          }
+    ]
+}
