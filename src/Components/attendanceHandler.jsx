@@ -165,9 +165,9 @@ export const AttendancePage = ({ StudentsData, subject }) => {
   alt={currentStudent?.name}
 />
                 <div className="student-details">
-                  <p>Name: {currentStudent.name}</p>
-                  <p>Roll No: {currentStudent.rollno}</p>
-                  <p>Address: {currentStudent.address}</p>
+                  <p>Name: <span>{currentStudent.name}</span></p>
+                  <p>Roll No: <span> {currentStudent.rollno}</span></p>
+                  <p>Address: <span>{currentStudent.address}</span> </p>
                 </div>
               </div>
               <button className="buttonAbs" onClick={isAbsent}>
