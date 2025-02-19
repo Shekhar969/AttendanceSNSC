@@ -5,10 +5,11 @@ import snscLogo from '../assets/logo.png';
 
 const subjects = [
   { name: "Cryptography", path: "cryptography" },
-  { name: "Design and Analysis of Algorithms", path: "DAA" },
   { name: "System Analysis and Design", path: "SAD" },
   { name: "Simulation and Modeling", path: "SM" },
   { name: "Web Technology", path: "WebTechnology" },
+  { name: "Design and Analysis of Algorithms", path: "DAA" },
+  { name: "Multimedia", path:"Multimedia"}
 ];
 
 const SubjectLinks = () => {

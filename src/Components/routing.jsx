@@ -7,6 +7,7 @@ import WebTech from './subjects/Web-Technology.jsx';
 import SM from './subjects/Simulation-and-Modeling.jsx';
 import SB from './subjectLinks.jsx'
 import AH from './attendanceHistory/lastMonthAttendance.jsx'
+import Multimedia from './subjects/Multimedia.jsx'
 import SignUpHandler from './auth/signUp.jsx';
 
 
@@ -46,6 +47,10 @@ const routes = createBrowserRouter([
   {
     path: "/Subjects/SM",
     element: <SM />,
+  },
+  {
+    path: "/Subjects/Multimedia",
+    element: <Multimedia />,
   },
 ]);
 
