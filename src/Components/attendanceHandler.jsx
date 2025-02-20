@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import snscLogo from "../assets/logo.png";
 import "../App.css";
 import { db } from "../config/fireBase";
@@ -14,7 +14,7 @@ export const useAttendance = (StudentsData, subject) => {
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
   const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
-
+  const navigate = useNavigate();
   const attendanceDocRef = doc(db, "StudentAttendance", dbDocId);
 
   useEffect(() => {
@@ -110,8 +110,11 @@ export const useAttendance = (StudentsData, subject) => {
     } catch (error) {
       console.error("Error submitting attendance:", error);
       toast.error(
-        "There was an error submitting the attendance. Please try again."
+        "There was an error submitting the attendance. Please try again.",
       );
+      setTimeout(()=>{
+      navigate("/Subjects");
+     },1000) 
     }
   };
 
@@ -233,8 +236,8 @@ export const AttendancePage = ({ StudentsData, subject }) => {
 
       {isDataSubmitted && (
         <div className="attendance-summary">
-          <h2>Attendance has already been submitted for {subject} today.</h2>
-          <button onClick={localClear}>Clear local</button>
+          <h2>Attendance has been submitted sucessfully for {subject} for {new Date().toISOString().split("T")[0]} Now you can close the page</h2>
+          {/* <button onClick={localClear}>Clear local</button> */}
         </div>
       )}
 
