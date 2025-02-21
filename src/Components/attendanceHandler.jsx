@@ -3,7 +3,7 @@ import { Link,useNavigate } from "react-router-dom";
 import snscLogo from "../assets/logo.png";
 import "../App.css";
 import { db } from "../config/fireBase";
-import { addDoc, setDoc, collection, doc, Timestamp } from "firebase/firestore";
+import {  setDoc,  doc, Timestamp } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 export const useAttendance = (StudentsData, subject) => {
   const [currentIndex, setCurrentIndex] = useState(0);
