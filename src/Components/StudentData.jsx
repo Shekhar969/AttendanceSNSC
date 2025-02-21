@@ -2,7 +2,7 @@ import { useState } from "react";
 import StudentsData from "./student-details";
 import { Link } from "react-router-dom";
 
-const Data = ({subID}) => {
+const Data = ({}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentStudent = StudentsData[currentIndex];
     let Status = false;
