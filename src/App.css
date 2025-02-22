@@ -659,6 +659,17 @@
   color: #1e0604;
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.imgLoading{
+  width:100px;
+}
+
 @media screen and (min-width: 1024px) {
   .subject {
     width: 50%;

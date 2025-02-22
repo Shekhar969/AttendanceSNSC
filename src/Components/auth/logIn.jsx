@@ -1,51 +1,57 @@
-import { useState } from 'react';
-import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
-import { IoIosMail } from 'react-icons/io';
-import { Link } from 'react-router-dom';
-import "../App.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Login = ({ logIn }) => {
-  const [email, setEmail] = useState("");
+const Login = () => {
+    const notify = () => toast("Wrong Credentials. Try again!");
+
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const navigate = useNavigate();
+  const handleLoginClick = () => {
+
+    if (name === "teacher" && password ==="snsc")
+    {
+        setIsAuthenticated(true);
+        navigate("/");
+    }
+    else{
+        notify();
+    }
+
+  }
 
   return (
-    <div className="mainLogInContainer">
-      <div className="topSection">
-        <h3 className="userSignUpHeading">Log In</h3>
-        <div className="goTOLogIn">
-          <Link to="/signup">
-            <FaArrowRightLong className="logInPageIcons" />
-          </Link>
+    <form className="login-form">
+      <fieldset>
+        <legend>Login Form for Teachers</legend>
+        <div>
+          <label for="name">Enter Name:</label>
+          <input
+            id="name"
+            type="text"
+            required
+            placeholder="Enter your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
-      </div>
-      
-      <div className="inputContainers">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <IoIosMail className="signUpPageIcons" />
-      </div>
-
-      <div className="inputContainers">
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? <FaEye /> : <FaEyeSlash />}
+        <div>
+          <label for="password">Enter Password:</label>
+          <input
+            id="password"
+            type="password"
+            required
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
-      </div>
-
-      <button onClick={() => logIn(email, password)} className="logInBtn">
-        Log In
-      </button>
-    </div>
+        <button type="submit" onClick={handleLoginClick}>Submit</button>
+      </fieldset>
+    </form>
   );
 };
 
