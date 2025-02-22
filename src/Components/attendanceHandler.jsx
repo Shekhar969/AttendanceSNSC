@@ -17,21 +17,9 @@ export const useAttendance = (StudentsData, subject) => {
   const navigate = useNavigate();
   const attendanceDocRef = doc(db, "StudentAttendance", dbDocId);
 
-  useEffect(() => {
-    const storedData = localStorage.getItem(`attendanceSubmitted_${subject}`);
-    if (storedData === "true") {
-      setIsDataSubmitted(true);
-    }
-  }, [subject]);
 
-  const localClear = () => {
-    localStorage.removeItem(`attendanceSubmitted_${subject}`);
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
-    console.log("Attendance data cleared from localStorage");
-    toast("Attendance data cleared from localStorage");
-  };
+
+
 
   useEffect(() => {
     const preloadImages = async () => {
@@ -107,6 +95,9 @@ export const useAttendance = (StudentsData, subject) => {
       await setDoc(attendanceDocRef, data);
       console.log("Attendance data successfully sent to the database");
       toast("Attendance submitted successfully!");
+      setTimeout(()=>{
+        navigate("/Subjects");
+       },1000) 
     } catch (error) {
       console.error("Error submitting attendance:", error);
       toast.error(
@@ -128,7 +119,6 @@ export const useAttendance = (StudentsData, subject) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    localClear,
   };
 };
 
@@ -143,7 +133,6 @@ export const AttendancePage = ({ StudentsData, subject }) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    localClear,
   } = useAttendance(StudentsData, subject);
 
   const currentStudent = StudentsData[currentIndex];
@@ -237,7 +226,6 @@ export const AttendancePage = ({ StudentsData, subject }) => {
       {isDataSubmitted && (
         <div className="attendance-summary">
           <h2>Attendance has been submitted sucessfully for {subject} for {new Date().toISOString().split("T")[0]} Now you can close the page</h2>
-          {/* <button onClick={localClear}>Clear local</button> */}
         </div>
       )}
 

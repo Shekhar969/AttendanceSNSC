@@ -20,13 +20,7 @@ function App() {
       <h3> Bsc Csit</h3> 
       </Link>
       </div>
-        
-     
-       <div >
-        <Link to="/Subjects" className="subject">
-          <h3>Subjects</h3>
-        </Link>
-      </div>
+  
       <div>
       <Link to="/AttendanceHistory" className="subject" >
           <h3 >Check Attendance</h3>
