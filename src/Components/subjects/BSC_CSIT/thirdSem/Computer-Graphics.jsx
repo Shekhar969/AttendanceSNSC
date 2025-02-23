@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function ComputerGraphics() {
+const ComputerGraphics = () => {
+  const subject = "ComputerGraphics"; 
+  const semester = "thirdSem";
   return (
-    <div>ComputerGraphics</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.thirdSem} 
+        subject={subject} 
+        semester={semester}
+      />
+    </main>
+  );
 }
 
-export default ComputerGraphics
+export default ComputerGraphics;

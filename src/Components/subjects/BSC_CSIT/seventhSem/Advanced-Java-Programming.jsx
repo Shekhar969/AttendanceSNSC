@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function AdvancedJavaProgramming() {
+const AdvancedJavaProgramming = () => {
+  const subject = "AdvancedJavaProgramming"; 
+
   return (
-    <div>AdvancedJavaProgramming</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.seventhSem} 
+        subject={subject} 
+      />
+    </main>
+  );
 }
 
-export default AdvancedJavaProgramming
+export default AdvancedJavaProgramming;

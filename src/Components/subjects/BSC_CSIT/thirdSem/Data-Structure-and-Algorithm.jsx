@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function DataStructureandAlgorithm() {
+const DataStructureandAlgorithm = () => {
+  const subject = "DataStructureandAlgorithm"; 
+  const semester = "thirdSem";
   return (
-    <div>DataStructureandAlgorithm</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.thirdSem} 
+        subject={subject} 
+        semester={semester}
+      />
+    </main>
+  );
 }
 
-export default DataStructureandAlgorithm
+export default DataStructureandAlgorithm;

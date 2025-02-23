@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function ComputerArchitecture() {
+const ComputerArchitecture = () => {
+  const subject = "ComputerArchitecture"; 
+  const semester = "thirdSem";
   return (
-    <div>ComputerArchitecture</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.thirdSem} 
+        subject={subject} 
+        semester={semester}
+      />
+    </main>
+  );
 }
 
-export default ComputerArchitecture
+export default ComputerArchitecture;

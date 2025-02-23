@@ -1,9 +1,18 @@
-import React from 'react'
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function CProgramming() {
+const CProgramming = () => {
+  const subject = "CProgramming"; 
+  const semester = "firstSem";
   return (
-    <div>CProgramming</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.firstSem} 
+        subject={subject} 
+        semester={semester}
+      />
+    </main>
+  );
 }
 
-export default CProgramming
+export default CProgramming;

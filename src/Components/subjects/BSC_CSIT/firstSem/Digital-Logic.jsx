@@ -1,9 +1,18 @@
-import React from 'react'
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function DigitalLogic() {
+const DigitalLogic = () => {
+  const subject = "DigitalLogic"; 
+  const semester = "firstSem";
   return (
-    <div>Digital-Logic</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.firstSem} 
+        subject={subject} 
+        semester={semester}
+      />
+    </main>
+  );
 }
 
-export default DigitalLogic
+export default DigitalLogic;

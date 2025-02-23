@@ -4,12 +4,13 @@ import StudentsData from '../../../student-details';
 
 const Multimedia = () => {
   const subject = "Multimedia"; 
-
+  const semester = "fifthSem";
   return (
     <main>
       <AttendancePage 
-        StudentsData={StudentsData} 
+        StudentsData={StudentsData.fifthSem} 
         subject={subject} 
+        semester={semester}
       />
     </main>
   );

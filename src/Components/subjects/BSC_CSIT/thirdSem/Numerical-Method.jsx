@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function NumericalMethod() {
+const NumericalMethod = () => {
+  const subject = "NumericalMethod"; 
+  const semester = "thirdSem";
   return (
-    <div>NumericalMethod</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.thirdSem} 
+        subject={subject} 
+        semester={semester}
+      />
+    </main>
+  );
 }
 
-export default NumericalMethod
+export default NumericalMethod;

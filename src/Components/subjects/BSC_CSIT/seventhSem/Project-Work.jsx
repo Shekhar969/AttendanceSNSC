@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function ProjectWork() {
+const ProjectWork = () => {
+  const subject = "ProjectWork"; 
+
   return (
-    <div>ProjectWork</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.seventhSem} 
+        subject={subject} 
+      />
+    </main>
+  );
 }
 
-export default ProjectWork
+export default ProjectWork;

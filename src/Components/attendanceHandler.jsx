@@ -5,20 +5,19 @@ import "../App.css";
 import { db } from "../config/fireBase";
 import {  setDoc,  doc, Timestamp } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
-export const useAttendance = (StudentsData, subject) => {
+
+
+export const useAttendance = (StudentsData, subject,semester) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [attendanceStatus, setAttendanceStatus] = useState(
-    StudentsData.map(() => ({ status: "Not Marked" }))
-  );
+  const [attendanceStatus, setAttendanceStatus] = useState( StudentsData.map(() => ({ status: "Not Marked" })));
   const [showSummary, setShowSummary] = useState(false);
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
   const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
   const navigate = useNavigate();
-  const attendanceDocRef = doc(db, "StudentAttendance", dbDocId);
 
-
-
+  const collectionName=`${semester}Attendance`
+  const attendanceDocRef = doc(db, collectionName, dbDocId);
 
 
   useEffect(() => {
@@ -95,7 +94,7 @@ export const useAttendance = (StudentsData, subject) => {
       console.log("Attendance data successfully sent to the database");
       toast("Attendance submitted successfully!");
       setTimeout(()=>{
-        navigate("/Bsc_Csit");
+        navigate(-1);
        },1000) 
     } catch (error) {
       console.error("Error submitting attendance:", error);
@@ -103,7 +102,7 @@ export const useAttendance = (StudentsData, subject) => {
         "There was an error submitting the attendance. Please try again.",
       );
       setTimeout(()=>{
-      navigate("/Bsc_Csit");
+      navigate(-1);
      },1000) 
     }
   };
@@ -121,7 +120,7 @@ export const useAttendance = (StudentsData, subject) => {
   };
 };
 
-export const AttendancePage = ({ StudentsData, subject }) => {
+export const AttendancePage = ({ StudentsData, subject ,semester }) => {
   const {
     currentIndex,
     setCurrentIndex,
@@ -132,7 +131,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-  } = useAttendance(StudentsData, subject);
+  } = useAttendance(StudentsData, subject ,semester);
 
   const currentStudent = StudentsData[currentIndex];
   const isHighlighted = (index) => index === currentIndex;
@@ -140,7 +139,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
   return (
     <div className="mainAttendancePage">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
-      <Link to="/Bsc_Csit">
+      <Link to={-1}>
         <button type="button" className="back-button">
           Back
         </button>
