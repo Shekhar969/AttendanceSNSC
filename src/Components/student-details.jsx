@@ -1,5 +1,4 @@
 import shekhar from "../assets/shekhar.jpeg"
-
 import studentImg1 from "../assets/1.jpg"
 import studentImg2 from "../assets/2.jpg"
 import studentImg3 from "../assets/3.jpg"

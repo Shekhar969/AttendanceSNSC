@@ -26,6 +26,14 @@ import WebTech from './subjects/BSC_CSIT/fifthSem/Web-Technology.jsx';
 import SM from './subjects/BSC_CSIT/fifthSem/Simulation-and-Modeling.jsx';
 import Multimedia from './subjects/BSC_CSIT/fifthSem/Multimedia.jsx'
 
+//Seventh Sem Subjects
+import SeventhSem from "./subjects/BSC_CSIT/seventhSem/seventhSemLinker.jsx"
+import AdvancedJavaProgramming from './subjects/BSC_CSIT/seventhSem/Advanced-Java-Programming.jsx'
+import DatabaseAdministrator from './subjects/BSC_CSIT/seventhSem/Database-Administrator.jsx'
+import InternationalMarketing from './subjects/BSC_CSIT/seventhSem/International-Marketing.jsx'
+import NetworkSecurity from './subjects/BSC_CSIT/seventhSem/Network-Security.jsx'
+import ProjectWork from './subjects/BSC_CSIT/seventhSem/Project-Work.jsx'
+
 import Classes from './classLInks.jsx'
 import AH from './attendanceHistory/lastMonthAttendance.jsx'
 import SignUpHandler from './auth/signUp.jsx';
@@ -106,7 +114,6 @@ const routes = createBrowserRouter([
     path: "/Bsc_Csit/fifthSem",
     element: <FifthSem />,
   },
-
   {
     path: "/Bsc_Csit/fifthSem/Cryptography",
     element: <Cryptography />,
@@ -130,6 +137,32 @@ const routes = createBrowserRouter([
   {
     path: "/Bsc_Csit/fifthSem/Multimedia",
     element: <Multimedia />,
+  },
+
+//Seventh Sem
+  {
+    path:"/Bsc_Csit/seventhSem",
+    element:<SeventhSem/>
+  },
+  {
+    path:"/Bsc_Csit/seventhSem/Advanced-Java-Programming",
+    element:<AdvancedJavaProgramming/>
+  },
+  {
+    path:"/Bsc_Csit/seventhSem/Database-Administrator",
+    element:<DatabaseAdministrator/>
+  },
+  {
+    path:"/Bsc_Csit/seventhSem/International-Marketing",
+    element:<InternationalMarketing/>
+  },
+  {
+    path:"/Bsc_Csit/seventhSem/Network-Security",
+    element:<NetworkSecurity/>
+  },
+  {
+    path:"/Bsc_Csit/seventhSem/Project-Work",
+    element:<ProjectWork/>
   },
 ]);
 
