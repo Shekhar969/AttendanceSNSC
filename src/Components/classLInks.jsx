@@ -16,41 +16,41 @@ function classLInks() {
             <h3> 1st Sem</h3>     
           </button>
         </Link>
-        <Link to="">
+        {/* <Link to="">
               <button className="subject" >
             <h3> 2st Sem</h3>     
           </button>
-        </Link>
-        <Link to="">
+        </Link> */}
+        <Link to="/Bsc_Csit/thirdSem">
               <button className="subject" >
             <h3> 3st Sem</h3>     
           </button>
         </Link>
-        <Link to="">
+        {/* <Link to="">
               <button className="subject" >
             <h3> 4st Sem</h3>     
           </button>
-        </Link>
+        </Link> */}
         <Link to="/Bsc_Csit/fifthSem">
               <button className="subject" >
             <h3> 5st Sem</h3>     
           </button>
         </Link>
-        <Link to="">
+        {/* <Link to="">
               <button className="subject" >
             <h3> 6st Sem</h3>     
           </button>
-        </Link>
+        </Link> */}
         <Link to="">
               <button className="subject" >
             <h3> 7st Sem</h3>     
           </button>
         </Link>
-        <Link to="">
+        {/* <Link to="">
               <button className="subject" >
             <h3> 8st Sem</h3>     
           </button>
-        </Link>
+        </Link> */}
 
        
       </div>

@@ -4,19 +4,19 @@ import "../../../../App.css";
 import snscLogo from '../../../../assets/logo.png';
 
 const subjects = [
-  { name: "Cryptography", path: "/subjects/BSC_CSIT/fifthSem/Cryptography" },
-  { name: "System Analysis and Design", path: "/subjects/BSC_CSIT/fifthSem/SAD" },
-  { name: "Simulation and Modeling", path: "/subjects/BSC_CSIT/fifthSem/SM" },
-  { name: "Web Technology", path: "/subjects/BSC_CSIT/fifthSem/WebTechnology" },
-  { name: "Design and Analysis of Algorithms", path: "/subjects/BSC_CSIT/fifthSem/DAA" },
-  { name: "Multimedia", path:"/subjects/BSC_CSIT/fifthSem/Multimedia"}
+  { name: "Cryptography", path: "/Bsc_Csit/fifthSem/Cryptography" },
+  { name: "System Analysis and Design", path: "/Bsc_Csit/fifthSem/SAD" },
+  { name: "Simulation and Modeling", path: "/Bsc_Csit/fifthSem/SM" },
+  { name: "Web Technology", path: "/Bsc_Csit/fifthSem/WebTechnology" },
+  { name: "Design and Analysis of Algorithms", path: "/Bsc_Csit/fifthSem/DAA" },
+  { name: "Multimedia", path:"/Bsc_Csit/fifthSem/Multimedia"}
 ];
 
 const SubjectLinks = () => {
   return (
     <div className="subjects">
         <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
-      <Link to="/">
+      <Link to="/Bsc_Csit">
         <button type="button" className="back-button , subject " >
           Back
         </button>

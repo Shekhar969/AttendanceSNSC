@@ -26,7 +26,6 @@ export const useAttendance = (StudentsData, subject) => {
       const promises = StudentsData.map((student) => {
         return new Promise((resolve, reject) => {
           const img = new Image();
-          // Prepend with public URL if needed
           img.src = student.imgSrc;
           img.onload = resolve;
           img.onerror = reject;
@@ -96,7 +95,7 @@ export const useAttendance = (StudentsData, subject) => {
       console.log("Attendance data successfully sent to the database");
       toast("Attendance submitted successfully!");
       setTimeout(()=>{
-        navigate("/Subjects");
+        navigate("/Bsc_Csit");
        },1000) 
     } catch (error) {
       console.error("Error submitting attendance:", error);
@@ -104,7 +103,7 @@ export const useAttendance = (StudentsData, subject) => {
         "There was an error submitting the attendance. Please try again.",
       );
       setTimeout(()=>{
-      navigate("/Subjects");
+      navigate("/Bsc_Csit");
      },1000) 
     }
   };
@@ -141,7 +140,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
   return (
     <div className="mainAttendancePage">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
-      <Link to="/Subjects">
+      <Link to="/Bsc_Csit">
         <button type="button" className="back-button">
           Back
         </button>
