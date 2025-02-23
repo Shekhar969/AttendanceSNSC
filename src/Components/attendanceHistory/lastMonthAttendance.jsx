@@ -10,8 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "../attendanceHistory/attendanceColour.css";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import { Timestamp, query, where,} from "firebase/firestore";
-
+import { Timestamp, query, where } from "firebase/firestore";
 
 const downloadAttendanceExcel = async () => {
   const today = new Date();
@@ -58,11 +57,15 @@ const downloadAttendanceExcel = async () => {
 
   // Create a Blob and download the file
   const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
-  const data = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+  const data = new Blob([excelBuffer], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
 
-  saveAs(data, `Attendance_Report_BSC_CSIT_5thSem${thirtyDaysAgo.toLocaleDateString()}-${today.toLocaleDateString()}.xlsx`);
+  saveAs(
+    data,
+    `Attendance_Report_BSC_CSIT_5thSem${thirtyDaysAgo.toLocaleDateString()}-${today.toLocaleDateString()}.xlsx`
+  );
 };
-
 
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -73,6 +76,7 @@ function LastMonthAttendance() {
   const [isCalendarVisible, setIsCalendarVisible] = useState(true);
   const navigate = useNavigate();
 
+  
   const fetchAttendanceData = async () => {
     try {
       const data = await getDocs(collection(db, "StudentAttendance"));
@@ -135,7 +139,12 @@ function LastMonthAttendance() {
           <button onClick={toggleCalendarVisibility}>
             {isCalendarVisible ? "︿" : "﹀"}
           </button>
-        <button onClick={downloadAttendanceExcel} className="downloadAttendanceLastMonthBtn">Download Attendance</button>
+          <button
+            onClick={downloadAttendanceExcel}
+            className="downloadAttendanceLastMonthBtn"
+          >
+            Download Attendance
+          </button>
         </h2>
         {isCalendarVisible && (
           <Calendar
@@ -156,7 +165,7 @@ function LastMonthAttendance() {
 
         {filteredData.length === 0 ? (
           <p className="atendanceReordCalendarHeading">
-            No attendance data found for this  date
+            No attendance data found for this date
           </p>
         ) : (
           filteredData.map((record, index) => (
@@ -174,23 +183,26 @@ function LastMonthAttendance() {
               {/* table */}
               <div className="attendanceRecordInner data-table-container">
                 <table>
-                  <tr>
-                    <th>Name</th>
-                    <th>Roll no.</th>
-                    <th>Status</th>
-                  </tr>
-                  {record?.attendance.map((student, studentIndex) => (
-                  <tr key={studentIndex} className={student.status == 'Present' ? "present" : "absent"}>
-                      
-                      <td>{student.name || "Unknown"}</td>
-                      <td>{student.rollno || "Unknown"}</td>
-                      <td>{student.status || "Unknown"}</td>
-                  </tr>
-                  ))}
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Roll no.</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {record?.attendance.map((student, studentIndex) => (
+                      <tr
+                        key={studentIndex}
+                        className={student.status === "Present" ? "present" : "absent" } >
+                        <td>{student.name || "Unknown"}</td>
+                        <td>{student.rollno || "Unknown"}</td>
+                        <td>{student.status || "Unknown"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
-
-              {/* </div> */}
             </div>
           ))
         )}

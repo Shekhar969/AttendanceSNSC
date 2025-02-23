@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function DatabaseAdministrator() {
+const DatabaseAdministrator = () => {
+  const subject = "DatabaseAdministrator"; 
+
   return (
-    <div>DatabaseAdministrator</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.seventhSem} 
+        subject={subject} 
+      />
+    </main>
+  );
 }
 
-export default DatabaseAdministrator
+export default DatabaseAdministrator;

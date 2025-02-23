@@ -1,9 +1,17 @@
-import React from 'react'
+import { AttendancePage } from "../../../attendanceHandler";
+import StudentsData from "../../../student-details";
 
-function MathematicsI() {
+const MathematicsI = () => {
+  const MathematicsI = "IntroductionToInformationTechnology";
+  const semester = "firstSem";
   return (
-    <div>MathematicsI</div>
-  )
-}
+    <main>
+      <AttendancePage StudentsData={StudentsData.firstSem} 
+      subject={subject}
+      semester={semester}
+       />
+    </main>
+  );
+};
 
-export default MathematicsI
+export default MathematicsI;

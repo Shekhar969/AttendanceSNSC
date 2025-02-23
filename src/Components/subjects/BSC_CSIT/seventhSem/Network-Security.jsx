@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
-function NetworkSecurity() {
+const NetworkSecurity = () => {
+  const subject = "NetworkSecurity"; 
+
   return (
-    <div>NetworkSecurity</div>
-  )
+    <main>
+      <AttendancePage 
+        StudentsData={StudentsData.seventhSem} 
+        subject={subject} 
+      />
+    </main>
+  );
 }
 
-export default NetworkSecurity
+export default NetworkSecurity;

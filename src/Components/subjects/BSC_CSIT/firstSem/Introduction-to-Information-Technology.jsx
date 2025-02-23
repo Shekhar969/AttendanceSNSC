@@ -1,9 +1,17 @@
-import React from 'react'
+import { AttendancePage } from "../../../attendanceHandler";
+import StudentsData from "../../../student-details";
 
-function IntroductionToInformationTechnology() {
+const IntroductionToInformationTechnology = () => {
+  const subject = "IntroductionToInformationTechnology";
+  const semester = "firstSem";
   return (
-    <div>Introduction-to-Information-Technology</div>
-  )
-}
+    <main>
+      <AttendancePage StudentsData={StudentsData.firstSem} 
+      subject={subject}
+      semester={semester}
+       />
+    </main>
+  );
+};
 
-export default IntroductionToInformationTechnology
+export default IntroductionToInformationTechnology;
