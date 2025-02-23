@@ -9,6 +9,13 @@ import IIT from './subjects/BSC_CSIT/firstSem/Introduction-to-Information-Techno
 import Mathematics1 from './subjects/BSC_CSIT/firstSem/Mathematics-I.jsx'
 import Physics from './subjects/BSC_CSIT/firstSem/Physics.jsx'
 
+//Third Sem Subjects
+import ThirdSem from './subjects/BSC_CSIT/thirdSem/thirdSemLinker.jsx'
+import ComputerArchitecture from './subjects/BSC_CSIT/thirdSem/Computer-Architecture.jsx'
+import ComputerGraphics from './subjects/BSC_CSIT/thirdSem/Computer-Graphics.jsx'
+import DataStructureandAlgorithm from './subjects/BSC_CSIT/thirdSem/Data-Structure-and-Algorithm.jsx'
+import NumericalMethod from './subjects/BSC_CSIT/thirdSem/Numerical-Method.jsx'
+import StatisticsII from './subjects/BSC_CSIT/thirdSem/Statistics-II.jsx'
 
 //Fifth Sem Subjects 
 import FifthSem from './subjects/BSC_CSIT/fifthSem/fifthSemLinker.jsx'
@@ -49,27 +56,51 @@ const routes = createBrowserRouter([
     element: <FirstSem />,
   },
   {
-    path: "/subject/Bsc_Csit/firstSem/C-Programming",
+    path: "/Bsc_Csit/firstSem/C-Programming",
     element: <CProgramming />,
   },
   {
-    path: "/subjects/BSC_CSIT/firstSem/Digital-Logic",
+    path: "//Bsc_Csit/firstSem/Digital-Logic",
     element: <DigitalLogic />,
   },
   {
-    path: "/subjects/BSC_CSIT/firstSem/Introduction-to-Information-Technology",
+    path: "/Bsc_Csit/firstSem/Introduction-to-Information-Technology",
     element: <IIT />,
   },
   {
-    path: "/subjects/BSC_CSIT/firstSem/Mathematics-I",
+    path: "/Bsc_Csit/firstSem/Mathematics-I",
     element: <Mathematics1 />,
   },
   {
-    path: "/subjects/BSC_CSIT/firstSem/Physics",
+    path: "//Bsc_Csit/firstSem/Physics",
     element: <Physics />,
   },
 
-  
+//Third Sem
+  {
+    path:"/Bsc_Csit/thirdSem",
+    element:<ThirdSem/>
+  },
+  {
+    path:"/Bsc_Csit/thirdSem/Computer-Architecture",
+    element:<ComputerArchitecture/>
+  },
+  {
+    path:"/Bsc_Csit/thirdSem/Computer-Graphics",
+    element:<ComputerGraphics/>
+  },
+  {
+    path:"/Bsc_Csit/thirdSem/Data-Structure-and-Algorithm",
+    element:<DataStructureandAlgorithm/>
+  },
+  {
+    path:"/Bsc_Csit/thirdSem/Numerical-Method",
+    element:<NumericalMethod/>
+  },
+  {
+    path:"/Bsc_Csit/thirdSem/Statistics-II",
+    element:<StatisticsII/>
+  },
 //Fifth Sem
   {
     path: "/Bsc_Csit/fifthSem",
@@ -77,27 +108,27 @@ const routes = createBrowserRouter([
   },
 
   {
-    path: "/subjects/BSC_CSIT/fifthSem/Cryptography",
+    path: "/Bsc_Csit/fifthSem/Cryptography",
     element: <Cryptography />,
   },
   {
-    path: "/subjects/BSC_CSIT/fifthSem/DAA",
+    path: "/Bsc_Csit/fifthSem/DAA",
     element: <DAA />,
   },
   {
-    path: "/subjects/BSC_CSIT/fifthSem/SAD",
+    path: "/Bsc_Csit/fifthSem/SAD",
     element: <SAD />,
   },
   {
-    path: "/subjects/BSC_CSIT/fifthSem/WebTechnology",
+    path: "/Bsc_Csit/fifthSem/WebTechnology",
     element: <WebTech />,
   },
   {
-    path: "/subjects/BSC_CSIT/fifthSem/SM",
+    path: "/Bsc_Csit/fifthSem/SM",
     element: <SM />,
   },
   {
-    path: "/subjects/BSC_CSIT/fifthSem/Multimedia",
+    path: "/Bsc_Csit/fifthSem/Multimedia",
     element: <Multimedia />,
   },
 ]);

@@ -1,18 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../../../App.css";
-import snscLogo from '../../../../assets/logo.png';
+import '../../../../App.css'
+import snscLogo from '../../../../assets/logo.png'
 
 const subjects = [
-  { name: "Cryptography", path: "/Bsc_Csit/fifthSem/Cryptography" },
-  { name: "System Analysis and Design", path: "/Bsc_Csit/fifthSem/SAD" },
-  { name: "Simulation and Modeling", path: "/Bsc_Csit/fifthSem/SM" },
-  { name: "Web Technology", path: "/Bsc_Csit/fifthSem/WebTechnology" },
-  { name: "Design and Analysis of Algorithms", path: "/Bsc_Csit/fifthSem/DAA" },
-  { name: "Multimedia", path:"/Bsc_Csit/fifthSem/Multimedia"}
+  { name: "Computer Architecture", path: "/Bsc_Csit/thirdSem/Computer-Architecture" },
+  { name: "Computer Graphics", path: "/Bsc_Csit/thirdSem/Computer-Graphics" },
+  { name: "Data Structure and Algorithm", path: "/Bsc_Csit/thirdSem/Data-Structure-and-Algorithm" },
+  { name: "Numerical Method", path: "/Bsc_Csit/thirdSem/Numerical-Method" },
+  { name: "Statistics II", path:"/Bsc_Csit/thirdSem/Statistics-II"}
 ];
 
-const SubjectLinks = () => {
+const firstSem = () => {
   return (
     <div className="subjects">
         <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
@@ -36,4 +35,4 @@ const SubjectLinks = () => {
   );
 };
 
-export default SubjectLinks;
+export default firstSem;
