@@ -41,7 +41,7 @@ function classLInks() {
             <h3> 6st Sem</h3>     
           </button>
         </Link> */}
-        <Link to="">
+        <Link to="/Bsc_Csit/seventhSem">
               <button className="subject" >
             <h3> 7st Sem</h3>     
           </button>

@@ -4,11 +4,11 @@ import '../../../../App.css'
 import snscLogo from '../../../../assets/logo.png'
 
 const subjects = [
-  { name: "C Programming", path: "/subject/Bsc_Csit/firstSem/C-Programming" },
-  { name: "Digital Logic", path: "/subjects/BSC_CSIT/firstSem/Digital-Logic" },
-  { name: "Introduction to Information Technology", path: "/subjects/BSC_CSIT/firstSem/Introduction-to-Information-Technology" },
-  { name: "Mathematics I", path: "/subjects/BSC_CSIT/firstSem/Mathematics-I" },
-  { name: "Physics", path:"/subjects/BSC_CSIT/firstSem/Physics"}
+  { name: "Advanced Java Programming", path: "/Bsc_Csit/seventhSem/Advanced-Java-Programming" },
+  { name: "Database Administrator", path: "/Bsc_Csit/seventhSem/Database-Administrator" },
+  { name: "International Marketing", path: "/Bsc_Csit/seventhSem/International-Marketing" },
+  { name: "Network Security", path: "/Bsc_Csit/seventhSem/Network-Security" },
+  { name: "Project Work", path:"/Bsc_Csit/seventhSem/Project-Work"}
 ];
 
 const firstSem = () => {
