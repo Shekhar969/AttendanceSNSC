@@ -322,7 +322,9 @@
   margin: 0 auto;
   backdrop-filter: blur(10px);
 }
-
+.attendanceRecordSubjectNameDate{
+  height: fit-content;
+}
 .attendanceRecordMainDiv {
   display: grid;
   justify-content: space-evenly;
@@ -345,6 +347,7 @@
   gap: 3rem;
   display: flex;
   min-height: 200px;
+  height: fit-content;
   min-width: 200px;
   border: 1px solid #ddd;
   padding: 10px;
