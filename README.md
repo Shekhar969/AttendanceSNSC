@@ -37,8 +37,7 @@ Currently, two official plugins are available:
 - `@vitejs/plugin-react-swc`: Uses SWC for Fast Refresh.
 
 
-
-###License
+## License
 
 This project is open-source software licensed under the MIT License. You are free to use, modify, and distribute the code for any purpose, provided you include the original license and copyright notice. For full details, see the LICENSE file.
 
