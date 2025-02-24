@@ -3,42 +3,28 @@ import { Link,useNavigate } from "react-router-dom";
 import snscLogo from "../assets/logo.png";
 import "../App.css";
 import { db } from "../config/fireBase";
-import { addDoc, setDoc, collection, doc, Timestamp } from "firebase/firestore";
+import {  setDoc,  doc, Timestamp } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
-export const useAttendance = (StudentsData, subject) => {
+
+
+export const useAttendance = (StudentsData, subject,semester) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [attendanceStatus, setAttendanceStatus] = useState(
-    StudentsData.map(() => ({ status: "Not Marked" }))
-  );
+  const [attendanceStatus, setAttendanceStatus] = useState( StudentsData.map(() => ({ status: "Not Marked" })));
   const [showSummary, setShowSummary] = useState(false);
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
   const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
   const navigate = useNavigate();
-  const attendanceDocRef = doc(db, "StudentAttendance", dbDocId);
 
-  useEffect(() => {
-    const storedData = localStorage.getItem(`attendanceSubmitted_${subject}`);
-    if (storedData === "true") {
-      setIsDataSubmitted(true);
-    }
-  }, [subject]);
+  const collectionName=`${semester}Attendance`
+  const attendanceDocRef = doc(db, collectionName, dbDocId);
 
-  const localClear = () => {
-    localStorage.removeItem(`attendanceSubmitted_${subject}`);
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
-    console.log("Attendance data cleared from localStorage");
-    toast("Attendance data cleared from localStorage");
-  };
 
   useEffect(() => {
     const preloadImages = async () => {
       const promises = StudentsData.map((student) => {
         return new Promise((resolve, reject) => {
           const img = new Image();
-          // Prepend with public URL if needed
           img.src = student.imgSrc;
           img.onload = resolve;
           img.onerror = reject;
@@ -107,13 +93,16 @@ export const useAttendance = (StudentsData, subject) => {
       await setDoc(attendanceDocRef, data);
       console.log("Attendance data successfully sent to the database");
       toast("Attendance submitted successfully!");
+      setTimeout(()=>{
+        navigate(-1);
+       },1000) 
     } catch (error) {
       console.error("Error submitting attendance:", error);
       toast.error(
         "There was an error submitting the attendance. Please try again.",
       );
       setTimeout(()=>{
-      navigate("/Subjects");
+      navigate(-1);
      },1000) 
     }
   };
@@ -128,11 +117,10 @@ export const useAttendance = (StudentsData, subject) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    localClear,
   };
 };
 
-export const AttendancePage = ({ StudentsData, subject }) => {
+export const AttendancePage = ({ StudentsData, subject ,semester }) => {
   const {
     currentIndex,
     setCurrentIndex,
@@ -143,8 +131,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
-    localClear,
-  } = useAttendance(StudentsData, subject);
+  } = useAttendance(StudentsData, subject ,semester);
 
   const currentStudent = StudentsData[currentIndex];
   const isHighlighted = (index) => index === currentIndex;
@@ -152,7 +139,7 @@ export const AttendancePage = ({ StudentsData, subject }) => {
   return (
     <div className="mainAttendancePage">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
-      <Link to="/Subjects">
+      <Link to={-1}>
         <button type="button" className="back-button">
           Back
         </button>
@@ -237,7 +224,6 @@ export const AttendancePage = ({ StudentsData, subject }) => {
       {isDataSubmitted && (
         <div className="attendance-summary">
           <h2>Attendance has been submitted sucessfully for {subject} for {new Date().toISOString().split("T")[0]} Now you can close the page</h2>
-          {/* <button onClick={localClear}>Clear local</button> */}
         </div>
       )}
 
