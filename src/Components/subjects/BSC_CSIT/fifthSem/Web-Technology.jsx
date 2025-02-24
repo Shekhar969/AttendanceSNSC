@@ -1,15 +1,16 @@
 import React from 'react'
-import StudentsData from '../student-details';
-import { useAttendance, AttendancePage } from '../attendanceHandler';
+import { AttendancePage } from '../../../attendanceHandler'; 
+import StudentsData from '../../../student-details';
 
 const WebTechnology = () => {
   const subject = "WebTechnology"; 
-
+  const semester = "fifthSem";
   return (
     <main>
       <AttendancePage 
-        StudentsData={StudentsData} 
+        StudentsData={StudentsData.fifthSem} 
         subject={subject} 
+        semester={semester}
       />
     </main>
   );

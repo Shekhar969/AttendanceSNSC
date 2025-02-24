@@ -1,24 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../App.css";
-import snscLogo from '../assets/logo.png';
-import NavBar from './navBar'
+import "../../../../App.css";
+import snscLogo from '../../../../assets/logo.png';
 
 const subjects = [
-  { name: "Cryptography", path: "cryptography" },
-  { name: "System Analysis and Design", path: "SAD" },
-  { name: "Simulation and Modeling", path: "SM" },
-  { name: "Web Technology", path: "WebTechnology" },
-  { name: "Design and Analysis of Algorithms", path: "DAA" },
-  { name: "Multimedia", path:"Multimedia"}
+  { name: "Cryptography", path: "/Bsc_Csit/fifthSem/Cryptography" },
+  { name: "System Analysis and Design", path: "/Bsc_Csit/fifthSem/SAD" },
+  { name: "Simulation and Modeling", path: "/Bsc_Csit/fifthSem/SM" },
+  { name: "Web Technology", path: "/Bsc_Csit/fifthSem/WebTechnology" },
+  { name: "Design and Analysis of Algorithms", path: "/Bsc_Csit/fifthSem/DAA" },
+  { name: "Multimedia", path:"/Bsc_Csit/fifthSem/Multimedia"}
 ];
 
 const SubjectLinks = () => {
   return (
     <div className="subjects">
-      {/* <NavBar/> */}
         <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
-      <Link to="/">
+      <Link to="/Bsc_Csit">
         <button type="button" className="back-button , subject " >
           Back
         </button>
@@ -31,7 +29,6 @@ const SubjectLinks = () => {
         >
           <button className="subject" data-id={subject.name}>
             <h3>{subject.name}</h3>
-            {/* <h4>sir</h4> */}
           </button>
         </Link>
       ))}

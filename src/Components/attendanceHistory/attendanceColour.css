@@ -1,3 +1,6 @@
+body{
+    text-align: center;
+}
 .data-table-container{
 table tr th{
     background-color: whitesmoke;
@@ -16,4 +19,26 @@ table tr th{
     margin: 0 3px;
     font-family: sans-serif;
     cursor: pointer;
+    text-align: center;
 }
+.downloadAttendance{
+    backdrop-filter: blur(5px);
+    margin: 5px  25% ;
+  }
+  
+  .downloadAttendance li {
+    font-size: 15px;
+    background-color: rgba(236, 236, 236, 0.472);
+    border: 1px solid black;
+    border-radius: 4px;
+    font-style: italic;
+    padding: 5px 0;
+    margin: 5px;
+    list-style: none;
+    cursor: pointer;
+  }
+  
+  .downloadAttendance li:hover {
+    background-color: rgb(255, 241, 241);
+    
+  }
