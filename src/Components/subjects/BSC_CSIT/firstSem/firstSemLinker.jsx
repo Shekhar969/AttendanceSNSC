@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../../../../App.css'
 import snscLogo from '../../../../assets/logo.png'
+import { MdAssignmentAdd } from "react-icons/md";
+
 
 const subjects = [
   { name: "C Programming", path: "/Bsc_Csit/firstSem/C-Programming" },
@@ -26,9 +28,13 @@ const firstSem = () => {
           key={subject.path}
           aria-label={`Go to ${subject.name} subject`}
         >
-          <button className="subject" data-id={subject.name}>
-            <h3>{subject.name}</h3>
-          </button>
+          <div className="eachSubjectContainer">
+            <button className="subject eachsubject" data-id={subject.name}>
+              <h3>{subject.name}</h3>
+           <Link to="/BSC_CSIT/AssignmentHandeler" className="AddedAssigmentBtn"> <MdAssignmentAdd/>
+           </Link>
+            </button>
+          </div>
         </Link>
       ))}
     </div>
