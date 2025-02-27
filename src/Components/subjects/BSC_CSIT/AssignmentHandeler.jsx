@@ -20,7 +20,7 @@ const AssignmentHandler = () => {
     }
   }, [subject, semester, navigate]);
 
-  // 🔹 Collection-based assignments
+
   const collectionName = `${semester}Assignments`;
 
   const dbDocId = `${subject}Assignment ~${new Date().toISOString().split("T")[0]}`;
@@ -50,7 +50,7 @@ const AssignmentHandler = () => {
     fetchAssignments();
   }, [semester, subject]);
 
-  // 🔹 Add/Edit Assignment (Stored in both collection & fixed document)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -59,8 +59,8 @@ const AssignmentHandler = () => {
       return;
     }
   
-    const assignmentId = `${subject}_${new Date().toISOString()}`; // Generate a predictable ID
-    const assignmentRef = doc(db, collectionName, assignmentId); // Create a doc with custom ID
+    const assignmentId = `${subject}_${new Date().toISOString()}`; 
+    const assignmentRef = doc(db, collectionName, assignmentId); 
   
     const data = {
       subject,
@@ -69,7 +69,7 @@ const AssignmentHandler = () => {
     };
   
     try {
-      // ✅ Store in a fixed document
+     
       await setDoc(AssignmentDocRef, data);
       console.log("✅ Assignment successfully stored in single doc");
   
@@ -80,7 +80,7 @@ const AssignmentHandler = () => {
         toast.success("Assignment Updated Successfully");
         setEditId(null);
       } else {
-        await setDoc(assignmentRef, data); // 🔥 Now using setDoc instead of addDoc
+        await setDoc(assignmentRef, data); 
         toast.success("Assignment Added Successfully");
       }
   
