@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../../../../App.css'
 import snscLogo from '../../../../assets/logo.png'
 import { MdAssignmentAdd } from "react-icons/md";
-
+export   const semester = "seventhSem";
 
 const subjects = [
   { name: "Advanced Java Programming", path: "/Bsc_Csit/seventhSem/Advanced-Java-Programming" },
@@ -31,7 +31,7 @@ const firstSem = () => {
           <div className="eachSubjectContainer">
             <button className="subject eachsubject" data-id={subject.name}>
               <h3>{subject.name}</h3>
-           <Link to="/BSC_CSIT/AssignmentHandeler" className="AddedAssigmentBtn"> <MdAssignmentAdd/>
+           <Link to="/BSC_CSIT/AssignmentHandeler"state={{ subject: subject.name}} className="AddedAssigmentBtn"> <MdAssignmentAdd/>
            </Link>
             </button>
           </div>
