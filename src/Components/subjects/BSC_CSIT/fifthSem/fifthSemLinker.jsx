@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../../../App.css";
 import snscLogo from "../../../../assets/logo.png";
 import { MdAssignmentAdd } from "react-icons/md";
-
+const semester = "fifthSem";
 const subjects = [
   { name: "Cryptography", path: "/Bsc_Csit/fifthSem/Cryptography" },
   { name: "System Analysis and Design", path: "/Bsc_Csit/fifthSem/SAD" },
@@ -12,6 +12,8 @@ const subjects = [
   { name: "Design and Analysis of Algorithms", path: "/Bsc_Csit/fifthSem/DAA" },
   { name: "Multimedia", path: "/Bsc_Csit/fifthSem/Multimedia" },
 ];
+// console.log("Passing to Link -> Subject:", subjects.name, "Semester:", semester);
+
 
 const SubjectLinks = () => {
   return (
@@ -31,7 +33,7 @@ const SubjectLinks = () => {
           <div className="eachSubjectContainer">
             <button className="subject eachsubject" data-id={subject.name}>
               <h3>{subject.name}</h3>
-           <Link to="/BSC_CSIT/AssignmentHandeler" state={{ subject: subject.name}} className="AddedAssigmentBtn"> <MdAssignmentAdd/>
+           <Link  to={`/BSC_CSIT/${semester}/${subject.name}/AssignmentHandler`}    className="AddedAssigmentBtn"> <MdAssignmentAdd/>
            </Link>
             </button>
           </div>

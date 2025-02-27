@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../../../App.css";
 import snscLogo from "../../../../assets/logo.png";
 import { MdAssignmentAdd } from "react-icons/md";
-
+export   const semester = "thirdSem";
 const subjects = [
   {
     name: "Computer Architecture",
@@ -39,6 +39,7 @@ const firstSem = () => {
               <Link
                 to="/BSC_CSIT/AssignmentHandeler"
                 className="AddedAssigmentBtn"
+                state={{ subject: subject.name}}
               >
                 <MdAssignmentAdd />
               </Link>
