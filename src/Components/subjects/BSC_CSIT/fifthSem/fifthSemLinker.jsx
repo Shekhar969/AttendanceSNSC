@@ -12,8 +12,6 @@ const subjects = [
   { name: "Design and Analysis of Algorithms", path: "/Bsc_Csit/fifthSem/DAA" },
   { name: "Multimedia", path: "/Bsc_Csit/fifthSem/Multimedia" },
 ];
-// console.log("Passing to Link -> Subject:", subjects.name, "Semester:", semester);
-
 
 const SubjectLinks = () => {
   return (
