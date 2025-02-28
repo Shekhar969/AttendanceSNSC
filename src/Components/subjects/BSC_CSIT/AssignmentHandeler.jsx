@@ -5,6 +5,11 @@ import { db } from "../../../config/fireBase";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, setDoc, doc } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import snscLogo from "../../../assets/logo.png";
+import { MdDateRange,MdAssignment ,MdDelete} from "react-icons/md";
+import { FaCalendarAlt ,FaEdit} from "react-icons/fa";
+
+
+
 
 const AssignmentHandler = () => {
   const { semester, subject } = useParams();
@@ -59,9 +64,6 @@ const AssignmentHandler = () => {
       return;
     }
   
-    const assignmentId = `${subject}_${new Date().toISOString()}`; 
-    const assignmentRef = doc(db, collectionName, assignmentId); 
-  
     const data = {
       subject,
       message,
@@ -69,18 +71,18 @@ const AssignmentHandler = () => {
     };
   
     try {
-     
+      
       await setDoc(AssignmentDocRef, data);
-      console.log("✅ Assignment successfully stored in single doc");
   
-      // ✅ Store in a collection with a controlled ID
       if (editId) {
+        
         const assignmentRef = doc(db, collectionName, editId);
         await updateDoc(assignmentRef, { message });
         toast.success("Assignment Updated Successfully");
         setEditId(null);
       } else {
-        await setDoc(assignmentRef, data); 
+       
+        await addDoc(collection(db, collectionName), data);
         toast.success("Assignment Added Successfully");
       }
   
@@ -119,23 +121,37 @@ const AssignmentHandler = () => {
   };
 
   return (
-    <div className="assignment-handler">
+    <div className="assignmentHandler">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to={`/Bsc_Csit/${semester}`}>
         <button type="button" className="back-button">Back</button>
       </Link>
-      <h2>Assignments for {subject} - {semester}</h2>
+      <div className="assignmentFormHandler"> 
+      <form onSubmit={handleSubmit} className="assignmentForm">
+        <textarea
+          placeholder="Write Assignment..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          rows="3"
+          className="textareaClass"
+        />
+        <button className="send">{editId ? "Update" : "Submit"}</button>
+        
+      </form></div>
+      <h4>Assignments for  {semester} {subject}</h4>
 
-      <div className="assignments-container">
-        <h3>All Assignments:</h3>
+      <div className="assignmentscontainer">
+        <h4>All Assignments</h4>
         {assignments.length > 0 ? (
-          <div className="assignments-grid">
+          <div className="assignmentsgrid">
             {assignments.map((assignment) => (
-              <div key={assignment.id} className="assignment-card">
-                <p><strong>Date:</strong> {assignment.date}</p>
-                <p><strong>Assignment:</strong> {assignment.message}</p>
-                <button className="edit-btn" onClick={() => handleEdit(assignment)}>Edit</button>
-                <button className="delete-btn" onClick={() => handleDelete(assignment.id)}>Delete</button>
+              <div key={assignment.id} className="assignmentcard">
+              <div className="assignmentNavSection"> <p> <FaCalendarAlt/> {assignment.date}</p>
+               <div className="assignmentEditDelSection"> <button className="editbtn" onClick={() => handleEdit(assignment)}><FaEdit/></button>
+                <button className="deletebtn" onClick={() => handleDelete(assignment.id)}><MdDelete/></button>
+                </div> </div> 
+                <p>{assignment.message}</p>
               </div>
             ))}
           </div>
@@ -144,17 +160,7 @@ const AssignmentHandler = () => {
         )}
       </div>
 
-      <form onSubmit={handleSubmit} className="assignmentForm">
-        <textarea
-          placeholder="Write Assignment..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          rows="3"
-        />
-        <br />
-        <button className="send">{editId ? "Update" : "Submit"}</button>
-      </form>
+
 
       <ToastContainer autoClose={1000} />
     </div>
