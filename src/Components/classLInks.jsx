@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import snscLogo from '../assets/logo.png'
 
 function classLInks() {
   return (
     <>
+     <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/">
         <button type="button" className="back-button , subject ">
           Back
