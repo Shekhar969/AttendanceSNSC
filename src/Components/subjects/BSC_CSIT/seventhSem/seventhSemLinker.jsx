@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import '../../../../App.css'
 import snscLogo from '../../../../assets/logo.png'
+import { MdAssignmentAdd } from "react-icons/md";
+const semester = "seventhSem";
 
 const subjects = [
   { name: "Advanced Java Programming", path: "/Bsc_Csit/seventhSem/Advanced-Java-Programming" },
@@ -14,9 +16,9 @@ const subjects = [
 const firstSem = () => {
   return (
     <div className="subjects">
-        <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
+      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/Bsc_Csit">
-        <button type="button" className="back-button , subject " >
+        <button type="button" className="back-button , subject ">
           Back
         </button>
       </Link>
@@ -26,9 +28,13 @@ const firstSem = () => {
           key={subject.path}
           aria-label={`Go to ${subject.name} subject`}
         >
-          <button className="subject" data-id={subject.name}>
-            <h3>{subject.name}</h3>
-          </button>
+          <div className="eachSubjectContainer">
+            <button className="subject eachsubject" data-id={subject.name}>
+              <h3>{subject.name}</h3>
+           <Link  to={`/BSC_CSIT/${semester}/${subject.name}/AssignmentHandler`}    className="AddedAssigmentBtn"> <MdAssignmentAdd/>
+           </Link>
+            </button>
+          </div>
         </Link>
       ))}
     </div>

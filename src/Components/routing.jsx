@@ -34,6 +34,8 @@ import InternationalMarketing from './subjects/BSC_CSIT/seventhSem/International
 import NetworkSecurity from './subjects/BSC_CSIT/seventhSem/Network-Security.jsx'
 import ProjectWork from './subjects/BSC_CSIT/seventhSem/Project-Work.jsx'
 
+
+import Assignment from "./subjects/BSC_CSIT/AssignmentHandeler.jsx";
 import Classes from './classLInks.jsx'
 import AH from './attendanceHistory/lastMonthAttendance.jsx'
 import SignUpHandler from './auth/signUp.jsx';
@@ -56,6 +58,11 @@ const routes = createBrowserRouter([
     path: "/Bsc_Csit",
     element: <Classes/>,
   },
+  {
+    path: "/BSC_CSIT/:semester/:subject/AssignmentHandler",
+    element: <Assignment />,
+  },
+  
 
 
   //First Sem 

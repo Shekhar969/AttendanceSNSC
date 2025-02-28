@@ -13,9 +13,9 @@ export const useAttendance = (StudentsData, subject,semester) => {
   const [showSummary, setShowSummary] = useState(false);
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
-  const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
   const navigate = useNavigate();
-
+  
+  const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
   const collectionName=`${semester}Attendance`
   const attendanceDocRef = doc(db, collectionName, dbDocId);
 
