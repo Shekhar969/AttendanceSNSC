@@ -74,30 +74,7 @@ function LastMonthAttendance() {
   const [isCalendarVisible, setIsCalendarVisible] = useState(true);
   const navigate = useNavigate();
 
-  // const fetchAttendanceData = async () => {
-  //   try {
-  //     const fetchingAllAttendance={"StudentAttendance","firstSemAttendance"}
-  //     const data = await getDocs(collection(db, fetchingAllAttendance));
-  //     const attendanceArray = data.docs.map((doc) => {
-  //       const record = doc.data();
-  //       return {
-  //         id: doc.id,
-  //         ...record,
-  //         date: record.date?.toDate() || new Date(),
-  //       };
-  //     });
-  //     setAttendanceData(attendanceArray);
-  //   } catch (error) {
-  //     console.error("Error fetching attendance data:", error);
-  //     setError("Failed to fetch attendance data. Please try again later.");
-  //     // alert("Not Logged in! Authenticate Yourself.");
-  //     toast.error(`Not Logged in! Authenticate Yourself.`);
 
-  //     setTimeout(() => {
-  //       navigate("/auth");
-  //     }, 1500);
-  //   }
-  // };
   const fetchAttendanceData = async () => {
     try {
       const collectionNames = [
@@ -134,7 +111,10 @@ function LastMonthAttendance() {
       console.error("Error fetching attendance:", error);
       toast.error("Failed to load attendance records");
     } finally {
-      
+      toast("LogIn To See Attendance")
+      setTimeout(() => {
+              navigate("/auth");
+            }, 1500);
     }
   };
   useEffect(() => {
