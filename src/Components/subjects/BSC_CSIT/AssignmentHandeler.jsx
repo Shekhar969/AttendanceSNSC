@@ -48,6 +48,9 @@ const AssignmentHandler = () => {
     } catch (error) {
       console.error("Error fetching assignments:", error);
       toast.error("Failed to load assignments.");
+            setTimeout(() => {
+                    navigate("/auth");
+                  }, 1500);
     }
   };
 
