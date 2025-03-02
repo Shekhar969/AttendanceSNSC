@@ -110,12 +110,11 @@ function LastMonthAttendance() {
     } catch (error) {
       console.error("Error fetching attendance:", error);
       toast.error("Failed to load attendance records");
-    } finally {
       toast("LogIn To See Attendance")
       setTimeout(() => {
               navigate("/auth");
             }, 1500);
-    }
+    } 
   };
   useEffect(() => {
     const filtered = attendanceData.filter((record) => {

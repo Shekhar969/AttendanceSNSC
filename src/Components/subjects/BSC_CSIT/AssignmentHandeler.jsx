@@ -110,6 +110,8 @@ const AssignmentHandler = () => {
       await deleteDoc(doc(db, collectionName, id));
       toast.success("Assignment Deleted Successfully");
       fetchAssignments();
+      setMessage("");
+      setEditId(null);
     } catch (error) {
       console.error("Error deleting assignment:", error);
       toast.error("Error Deleting Assignment");
