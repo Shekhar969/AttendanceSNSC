@@ -8,7 +8,7 @@ function classLInks() {
     <>
      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/">
-        <button type="button" className="back-button , subject ">
+        <button type="button" className="back-button  subject ">
           Back
         </button>
       </Link>
@@ -25,7 +25,7 @@ function classLInks() {
         </Link> */}
         <Link to="/Bsc_Csit/thirdSem">
               <button className="subject" >
-            <h3> 3st Sem</h3>     
+            <h3> 3rd Sem</h3>     
           </button>
         </Link>
         {/* <Link to="">
@@ -35,7 +35,7 @@ function classLInks() {
         </Link> */}
         <Link to="/Bsc_Csit/fifthSem">
               <button className="subject" >
-            <h3> 5st Sem</h3>     
+            <h3> 5th Sem</h3>     
           </button>
         </Link>
         {/* <Link to="">
@@ -45,7 +45,7 @@ function classLInks() {
         </Link> */}
         <Link to="/Bsc_Csit/seventhSem">
               <button className="subject" >
-            <h3> 7st Sem</h3>     
+            <h3> 7th Sem</h3>     
           </button>
         </Link>
         {/* <Link to="">

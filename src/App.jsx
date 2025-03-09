@@ -24,6 +24,9 @@ function App() {
       <Link to="/AttendanceHistory" className="subject" >
           <h3 >Check Attendance</h3>
         </Link>
+        <Link to="/AllSubjects" className="subject">
+        <h3>Notes</h3>
+        </Link>
       </div> 
     </div>
   );
