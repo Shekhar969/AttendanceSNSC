@@ -3,7 +3,7 @@ import {getFirestore} from "firebase/firestore";
 import { getAuth,GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDfJB6bhjiNzgb1yISZADx50xybpOVJu-8",
+  apiKey: `${import.meta.env.apiHiddenKey}`,
   authDomain: "attendancedbtemp.firebaseapp.com",
   projectId: "attendancedbtemp",
   storageBucket: "attendancedbtemp.firebasestorage.app",
@@ -11,6 +11,8 @@ const firebaseConfig = {
   appId: "1:441916614169:web:bfdce4d4557fcbb1dc6c88",
   measurementId: "G-X1W49W2VXK"
 };
+console.log('api: ',firebaseConfig.apiKey)
+console.log('api imported: ',import.meta.env.apiHiddenKey)
 
 export const googleProvider=new GoogleAuthProvider();
 const app = initializeApp(firebaseConfig);
