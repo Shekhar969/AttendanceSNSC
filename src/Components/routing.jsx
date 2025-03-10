@@ -34,6 +34,15 @@ import InternationalMarketing from './subjects/BSC_CSIT/seventhSem/International
 import NetworkSecurity from './subjects/BSC_CSIT/seventhSem/Network-Security.jsx'
 import ProjectWork from './subjects/BSC_CSIT/seventhSem/Project-Work.jsx'
 
+//Routing for notes
+//first Semester
+import FirstSemester from './Notes_subjects/AllSubjects/firstSem/first-semLinker.jsx'
+import ThirdSemester from './Notes_subjects/AllSubjects/ThirdSem/third-semLinker.jsx'
+import FifthSemester from './Notes_subjects/AllSubjects/fifthSem/fifth-semLinker.jsx'
+import SeventhSemester from './Notes_subjects/AllSubjects/seventhSem/seventh-semLinker.jsx'
+
+
+
 
 import Assignment from "./subjects/BSC_CSIT/AssignmentHandeler.jsx";
 import Classes from './classLInks.jsx'
@@ -176,6 +185,24 @@ const routes = createBrowserRouter([
     path:"/Bsc_Csit/seventhSem/Project-Work",
     element:<ProjectWork/>
   },
+
+  //note 
+  {
+    path:"/AllSubjects/firstSem",
+    element: <FirstSemester/>
+  },
+  {
+    path:"/AllSubjects/ThirdSem",
+    element: <ThirdSemester/>
+  },
+  {
+    path:"/AllSubjects/fifthSem",
+    element: <FifthSemester/>
+  },
+  {
+    path:"/AllSubjects/seventhSem",
+    element: <SeventhSemester/>
+  }
 ]);
 
 export default routes;
