@@ -7,7 +7,9 @@ import Navbar from './Components/navBar.jsx'
 // importing React Toastify
 import 'react-toastify/dist/ReactToastify.css';
 
+
 function App() {
+
   return (
     <div className="mainContainer">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
