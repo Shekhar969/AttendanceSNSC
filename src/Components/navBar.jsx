@@ -24,7 +24,7 @@ const Navbar = () => {
   const { user, userName, setUser } = useAuth();
 
   const LogOutUser = async () => {
-    // console.log("log out button clicked")
+    
     try {
       await signOut(auth);
       console.log("Successfully logged out");
