@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 const useAuth = () => {
   const [user, setUser] = useState(null);
 
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
@@ -25,15 +24,15 @@ const Navbar = () => {
   const { user, userName, setUser } = useAuth();
 
   const LogOutUser = async () => {
-      // console.log("log out button clicked")
-      try {
-        await signOut(auth);
-        console.log("Successfully logged out");
-        setUser(null);
-      } catch (err) {
-        console.error("Failed to log out:", err);
-      }
-    };
+    // console.log("log out button clicked")
+    try {
+      await signOut(auth);
+      console.log("Successfully logged out");
+      setUser(null);
+    } catch (err) {
+      console.error("Failed to log out:", err);
+    }
+  };
 
   const toggleSidebar = () => {
     setIsSidebarVisible((prev) => !prev);
@@ -54,14 +53,16 @@ const Navbar = () => {
           <div>
             <p className="userName">Hello, {displayName}</p>
             <p className="userEmail">{email}</p>
-          </div> 
+          </div>
+          {user ? (
+            <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
+              Log Out
+            </Link>
+          ) : (
             <Link to="/auth" className="userSignUpBtn">
               Verify You
             </Link>
-            <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
-            Log Out
-            </Link>
-          
+          )}
         </div>
       ) : (
         <FaUserAlt className="userPhoto" onClick={toggleSidebar} />
