@@ -10,3 +10,4 @@ createRoot(document.getElementById('root')).render(
     <RouterProvider router={routes} future={{ v7_startTransition: true }} />
   </StrictMode>
 );
+

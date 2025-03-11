@@ -143,7 +143,6 @@ function LastMonthAttendance() {
 
   return (
     <>
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/">
         <button type="button" className="back-button">
           Back
