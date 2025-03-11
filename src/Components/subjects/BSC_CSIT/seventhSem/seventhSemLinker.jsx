@@ -13,7 +13,7 @@ const subjects = [
   { name: "Project Work", path:"/Bsc_Csit/seventhSem/Project-Work"}
 ];
 
-const firstSem = () => {
+const SubjectLinks = () => {
   return (
     <div className="subjects">
       <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
@@ -41,4 +41,4 @@ const firstSem = () => {
   );
 };
 
-export default firstSem;
+export default SubjectLinks;
