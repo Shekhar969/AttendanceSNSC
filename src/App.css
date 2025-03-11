@@ -285,6 +285,7 @@
 .buttonAbs,
 .reset {
   background-color: rgba(253, 72, 72, 0.836);
+  color: #000;
   border-radius: 5px;
   margin: 10px;
   height: 3rem;
@@ -301,6 +302,7 @@
 .buttonPre,
 .send {
   background-color: rgba(99, 202, 58, 0.836);
+  color: #000;
   border-radius: 5px;
   margin: 10px;
   height: 3rem;
@@ -724,6 +726,7 @@
   color: #3d6264;
   text-align: center;
   width: 90%;
+  text-decoration: none;
 }
 
 .userSignUpBtn {
