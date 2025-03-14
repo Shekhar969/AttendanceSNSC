@@ -2,7 +2,6 @@ import React from 'react'
 import {Link} from "react-router-dom";
 import "../../../../App.css";
 import snscLogo from "../../../../assets/logo.png";
-// const sem = "thirdSem";
 
 const subjects = [
     {name: "Computer Architecture",
@@ -42,7 +41,7 @@ const firstSemester= () =>{
                 aria-label={`Go to ${subject.name} subject`}
                 >
                     <div className="eachSubjectContainer">
-                        <button className="subject eachsubject" data-id={subject.name}>
+                        <button className="subject eachsubject designs" data-id={subject.name}>
                             <h3>{subject.name}</h3>
                         </button>
                     </div>

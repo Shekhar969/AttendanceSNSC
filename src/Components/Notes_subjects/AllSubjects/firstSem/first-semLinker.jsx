@@ -26,7 +26,7 @@ const firstSemester= () =>{
                 aria-label={`Go to ${subject.name} subject`}
                 >
                     <div className="eachSubjectContainer">
-                        <button className="subject eachsubject" data-id={subject.name}>
+                        <button className="subject eachsubject designs" data-id={subject.name}>
                             <h3>{subject.name}</h3>
                         </button>
                     </div>

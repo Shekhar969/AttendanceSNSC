@@ -37,8 +37,19 @@ import ProjectWork from './subjects/BSC_CSIT/seventhSem/Project-Work.jsx'
 //Routing for notes
 //first Semester
 import FirstSemester from './Notes_subjects/AllSubjects/firstSem/first-semLinker.jsx'
+
 import ThirdSemester from './Notes_subjects/AllSubjects/ThirdSem/third-semLinker.jsx'
+
+
 import FifthSemester from './Notes_subjects/AllSubjects/fifthSem/fifth-semLinker.jsx'
+import CryptoPdf from './Notes_subjects/AllSubjects/fifthSem/Cryptogrpahy.jsx'
+import Simulation from './Notes_subjects/AllSubjects/fifthSem/SimulationAndModeling.jsx'
+import MultimediaPdf from './Notes_subjects/AllSubjects/fifthSem/Multimedia.jsx'
+import SystemAnalysisAndDesignPdf from './Notes_subjects/AllSubjects/fifthSem/SystemAnalysisAndDesign.jsx';
+import DesignAndAnalysisOfAlgorithmPdf from './Notes_subjects/AllSubjects/fifthSem/DesignAndAnalysisOfAlgorithm.jsx'
+
+
+
 import SeventhSemester from './Notes_subjects/AllSubjects/seventhSem/seventh-semLinker.jsx'
 
 
@@ -49,6 +60,7 @@ import Classes from './classLInks.jsx'
 import AH from './attendanceHistory/lastMonthAttendance.jsx'
 import SignUpHandler from './auth/signUp.jsx';
 import NotesClasses  from './NotesClassLink.jsx';
+// import SystemAnalysisAndDesign from './Notes_subjects/AllSubjects/fifthSem/SystemAnalysisAndDesign.jsx';
 
 
 const routes = createBrowserRouter([
@@ -190,6 +202,26 @@ const routes = createBrowserRouter([
   {
     path:"/AllSubjects/firstSem",
     element: <FirstSemester/>
+  },
+  {
+    path:"/AllSubjects/fifthSem/Cryptography",
+    element:<CryptoPdf/>
+  },
+  {
+    path:"/AllSubjects/fifthSem/SimulationAndModeling",
+    element:<Simulation/>
+  },
+  {
+    path:"/AllSubjects/fifthSem/Multimedia",
+    element:<MultimediaPdf />
+  },
+  {
+    path:"/AllSubjects/fifthSem/SystemAnalysisAndDesign",
+    element:<SystemAnalysisAndDesignPdf />
+  },
+  {
+    path:"/AllSubjects/fifthSem/DesignAndAnalysisOfAlgorithm",
+    element:<DesignAndAnalysisOfAlgorithmPdf/>
   },
   {
     path:"/AllSubjects/ThirdSem",
