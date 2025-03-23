@@ -387,6 +387,20 @@
   color: #00413d;
 }
 
+.attendanceRecordsHandlerSection{
+  display: flex;
+  justify-content: center;
+}
+
+.particularSemRecordFetch li{
+  display: flex;
+  justify-content: space-between;
+  padding: 5  px;
+  gap: 1rem;
+  list-style:none;
+}
+
+
 .attendanceRecordSubjectName,
 .attendanceRecordDate {
   font-size: 15px;

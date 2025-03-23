@@ -13,10 +13,8 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import { FaArrowRightLong } from "react-icons/fa6";
-import snscLogo from "../../assets/logo.png";
 import "../../App.css";
 import { ToastContainer, toast } from "react-toastify";
-import firebase from "firebase/compat/app";
 
 const SignUp = () => {
   const [Email, setEmail] = useState("");
@@ -148,7 +146,6 @@ const SignUp = () => {
 
   return (
     <>
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <div
         className={flipThePage ? "mainSignUpContainer" : "mainLogInContainer"}
       >

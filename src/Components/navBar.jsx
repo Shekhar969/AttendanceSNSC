@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-import homeLogo from "../assets/homePageLogo.png";
+import homeLogo from "../../public/homePageLogo.webp";
 import { auth } from "../config/fireBase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
@@ -40,6 +40,11 @@ const Navbar = () => {
 
   const displayName = userName || user?.displayName || "User";
   const email = user?.email || "No email provided";
+
+useEffect(() => {
+  const preloadImage = new Image();
+  preloadImage.src = homeLogo;
+}, []);
 
   return (
     <div className="navbarHome">

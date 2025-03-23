@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import snscLogo from "../assets/logo.png";
 import "../App.css";
 import { db,auth  } from "../config/fireBase";
 import {  setDoc,  doc, Timestamp } from "firebase/firestore";
@@ -141,7 +140,6 @@ export const AttendancePage = ({ StudentsData, subject ,semester }) => {
   
   return (
     <div className="mainAttendancePage">
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to={-1}>
         <button type="button" className="back-button">
           Back
