@@ -1,4 +1,3 @@
-import React from 'react'
 
 const verifedMails = [
     "shekharrawal96@gmail.com",

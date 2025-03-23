@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../../../App.css";
-import snscLogo from "../../../../assets/logo.png";
 import { MdAssignmentAdd } from "react-icons/md";
 const semester = "fifthSem";
 const subjects = [
@@ -16,7 +15,6 @@ const subjects = [
 const SubjectLinks = () => {
   return (
     <div className="subjects">
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/Bsc_Csit">
         <button type="button" className="back-button , subject ">
           Back
