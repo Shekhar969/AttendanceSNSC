@@ -11,8 +11,8 @@ const firebaseConfig = {
   appId: "1:441916614169:web:bfdce4d4557fcbb1dc6c88",
   measurementId: "G-X1W49W2VXK"
 };
-console.log('api: ',firebaseConfig.apiKey)
-console.log('api imported: ',import.meta.env.apiHiddenKey)
+// console.log('api: ',firebaseConfig.apiKey)
+// console.log('api imported: ',import.meta.env.apiHiddenKey)
 
 export const googleProvider=new GoogleAuthProvider();
 const app = initializeApp(firebaseConfig);
