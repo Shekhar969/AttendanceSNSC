@@ -3,7 +3,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { db } from "../../config/fireBase";
 import { getDocs, collection } from "firebase/firestore";
-import snscLogo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,59 +10,187 @@ import "../attendanceHistory/attendanceColour.css";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { Timestamp, query, where } from "firebase/firestore";
+import { IoMdDownload } from "react-icons/io";
+import { MdCalendarMonth } from "react-icons/md";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
-  const downloadAttendanceExcel = async (selectedSemesters) => {
-    try {
-      const today = new Date();
-      const thirtyDaysAgo = new Date(today);
-      thirtyDaysAgo.setDate(today.getDate() - 30);
-
-      const semesters = selectedSemesters.split(","); 
-      let allAttendanceData = [];
-
-      for (const semester of semesters) {
-        const attendanceQuery = query(
-          collection(db, semester),
-          where("date", ">=", Timestamp.fromDate(thirtyDaysAgo)),
-          where("date", "<=", Timestamp.fromDate(today))
+const downloadAttendanceExcel = async (selectedSemesters) => {
+  try {
+    if (Array.isArray(selectedSemesters)) {
+      selectedSemesters = selectedSemesters.join(",");
+    }
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today);
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+    const semesters = selectedSemesters.split(",");
+    let allAttendanceData = [];
+    for (const semester of semesters) {
+      const attendanceQuery = query(
+        collection(db, semester),
+        where("date", ">=", Timestamp.fromDate(thirtyDaysAgo)),
+        where("date", "<=", Timestamp.fromDate(today))
+      );
+      const querySnapshot = await getDocs(attendanceQuery);
+      if (!querySnapshot.empty) {
+        const semesterData = querySnapshot.docs.flatMap((doc) =>
+          doc.data().attendance.map((student) => ({
+            Subject: doc.data().subject,
+            Roll_No: student.rollno,
+            Name: student.name,
+            Status: student.status,
+            Date: doc.data().date.toDate().toLocaleDateString(),
+          }))
         );
+        allAttendanceData = [...allAttendanceData, ...semesterData];
+      }
+    }
+    if (allAttendanceData.length === 0) {
+      return toast.warn("No attendance data found for the last 30 days.");
+    }
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(
+      workbook,
+      XLSX.utils.json_to_sheet(allAttendanceData),
+      "Attendance"
+    );
+    saveAs(
+      new Blob(
+        [
+          XLSX.write(workbook, {
+            bookType: "xlsx",
+            type: "array",
+          }),
+        ],
+        {
+          type:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        }
+      ),
+      `Attendance_Report_${thirtyDaysAgo.toLocaleDateString()}-${today.toLocaleDateString()}.xlsx`
+    );
+    toast.success("Attendance report downloaded successfully!");
+  } catch (error) {
+    console.error("Error downloading attendance:", error);
+    toast.error("Failed to download attendance report.");
+  }
+};
 
-        const querySnapshot = await getDocs(attendanceQuery);
-        if (!querySnapshot.empty) {
-          const semesterData = querySnapshot.docs.flatMap((doc) =>
-            doc.data().attendance.map((student) => ({
-              Subject: doc.data().subject,
-              Roll_No: student.rollno,
-              Name: student.name,
-              Status: student.status,
-              Date: doc.data().date.toDate().toLocaleDateString(),
-            }))
-          );
-          allAttendanceData = [...allAttendanceData, ...semesterData];
+const downloadAttendanceExcelSummary = async (selectedSemesters) => {
+  try {
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today);
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+    const semesters = selectedSemesters;
+    let allAttendanceData = [];
+    let includeFullAttendance = semesters.length > 1;
+    for (const semester of semesters) {
+      const attendanceQuery = query(
+        collection(db, semester),
+        where("date", ">=", Timestamp.fromDate(thirtyDaysAgo)),
+        where("date", "<=", Timestamp.fromDate(today))
+      );
+      const querySnapshot = await getDocs(attendanceQuery);
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        data.attendance.forEach((student) => {
+          allAttendanceData.push({
+            Subject: data.subject,
+            Roll_No: student.rollno,
+            Name: student.name,
+            Status: student.status,
+            Date: data.date.toDate().toLocaleDateString(),
+          });
+        });
+      });
+    }
+    if (allAttendanceData.length === 0) {
+      return toast.warn("No attendance data found for the last 30 days.");
+    }
+    const groupedData = allAttendanceData.reduce((acc, row) => {
+      const subject = row.Subject;
+      if (!acc[subject]) {
+        acc[subject] = { attendance: [], summary: {} };
+      }
+      acc[subject].attendance.push(row);
+      const name = row.Name;
+      if (!acc[subject].summary[name]) {
+        acc[subject].summary[name] = {
+          rollNo: row.Roll_No,
+          totalDays: 0,
+          presentDays: 0,
+          average: 0,
+        };
+      }
+      acc[subject].summary[name].totalDays += 1;
+      if (row.Status === "Present") {
+        acc[subject].summary[name].presentDays += 1;
+      }
+      acc[subject].summary[name].average =
+        (acc[subject].summary[name].presentDays /
+          acc[subject].summary[name].totalDays) *
+        100;
+      return acc;
+    }, {});
+    let excelData = [];
+    Object.entries(groupedData).forEach(
+      ([subject, { attendance, summary }]) => {
+        excelData.push({ Subject: subject });
+        excelData.push({
+          Name: "Name",
+          Roll_No: "Roll_No",
+          TotalDays: "TotalDays",
+          PresentDays: "PresentDays",
+          Average: "Average (%)",
+        });
+        Object.entries(summary).forEach(([name, data]) => {
+          excelData.push({
+            Name: name,
+            Roll_No: data.rollNo,
+            TotalDays: data.totalDays,
+            PresentDays: data.presentDays,
+            Average: `${data.average}%`,
+          });
+        });
+        excelData.push({});
+        if (includeFullAttendance) {
+          excelData.push({
+            Name: "Name",
+            Roll_No: "Roll_No",
+            Status: "Status",
+            Date: "Date",
+          });
+          attendance.forEach((row) => {
+            excelData.push({
+              Name: row.Name,
+              Roll_No: row.Roll_No,
+              Status: row.Status,
+              Date: row.Date,
+            });
+          });
+          excelData.push({});
         }
       }
-
-      if (allAttendanceData.length === 0) {
-        return toast.warn("No attendance data found for the last 30 days.");
-      }
-
-      // Generate and download Excel file
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(allAttendanceData), "Attendance");
-      saveAs(
-        new Blob([XLSX.write(workbook, { bookType: "xlsx", type: "array" })], {
-          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        }),
-        `Attendance_Report_${thirtyDaysAgo.toLocaleDateString()}-${today.toLocaleDateString()}.xlsx`
-      );
-
-      toast.success("Attendance report downloaded successfully!");
-    } catch (error) {
-      console.error("Error downloading attendance:", error);
-      toast.error("Failed to download attendance report.");
-    }
-  };
-
+    );
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(excelData, { skipHeader: true });
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Attendance");
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const fileBlob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    saveAs(
+      fileBlob,
+      `Attendance_Report_${thirtyDaysAgo.toLocaleDateString()}-${today.toLocaleDateString()}.xlsx`
+    );
+    toast.success("Attendance report downloaded successfully!");
+  } catch (error) {
+    console.error("Error downloading attendance:", error);
+    toast.error("Failed to download attendance report.");
+  }
+};
 
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -71,19 +198,26 @@ function LastMonthAttendance() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState(null);
   const [isDateSelected, setIsDateSelected] = useState(false);
-  const [isCalendarVisible, setIsCalendarVisible] = useState(true);
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
+  const [selectedSemLabel, setSelectedSemLabel] = useState("Choose Sem");
   const navigate = useNavigate();
 
+  const semesters = [
+    { label: "First Semester", value: "firstSemAttendance" },
+    { label: "Third Semester", value: "thirdSemAttendance" },
+    { label: "Fifth Semester", value: "fifthSemAttendance" },
+    { label: "Seventh Semester", value: "seventhSemAttendance" },
+  ];
 
-  const fetchAttendanceData = async () => {
+  const fetchAttendanceData = async (selectedCollections) => {
     try {
-      const collectionNames = [
+      const collectionNames = selectedCollections || [
         "firstSemAttendance",
-        "thirdSemAttendance", 
+        "thirdSemAttendance",
         "fifthSemAttendance",
-        "seventhSemAttendance"
+        "seventhSemAttendance",
       ];
-  
       const results = await Promise.all(
         collectionNames.map(async (collectionName) => {
           try {
@@ -93,7 +227,7 @@ function LastMonthAttendance() {
               collection: collectionName,
               ...doc.data(),
               date: doc.data().date?.toDate?.() || new Date(),
-              attendance: doc.data().attendance || []
+              attendance: doc.data().attendance || [],
             }));
           } catch (error) {
             console.error(`Error fetching ${collectionName}:`, error);
@@ -101,33 +235,28 @@ function LastMonthAttendance() {
           }
         })
       );
-  
       const combinedData = results
         .flat()
-        .filter(record => record.attendance.length > 0);
-  
+        .filter((record) => record.attendance.length > 0);
       setAttendanceData(combinedData);
     } catch (error) {
       console.error("Error fetching attendance:", error);
       toast.error("Failed to load attendance records");
-      toast("LogIn To See Attendance")
+      toast("LogIn To See Attendance");
       setTimeout(() => {
-              navigate("/auth");
-            }, 1500);
-    } 
+        navigate("/auth");
+      }, 1500);
+    }
   };
+
   useEffect(() => {
     const filtered = attendanceData.filter((record) => {
-      const recordDate = record.date instanceof Date ? record.date : new Date(record.date);
+      const recordDate =
+        record.date instanceof Date ? record.date : new Date(record.date);
       return recordDate.toDateString() === selectedDate.toDateString();
     });
     setFilteredData(filtered);
   }, [selectedDate, attendanceData]);
-
-  useEffect(() => {
-    fetchAttendanceData();
-    setIsCalendarVisible(false);
-  }, []);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -138,8 +267,12 @@ function LastMonthAttendance() {
     setIsCalendarVisible((prevState) => !prevState);
   };
 
-    const [showOptions, setShowOptions] = useState(false);
 
+  const handleSemesterSelection = (selectedValues, label) => {
+    fetchAttendanceData(selectedValues);
+    setSelectedSemLabel(label);
+    setShowOptions(false);
+  };
 
   return (
     <>
@@ -148,30 +281,61 @@ function LastMonthAttendance() {
           Back
         </button>
       </Link>
-
       <h1 className="attendanceRecordHeading">Attendance Records</h1>
-
-      <div style={{ padding: "20px" }}>
-        <h2 className="atendanceReordCalendarHeading">
-          Select a Date{" "}
-          <button onClick={toggleCalendarVisibility}>
-            {isCalendarVisible ? "︿" : "﹀"}
+      <div className="attendanceRecordsHandlerSection">
+        <div className="particularSemRecordFetch">
+          <button
+            onClick={() => setShowOptions(!showOptions)}
+            className="downloadAttendanceLastMonthBtn"
+          >
+            {selectedSemLabel} {!showOptions ? <FaAngleDown /> : <FaAngleUp />}
           </button>
-        <div className="downloadAttendance">
-      <button onClick={() => setShowOptions(!showOptions)} className="downloadAttendanceLastMonthBtn">
-        Download Attendance
-      </button>
-      {showOptions && (
-        <ul >
-          <li onClick={() => downloadAttendanceExcel("firstSemAttendance,thirdSemAttendance,fifthSemAttendance,seventhSemAttendance")} >All Semesters</li>
-          <li onClick={() => downloadAttendanceExcel("firstSemAttendance")}>First Semester</li>
-          <li onClick={() => downloadAttendanceExcel("thirdSemAttendance")}>Third Semester</li>
-          <li onClick={() => downloadAttendanceExcel("fifthSemAttendance")}>Fifth Semester</li>
-          <li onClick={() => downloadAttendanceExcel("seventhSemAttendance")}>Seventh Semester</li>
-        </ul>
-      )}
-    </div>
-        </h2>
+          {showOptions && (
+            <ul>
+              <li
+                onClick={() =>
+                  handleSemesterSelection(
+                    semesters.map((s) => s.value),
+                    "All Semesters"
+                  )
+                }
+              >
+                All Semesters
+                <div
+                  className="downloadPaticularSem"
+                  onClick={() =>
+                    downloadAttendanceExcel(
+                      "firstSemAttendance,thirdSemAttendance,fifthSemAttendance,seventhSemAttendance"
+                    )
+                  }
+                >
+                  <IoMdDownload />
+                </div>
+              </li>
+              {semesters.map(({ label, value }) => (
+                <li
+                  key={value}
+                  onClick={() => handleSemesterSelection([value], label)}
+                >
+                  {label}
+                  <div
+                    className="downloadPaticularSem"
+                    onClick={() => downloadAttendanceExcelSummary([value])}
+                  >
+                    <IoMdDownload />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div>
+          <button onClick={toggleCalendarVisibility}>
+            <MdCalendarMonth />
+          </button>
+        </div>
+      </div>
+      <div className="calanderHandeler">
         {isCalendarVisible && (
           <Calendar
             className="calendar"
@@ -179,16 +343,14 @@ function LastMonthAttendance() {
             value={selectedDate}
           />
         )}
-
-        {isDateSelected && (
-          <p className="atendanceReordCalendarHeading">
-            Selected Date: {selectedDate.toDateString()}
-          </p>
-        )}
       </div>
+      {isDateSelected && (
+        <p className="atendanceReordCalendarHeading">
+          Selected Date: {selectedDate.toDateString()}
+        </p>
+      )}
       <div className="records">
         {error && <p style={{ color: "red" }}>{error}</p>}
-
         {filteredData.length === 0 ? (
           <p className="atendanceReordCalendarHeading">
             No attendance data found for this date
@@ -196,7 +358,6 @@ function LastMonthAttendance() {
         ) : (
           filteredData.map((record, index) => (
             <div className="attendanceRecordMainDiv" key={index}>
-              {/* <div className ="records"> */}
               <div className="attendanceRecordSubjectNameDate">
                 <h2 className="attendanceRecordSubjectName">
                   Subject: {record.subject || "Unknown Subject"}
@@ -205,8 +366,6 @@ function LastMonthAttendance() {
                   Date: {record.date.toLocaleString()}
                 </h2>
               </div>
-
-              {/* table */}
               <div className="attendanceRecordInner data-table-container">
                 <table>
                   <thead>
