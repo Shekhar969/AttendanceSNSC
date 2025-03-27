@@ -10,13 +10,10 @@ import "../attendanceHistory/attendanceColour.css";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { Timestamp, query, where } from "firebase/firestore";
-<<<<<<< HEAD
-import LoadingBarSpinner from '../loading-bar.jsx'
-=======
 import { IoMdDownload } from "react-icons/io";
 import { MdCalendarMonth } from "react-icons/md";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
->>>>>>> origin/main
+import LoadingBarSpinner from '../loading-bar'
 
 const downloadAttendanceExcel = async (selectedSemesters) => {
   try {
@@ -202,17 +199,8 @@ function LastMonthAttendance() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState(null);
   const [isDateSelected, setIsDateSelected] = useState(false);
-<<<<<<< HEAD
-  const [isCalendarVisible, setIsCalendarVisible] = useState(true);
-  const [isLoading,setLoading]=useState(false); 
-  const navigate = useNavigate();
-
-  const fetchAttendanceData = async () => {
-    try {
-      
-      const collectionNames = [
-=======
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const [isLoading,setLoading]=useState(false)
   const [showOptions, setShowOptions] = useState(false);
   const [selectedSemLabel, setSelectedSemLabel] = useState("Choose Sem");
   const navigate = useNavigate();
@@ -227,16 +215,11 @@ function LastMonthAttendance() {
   const fetchAttendanceData = async (selectedCollections) => {
     try {
       const collectionNames = selectedCollections || [
->>>>>>> origin/main
         "firstSemAttendance",
         "thirdSemAttendance",
         "fifthSemAttendance",
         "seventhSemAttendance",
       ];
-<<<<<<< HEAD
-      
-=======
->>>>>>> origin/main
       const results = await Promise.all(
         collectionNames.map(async (collectionName) => {
           try {
@@ -266,17 +249,11 @@ function LastMonthAttendance() {
       setTimeout(() => {
         navigate("/auth");
       }, 1500);
-<<<<<<< HEAD
     } finally {
       setLoading(false); 
     }
   };
   
-=======
-    }
-  };
-
->>>>>>> origin/main
   useEffect(() => {
     const filtered = attendanceData.filter((record) => {
       const recordDate =
@@ -312,13 +289,6 @@ function LastMonthAttendance() {
           Back
         </button>
       </Link>
-<<<<<<< HEAD
-      <div style={{ padding: "20px" }}>
-        <h2 className="atendanceReordCalendarHeading">
-          Select a Date{" "}
-          <button onClick={toggleCalendarVisibility}>
-            {isCalendarVisible ? "︿" : "﹀"}
-=======
       <h1 className="attendanceRecordHeading">Attendance Records</h1>
       <div className="attendanceRecordsHandlerSection">
         <div className="particularSemRecordFetch">
@@ -327,7 +297,6 @@ function LastMonthAttendance() {
             className="downloadAttendanceLastMonthBtn"
           >
             {selectedSemLabel} {!showOptions ? <FaAngleDown /> : <FaAngleUp />}
->>>>>>> origin/main
           </button>
           {showOptions && (
             <ul>
@@ -383,7 +352,6 @@ function LastMonthAttendance() {
           />
         )}
       </div>
-<<<<<<< HEAD
       <h1 className="attendanceRecordHeading">Attendance Records</h1>{isLoading ? ( 
   <div className="loadingContainer">
     <LoadingBarSpinner/>
@@ -437,64 +405,7 @@ function LastMonthAttendance() {
     <ToastContainer autoClose={1000} />
   </div>
 )}
-
-     
-
       
-=======
-      {isDateSelected && (
-        <p className="atendanceReordCalendarHeading">
-          Selected Date: {selectedDate.toDateString()}
-        </p>
-      )}
-      <div className="records">
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {filteredData.length === 0 ? (
-          <p className="atendanceReordCalendarHeading">
-            No attendance data found for this date
-          </p>
-        ) : (
-          filteredData.map((record, index) => (
-            <div className="attendanceRecordMainDiv" key={index}>
-              <div className="attendanceRecordSubjectNameDate">
-                <h2 className="attendanceRecordSubjectName">
-                  Subject: {record.subject || "Unknown Subject"}
-                </h2>
-                <h2 className="attendanceRecordDate">
-                  Date: {record.date.toLocaleString()}
-                </h2>
-              </div>
-              <div className="attendanceRecordInner data-table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Roll no.</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {record?.attendance.map((student, studentIndex) => (
-                      <tr
-                        key={studentIndex}
-                        className={
-                          student.status === "Present" ? "present" : "absent"
-                        }
-                      >
-                        <td>{student.name || "Unknown"}</td>
-                        <td>{student.rollno || "Unknown"}</td>
-                        <td>{student.status || "Unknown"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ))
-        )}
-        <ToastContainer autoClose={1000} />
-      </div>
->>>>>>> origin/main
     </>
   );
 }
