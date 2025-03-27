@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import "../../../App.css";
-import { db } from "../../../config/fireBase";
+import { db,auth } from "../../../config/fireBase";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, setDoc, doc } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import snscLogo from "../../../assets/logo.png";
 import { MdDateRange,MdAssignment ,MdDelete} from "react-icons/md";
 import { FaCalendarAlt ,FaEdit} from "react-icons/fa";
+import verifedMails from '../../verfyids'
 
 
 
@@ -17,7 +18,8 @@ const AssignmentHandler = () => {
   const [message, setMessage] = useState("");
   const [assignments, setAssignments] = useState([]);
   const [editId, setEditId] = useState(null);
-
+  const user =auth.currentUser;
+  const userEmail = user?.email || ""; 
   useEffect(() => {
     if (!subject || !semester) {
       toast.error("Subject or Semester not found in URL!");
@@ -131,6 +133,8 @@ const AssignmentHandler = () => {
       <Link to={`/Bsc_Csit/${semester}`}>
         <button type="button" className="back-button">Back</button>
       </Link>
+      {
+        verifedMails.includes(userEmail) ?
       <div className="assignmentFormHandler"> 
       <form onSubmit={handleSubmit} className="assignmentForm">
         <textarea
@@ -143,7 +147,8 @@ const AssignmentHandler = () => {
         />
         <button className="send">{editId ? "Update" : "Submit"}</button>
         
-      </form></div>
+      </form></div> : ""
+      }
       <h4>Assignments for  {semester} {subject}</h4>
 
       <div className="assignmentscontainer">

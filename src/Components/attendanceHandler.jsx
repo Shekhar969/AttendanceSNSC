@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import snscLogo from "../assets/logo.png";
 import "../App.css";
-import { db } from "../config/fireBase";
+import { db,auth  } from "../config/fireBase";
 import {  setDoc,  doc, Timestamp } from "firebase/firestore";
+import verifedMails from "./verfyids"
 import { ToastContainer, toast } from "react-toastify";
-
 
 export const useAttendance = (StudentsData, subject,semester) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [attendanceStatus, setAttendanceStatus] = useState( StudentsData.map(() => ({ status: "Not Marked" })));
   const [showSummary, setShowSummary] = useState(false);
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
-
+  const user =auth.currentUser;
+  const userEmail = user?.email || ""; 
   const navigate = useNavigate();
   
   const dbDocId = `${subject} ~${new Date().toISOString().split("T")[0]}`;
@@ -117,6 +117,7 @@ export const useAttendance = (StudentsData, subject,semester) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
+    userEmail,
   };
 };
 
@@ -131,6 +132,7 @@ export const AttendancePage = ({ StudentsData, subject ,semester }) => {
     resetAttendance,
     sendDataToDatabase,
     isDataSubmitted,
+    userEmail,
   } = useAttendance(StudentsData, subject ,semester);
 
   const currentStudent = StudentsData[currentIndex];
@@ -138,7 +140,6 @@ export const AttendancePage = ({ StudentsData, subject ,semester }) => {
   
   return (
     <div className="mainAttendancePage">
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to={-1}>
         <button type="button" className="back-button">
           Back
@@ -195,7 +196,7 @@ export const AttendancePage = ({ StudentsData, subject ,semester }) => {
         </>
       )}
 
-      {showSummary && !isDataSubmitted && (
+      {showSummary && !isDataSubmitted  &&  verifedMails.includes(userEmail) &&(
         <div className="attendance-summary">
           <h2>Attendance Summary for {subject}</h2>
           {StudentsData?.map((student, index) => (

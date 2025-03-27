@@ -1,15 +1,15 @@
 import React from 'react';
-import snscLogo from './assets/logo.png';
 import './App.css';
 import {Link} from 'react-router-dom'
 import './Components/routing.jsx'
 import Navbar from './Components/navBar.jsx'
 import 'react-toastify/dist/ReactToastify.css';
 
+
 function App() {
+
   return (
     <div className="mainContainer">
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
 
       <div className="navBar">
         <Navbar/>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import '../../../../App.css'
-import snscLogo from '../../../../assets/logo.png'
 import { MdAssignmentAdd } from "react-icons/md";
 const semester="firstSem"
 
@@ -13,10 +12,9 @@ const subjects = [
   { name: "Physics", path:"/Bsc_Csit/firstSem/Physics"}
 ];
 
-const firstSem = () => {
+const SubjectLinks = () => {
   return (
     <div className="subjects">
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <Link to="/Bsc_Csit">
         <button type="button" className="back-button , subject ">
           Back
@@ -41,4 +39,4 @@ const firstSem = () => {
   );
 };
 
-export default firstSem;
+export default SubjectLinks;

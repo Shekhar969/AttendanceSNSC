@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut,
+  sendEmailVerification,
   onAuthStateChanged,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -13,7 +13,6 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import { FaArrowRightLong } from "react-icons/fa6";
-import snscLogo from "../../assets/logo.png";
 import "../../App.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -40,7 +39,6 @@ const SignUp = () => {
     setFlipThePage((prev) => !prev);
   };
 
-  // Sign Up logic
   const signUp = async () => {
     if (!Email || !Password || !ConfirmPassword) {
       toast.warning("Please fill out all fields");
@@ -52,21 +50,26 @@ const SignUp = () => {
       return;
     }
 
+    if (Password.length < 6) {
+      toast.warning("Password length must be at least 6 characters");
+      return;
+    }
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        Email,
-        Password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth,Email,Password);
+      await sendEmailVerification(userCredential.user)
       console.log("Sign-Up successful:", userCredential.user);
       handlePostSignUp(userCredential.user, userName);
     } catch (err) {
-      console.error("Sign-Up failed:", err.message);
-      toast.error("Sign-Up failed:", err.message);
+      if (err.code === "auth/email-already-in-use") {
+        toast.error("This email is already registered.");
+      } else {
+        console.error("Sign-Up failed:", err.message);
+        toast.error("Sign-Up failed:", err.message);
+      }
     }
   };
 
-  // Log In logic
+  
   const logIn = async () => {
     if (!Email || !Password) {
       toast.warning("Please enter both email and password.");
@@ -85,7 +88,7 @@ const SignUp = () => {
       navigate("/"); // Redirect to home page
     } catch (err) {
       console.error("Login failed:", err.message);
-      toast.error("Login failed. Please check your credentials.");
+      toast.error("Login failed. Please check your credentials.", err);
     }
   };
 
@@ -103,7 +106,7 @@ const SignUp = () => {
     }
   };
 
-  // Post Sign-Up user data handling
+  
   const handlePostSignUp = (user, userName) => {
     console.log(`Welcome, ${userName || user.email}`);
     toast.info(`Welcome, ${userName || user.email}`);
@@ -112,7 +115,6 @@ const SignUp = () => {
     navigate("/");
   };
 
-  // Save user data to Firestore
   const saveUserData = async (user, userName) => {
     try {
       await setDoc(doc(db, "users", user.uid), {
@@ -127,7 +129,6 @@ const SignUp = () => {
     }
   };
 
-  // Monitor user authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -145,7 +146,6 @@ const SignUp = () => {
 
   return (
     <>
-      <img src={snscLogo} className="snscLogo" alt="Snsc Logo" />
       <div
         className={flipThePage ? "mainSignUpContainer" : "mainLogInContainer"}
       >

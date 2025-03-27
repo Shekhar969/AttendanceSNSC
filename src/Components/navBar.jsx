@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-import homeLogo from "../assets/homePageLogo.png";
+import homeLogo from "../../public/homePageLogo.webp";
 import { auth } from "../config/fireBase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -25,15 +24,15 @@ const Navbar = () => {
   const { user, userName, setUser } = useAuth();
 
   const LogOutUser = async () => {
-      // console.log("log out button clicked")
-      try {
-        await signOut(auth);
-        console.log("Successfully logged out");
-        setUser(null);
-      } catch (err) {
-        console.error("Failed to log out:", err);
-      }
-    };
+    
+    try {
+      await signOut(auth);
+      console.log("Successfully logged out");
+      setUser(null);
+    } catch (err) {
+      console.error("Failed to log out:", err);
+    }
+  };
 
   const toggleSidebar = () => {
     setIsSidebarVisible((prev) => !prev);
@@ -41,6 +40,11 @@ const Navbar = () => {
 
   const displayName = userName || user?.displayName || "User";
   const email = user?.email || "No email provided";
+
+useEffect(() => {
+  const preloadImage = new Image();
+  preloadImage.src = homeLogo;
+}, []);
 
   return (
     <div className="navbarHome">
@@ -54,14 +58,16 @@ const Navbar = () => {
           <div>
             <p className="userName">Hello, {displayName}</p>
             <p className="userEmail">{email}</p>
-          </div> 
+          </div>
+          {user ? (
+            <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
+              Log Out
+            </Link>
+          ) : (
             <Link to="/auth" className="userSignUpBtn">
               Verify You
             </Link>
-            <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
-            Log Out
-            </Link>
-          
+          )}
         </div>
       ) : (
         <FaUserAlt className="userPhoto" onClick={toggleSidebar} />
