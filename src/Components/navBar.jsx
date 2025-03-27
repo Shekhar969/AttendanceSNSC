@@ -5,6 +5,8 @@ import homeLogo from "../../public/homePageLogo.webp";
 import { auth } from "../config/fireBase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -22,6 +24,9 @@ const useAuth = () => {
 const Navbar = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const { user, userName, setUser } = useAuth();
+  const [showSemesters, setShowSemesters] = useState(false);
+  const location = useLocation();
+
 
   const LogOutUser = async () => {
     
@@ -36,16 +41,18 @@ const Navbar = () => {
 
   const toggleSidebar = () => {
     setIsSidebarVisible((prev) => !prev);
+    setShowSemesters(false); 
   };
 
+  const toggleSemesters = () => {
+    setShowSemesters(!showSemesters);
+  };
+  useEffect(() => {
+    setShowSemesters(false); // Reset semesters when navigating to a new page
+  }, [location]);
+
   const displayName = userName || user?.displayName || "User";
-  const email = user?.email || "No email provided";
-
-useEffect(() => {
-  const preloadImage = new Image();
-  preloadImage.src = homeLogo;
-}, []);
-
+  // const email = user?.email || "No email provided";
   return (
     <div className="navbarHome">
       <div className="logoScsn">
@@ -54,19 +61,52 @@ useEffect(() => {
 
       {isSidebarVisible ? (
         <div className="sideBar visible">
-          <IoCloseSharp className="closeNavBar" onClick={toggleSidebar} />
-          <div>
-            <p className="userName">Hello, {displayName}</p>
-            <p className="userEmail">{email}</p>
-          </div>
-          {user ? (
-            <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
-              Log Out
-            </Link>
-          ) : (
-            <Link to="/auth" className="userSignUpBtn">
-              Verify You
-            </Link>
+         <IoCloseSharp className="closeNavBar" onClick={toggleSidebar} />
+         
+          
+          {!showSemesters && (  
+            <div>
+         
+              <p className="userName">Hello, {displayName}</p>
+            </div>
+          )}
+
+          
+          {!showSemesters && ( 
+            <>
+              <Link to="/" className="side-subject">Home</Link>
+              <button onClick={toggleSemesters} className="side-subject">Semesters</button>
+            </>
+          )}
+
+          
+          {showSemesters && (
+            <ul>
+              <li>
+                <Link to="/Bsc_Csit/firstSem">First Semester</Link>
+              </li>
+              <li>
+                <Link to="/Bsc_Csit/thirdSem">Third Semester</Link>
+              </li>
+              <li>
+                <Link to="/Bsc_Csit/fifthSem">Fifth Semester</Link>
+              </li>
+              <li>
+                <Link to="/Bsc_Csit/seventhSem">Seventh Semester</Link>
+              </li>
+            </ul>
+          )}
+
+          {!showSemesters && (
+            user ? (
+              <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
+                Log Out
+              </Link>
+            ) : (
+              <Link to="/auth" className="userSignUpBtn">
+                Verify You
+              </Link>
+            )
           )}
         </div>
       ) : (
