@@ -11,6 +11,7 @@ import "../attendanceHistory/attendanceColour.css";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { Timestamp, query, where } from "firebase/firestore";
+import LoadingBarSpinner from '../loading-bar.jsx'
 
   const downloadAttendanceExcel = async (selectedSemesters) => {
     try {
@@ -72,21 +73,23 @@ function LastMonthAttendance() {
   const [error, setError] = useState(null);
   const [isDateSelected, setIsDateSelected] = useState(false);
   const [isCalendarVisible, setIsCalendarVisible] = useState(true);
+  const [isLoading,setLoading]=useState(false); 
   const navigate = useNavigate();
-
 
   const fetchAttendanceData = async () => {
     try {
+      
       const collectionNames = [
         "firstSemAttendance",
         "thirdSemAttendance", 
         "fifthSemAttendance",
         "seventhSemAttendance"
       ];
-  
+      
       const results = await Promise.all(
         collectionNames.map(async (collectionName) => {
           try {
+            setLoading(true); 
             const snapshot = await getDocs(collection(db, collectionName));
             return snapshot.docs.map((doc) => ({
               id: doc.id,
@@ -110,19 +113,24 @@ function LastMonthAttendance() {
     } catch (error) {
       console.error("Error fetching attendance:", error);
       toast.error("Failed to load attendance records");
-      toast("LogIn To See Attendance")
+      toast("LogIn To See Attendance");
       setTimeout(() => {
-              navigate("/auth");
-            }, 1500);
-    } 
+        navigate("/auth");
+      }, 1500);
+    } finally {
+      setLoading(false); 
+    }
   };
+  
   useEffect(() => {
     const filtered = attendanceData.filter((record) => {
       const recordDate = record.date instanceof Date ? record.date : new Date(record.date);
       return recordDate.toDateString() === selectedDate.toDateString();
     });
     setFilteredData(filtered);
+    setLoading(false);
   }, [selectedDate, attendanceData]);
+  
 
   useEffect(() => {
     fetchAttendanceData();
@@ -130,6 +138,7 @@ function LastMonthAttendance() {
   }, []);
 
   const handleDateChange = (date) => {
+    setLoading(true);
     setSelectedDate(date);
     setIsDateSelected(true);
   };
@@ -149,9 +158,6 @@ function LastMonthAttendance() {
           Back
         </button>
       </Link>
-
-      <h1 className="attendanceRecordHeading">Attendance Records</h1>
-
       <div style={{ padding: "20px" }}>
         <h2 className="atendanceReordCalendarHeading">
           Select a Date{" "}
@@ -187,57 +193,63 @@ function LastMonthAttendance() {
           </p>
         )}
       </div>
-      <div className="records">
-        {error && <p style={{ color: "red" }}>{error}</p>}
+      <h1 className="attendanceRecordHeading">Attendance Records</h1>{isLoading ? ( 
+  <div className="loadingContainer">
+    <LoadingBarSpinner/>
+  </div>
+) : (
+  <div className="records">
+    {error && <p style={{ color: "red" }}>{error}</p>}
+    {filteredData.length === 0 ? (
+      <p className="atendanceReordCalendarHeading">
+        No attendance data found for this date
+      </p>
+    ) : (
+      filteredData.map((record, index) => (
+        <div className="attendanceRecordMainDiv" key={index}>
+          <div className="attendanceRecordSubjectNameDate">
+            <h2 className="attendanceRecordSubjectName">
+              Subject: {record.subject || "Unknown Subject"}
+            </h2>
+            <h2 className="attendanceRecordDate">
+              Date: {record.date.toLocaleString()}
+            </h2>
+          </div>
+          <div className="attendanceRecordInner data-table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Roll no.</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {record?.attendance.map((student, studentIndex) => (
+                  <tr
+                    key={studentIndex}
+                    className={
+                      student.status === "Present" ? "present" : "absent"
+                    }
+                  >
+                    <td>{student.name || "Unknown"}</td>
+                    <td>{student.rollno || "Unknown"}</td>
+                    <td>{student.status || "Unknown"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))
+    )}
+    <ToastContainer autoClose={1000} />
+  </div>
+)}
 
-        {filteredData.length === 0 ? (
-          <p className="atendanceReordCalendarHeading">
-            No attendance data found for this date
-          </p>
-        ) : (
-          filteredData.map((record, index) => (
-            <div className="attendanceRecordMainDiv" key={index}>
-              {/* <div className ="records"> */}
-              <div className="attendanceRecordSubjectNameDate">
-                <h2 className="attendanceRecordSubjectName">
-                  Subject: {record.subject || "Unknown Subject"}
-                </h2>
-                <h2 className="attendanceRecordDate">
-                  Date: {record.date.toLocaleString()}
-                </h2>
-              </div>
+     
 
-              {/* table */}
-              <div className="attendanceRecordInner data-table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Roll no.</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {record?.attendance.map((student, studentIndex) => (
-                      <tr
-                        key={studentIndex}
-                        className={
-                          student.status === "Present" ? "present" : "absent"
-                        }
-                      >
-                        <td>{student.name || "Unknown"}</td>
-                        <td>{student.rollno || "Unknown"}</td>
-                        <td>{student.status || "Unknown"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ))
-        )}
-        <ToastContainer autoClose={1000} />
-      </div>
+      
     </>
   );
 }

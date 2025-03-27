@@ -4,7 +4,6 @@ import './App.css';
 import {Link} from 'react-router-dom'
 import './Components/routing.jsx'
 import Navbar from './Components/navBar.jsx'
-// importing React Toastify
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
