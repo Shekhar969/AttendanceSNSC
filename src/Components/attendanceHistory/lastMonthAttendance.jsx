@@ -127,9 +127,9 @@ const downloadAttendanceExcelSummary = async (selectedSemesters) => {
         acc[subject].summary[name].presentDays += 1;
       }
       acc[subject].summary[name].average =
-        (acc[subject].summary[name].presentDays /
+        Math.ceil((acc[subject].summary[name].presentDays /
           acc[subject].summary[name].totalDays) *
-        100;
+        100);
       return acc;
     }, {});
     let excelData = [];
@@ -220,10 +220,11 @@ function LastMonthAttendance() {
         "fifthSemAttendance",
         "seventhSemAttendance",
       ];
+  
       const results = await Promise.all(
         collectionNames.map(async (collectionName) => {
           try {
-            setLoading(true); 
+            setLoading(true);
             const snapshot = await getDocs(collection(db, collectionName));
             return snapshot.docs.map((doc) => ({
               id: doc.id,
@@ -234,25 +235,47 @@ function LastMonthAttendance() {
             }));
           } catch (error) {
             console.error(`Error fetching ${collectionName}:`, error);
-            return [];
+            
+            // Check if error is due to permission issues
+            if (
+              error.code === "permission-denied" || 
+              error.message.includes("Missing or insufficient permissions")
+            ) {
+              toast.error("Permission Denied! Redirecting to login...");
+              setTimeout(() => {
+                navigate("/auth");
+              }, 1500);
+            }
+            
+            return []; 
           }
         })
       );
+  
       const combinedData = results
         .flat()
         .filter((record) => record.attendance.length > 0);
+      
       setAttendanceData(combinedData);
     } catch (error) {
       console.error("Error fetching attendance:", error);
       toast.error("Failed to load attendance records");
-      toast("LogIn To See Attendance");
-      setTimeout(() => {
-        navigate("/auth");
-      }, 1500);
+  
+      // Handle permission-related errors globally
+      if (
+        error.code === "permission-denied" || 
+        error.message.includes("Missing or insufficient permissions")
+      ) {
+        toast("LogIn To See Attendance");
+        setTimeout(() => {
+          navigate("/auth");
+        }, 1500);
+      }
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
+  
   
   useEffect(() => {
     const filtered = attendanceData.filter((record) => {
@@ -352,7 +375,7 @@ function LastMonthAttendance() {
           />
         )}
       </div>
-      <h1 className="attendanceRecordHeading">Attendance Records</h1>{isLoading ? ( 
+{isLoading ? ( 
   <div className="loadingContainer">
     <LoadingBarSpinner/>
   </div>
@@ -361,7 +384,9 @@ function LastMonthAttendance() {
     {error && <p style={{ color: "red" }}>{error}</p>}
     {filteredData.length === 0 ? (
       <p className="atendanceReordCalendarHeading">
-        No attendance data found for this date
+        <br />
+        {selectedSemLabel =="Choose Sem" ? "Select A Semester" :"No attendance data found for this date "} 
+        
       </p>
     ) : (
       filteredData.map((record, index) => (
@@ -402,10 +427,10 @@ function LastMonthAttendance() {
         </div>
       ))
     )}
-    <ToastContainer autoClose={1000} />
   </div>
 )}
       
+<ToastContainer autoClose={1000} />
     </>
   );
 }

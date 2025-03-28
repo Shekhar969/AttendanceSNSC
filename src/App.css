@@ -212,6 +212,7 @@
   box-shadow: 0 10px 20px rgb(224, 211, 187);
   /* background-color: #f3f3f3; */
   backdrop-filter: blur(8px);
+  cursor: pointer;
 }
 
 .student-list h1 {
