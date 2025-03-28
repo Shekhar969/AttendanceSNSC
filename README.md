@@ -1,6 +1,6 @@
 # AttendanceSNSC
 
-Just a simple attendance app from upcomming devs <3
+A simple attendance app allows users to mark attendance, track records, and generate reports. It typically includes features like user authentication, a dashboard to view attendance logs, and export options.
 
 ## Getting Started
 
