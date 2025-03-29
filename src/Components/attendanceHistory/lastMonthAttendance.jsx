@@ -13,7 +13,7 @@ import { Timestamp, query, where } from "firebase/firestore";
 import { IoMdDownload } from "react-icons/io";
 import { MdCalendarMonth } from "react-icons/md";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import LoadingBarSpinner from '../loading-bar'
+import LoadingBarSpinner from "../loading-bar";
 
 const downloadAttendanceExcel = async (selectedSemesters) => {
   try {
@@ -63,8 +63,7 @@ const downloadAttendanceExcel = async (selectedSemesters) => {
           }),
         ],
         {
-          type:
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         }
       ),
       `Attendance_Report_${thirtyDaysAgo.toLocaleDateString()}-${today.toLocaleDateString()}.xlsx`
@@ -126,10 +125,11 @@ const downloadAttendanceExcelSummary = async (selectedSemesters) => {
       if (row.Status === "Present") {
         acc[subject].summary[name].presentDays += 1;
       }
-      acc[subject].summary[name].average =
-        Math.ceil((acc[subject].summary[name].presentDays /
+      acc[subject].summary[name].average = Math.ceil(
+        (acc[subject].summary[name].presentDays /
           acc[subject].summary[name].totalDays) *
-        100);
+          100
+      );
       return acc;
     }, {});
     let excelData = [];
@@ -192,7 +192,6 @@ const downloadAttendanceExcelSummary = async (selectedSemesters) => {
     toast.error("Failed to download attendance report.");
   }
 };
-
 function LastMonthAttendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -200,7 +199,7 @@ function LastMonthAttendance() {
   const [error, setError] = useState(null);
   const [isDateSelected, setIsDateSelected] = useState(false);
   const [isCalendarVisible, setIsCalendarVisible] = useState(false);
-  const [isLoading,setLoading]=useState(false)
+  const [isLoading, setLoading] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [selectedSemLabel, setSelectedSemLabel] = useState("Choose Sem");
   const navigate = useNavigate();
@@ -220,7 +219,7 @@ function LastMonthAttendance() {
         "fifthSemAttendance",
         "seventhSemAttendance",
       ];
-  
+
       const results = await Promise.all(
         collectionNames.map(async (collectionName) => {
           try {
@@ -235,10 +234,8 @@ function LastMonthAttendance() {
             }));
           } catch (error) {
             console.error(`Error fetching ${collectionName}:`, error);
-            
-            // Check if error is due to permission issues
             if (
-              error.code === "permission-denied" || 
+              error.code === "permission-denied" ||
               error.message.includes("Missing or insufficient permissions")
             ) {
               toast.error("Permission Denied! Redirecting to login...");
@@ -246,24 +243,18 @@ function LastMonthAttendance() {
                 navigate("/auth");
               }, 1500);
             }
-            
-            return []; 
+            return [];
           }
         })
       );
-  
-      const combinedData = results
-        .flat()
-        .filter((record) => record.attendance.length > 0);
-      
+
+      const combinedData = results.flat().filter((record) => record.attendance.length > 0);
       setAttendanceData(combinedData);
     } catch (error) {
       console.error("Error fetching attendance:", error);
       toast.error("Failed to load attendance records");
-  
-      // Handle permission-related errors globally
       if (
-        error.code === "permission-denied" || 
+        error.code === "permission-denied" ||
         error.message.includes("Missing or insufficient permissions")
       ) {
         toast("LogIn To See Attendance");
@@ -275,18 +266,17 @@ function LastMonthAttendance() {
       setLoading(false);
     }
   };
-  
-  
+
+
   useEffect(() => {
     const filtered = attendanceData.filter((record) => {
-      const recordDate =
-        record.date instanceof Date ? record.date : new Date(record.date);
+      const recordDate = record.date instanceof Date ? record.date : new Date(record.date);
       return recordDate.toDateString() === selectedDate.toDateString();
     });
     setFilteredData(filtered);
     setLoading(false);
+    setIsCalendarVisible(false);
   }, [selectedDate, attendanceData]);
-  
 
   const handleDateChange = (date) => {
     setLoading(true);
@@ -298,11 +288,82 @@ function LastMonthAttendance() {
     setIsCalendarVisible((prevState) => !prevState);
   };
 
-
   const handleSemesterSelection = (selectedValues, label) => {
     fetchAttendanceData(selectedValues);
     setSelectedSemLabel(label);
     setShowOptions(false);
+  };
+
+  const renderCombinedAttendanceTable = () => {
+    const subjectRecords = {};
+    filteredData.forEach((record) => {
+      if (record.subject) {
+        if (!subjectRecords[record.subject]) {
+          subjectRecords[record.subject] = record;
+        }
+      }
+    });
+    const uniqueSubjects = Object.keys(subjectRecords);
+
+    // Build a unique list of students across all subject records.
+    const studentMap = {};
+    filteredData.forEach((record) => {
+      record.attendance.forEach((student) => {
+        if (!studentMap[student.rollno]) {
+          studentMap[student.rollno] = {
+            rollno: student.rollno,
+            name: student.name,
+          };
+        }
+      });
+    });
+    const uniqueStudents = Object.values(studentMap);
+
+    return (
+      <div className="attendanceRecordInner data-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th id="rollNoTD">Roll no.</th>
+              <th>Name</th>
+              {uniqueSubjects.map((subject, idx) => (
+                <th key={idx}>{subject}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {uniqueStudents.map((student, sIndex) => (
+              <tr key={sIndex}>
+                <td>{student.rollno || "Unknown"}</td>
+                <td>{student.name || "Unknown"}</td>
+                {uniqueSubjects.map((subject, subIndex) => {
+                  
+                  const record = subjectRecords[subject];
+                 
+                  const studentAttendance = record.attendance.find(
+                    (att) => att.rollno === student.rollno
+                  );
+                  return (
+                    <td
+                      key={subIndex}
+                      className={
+                        studentAttendance && studentAttendance.status === "Present"
+                          ? "present"
+                          : "absent" 
+                      }
+                    >
+                      {studentAttendance
+                        ? studentAttendance.status || "Unknown"
+                        : "N/A"}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   };
 
   return (
@@ -361,7 +422,7 @@ function LastMonthAttendance() {
           )}
         </div>
         <div>
-          <button onClick={toggleCalendarVisibility}>
+          <button onClick={toggleCalendarVisibility} className="calanderContainer"> 
             <MdCalendarMonth />
           </button>
         </div>
@@ -375,64 +436,29 @@ function LastMonthAttendance() {
           />
         )}
       </div>
-{isLoading ? ( 
-  <div className="loadingContainer">
-    <LoadingBarSpinner/>
-  </div>
-) : (
-  <div className="records">
-    {error && <p style={{ color: "red" }}>{error}</p>}
-    {filteredData.length === 0 ? (
-      <p className="atendanceReordCalendarHeading">
-        <br />
-        {selectedSemLabel =="Choose Sem" ? "Select A Semester" :"No attendance data found for this date "} 
-        
-      </p>
-    ) : (
-      filteredData.map((record, index) => (
-        <div className="attendanceRecordMainDiv" key={index}>
-          <div className="attendanceRecordSubjectNameDate">
-            <h2 className="attendanceRecordSubjectName">
-              Subject: {record.subject || "Unknown Subject"}
-            </h2>
-            <h2 className="attendanceRecordDate">
-              Date: {record.date.toLocaleString()}
-            </h2>
-          </div>
-          <div className="attendanceRecordInner data-table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Roll no.</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {record?.attendance.map((student, studentIndex) => (
-                  <tr
-                    key={studentIndex}
-                    className={
-                      student.status === "Present" ? "present" : "absent"
-                    }
-                  >
-                    <td>{student.name || "Unknown"}</td>
-                    <td>{student.rollno || "Unknown"}</td>
-                    <td>{student.status || "Unknown"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      {isLoading ? (
+        <div className="loadingContainer">
+          <LoadingBarSpinner />
         </div>
-      ))
-    )}
-  </div>
-)}
-      
-<ToastContainer autoClose={1000} />
+      ) : (
+        <div className="records">
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {filteredData.length === 0 ? (
+            <p className="atendanceReordCalendarHeading">
+              <br />
+              {selectedSemLabel === "Choose Sem"
+                ? "Select A Semester"
+                : "No attendance data found for this date"}
+            </p>
+          ) : (
+            renderCombinedAttendanceTable()
+          )}
+        </div>
+      )}
+      <ToastContainer autoClose={1000} />
     </>
   );
 }
 
 export default LastMonthAttendance;
+

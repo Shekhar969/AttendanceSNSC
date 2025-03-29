@@ -2,7 +2,11 @@
 .data-table-container{
 table tr th{
     background-color: whitesmoke;
+    min-width: 10rem;
 }
+}
+#rollNoTD{
+  min-width: 3rem;
 }
 
 .present{

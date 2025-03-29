@@ -430,17 +430,20 @@
   backdrop-filter: blur(6px);
 }
 
-@media (min-width: 480px) {
   .records {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
-}
+
 
 .attendanceRecordInner {
   gap: 3rem;
   display: flex;
-  min-height: 200px;
+  /* justify-content: center; */
+  align-items: center;
+  width: fit-content;
   height: fit-content;
   min-width: 200px;
   border: 1px solid #ddd;

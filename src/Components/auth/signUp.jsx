@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { auth, googleProvider, db } from "../../config/fireBase";
+import LoadingBarSpinner from "../loading-bar";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -24,22 +25,22 @@ const SignUp = () => {
   const [userName, setUserName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [flipThePage, setFlipThePage] = useState(true); // State for SignUp and LogIn toggle
+  const [isLoading, setLoading] = useState(false);
+  const [flipThePage, setFlipThePage] = useState(true);
   const navigate = useNavigate();
 
-  // Password icon toggle
   const passwordIcon = showConfirmPassword ? (
     <FaEye className="signUpPageIcons" />
   ) : (
     <FaEyeSlash className="signUpPageIcons" />
   );
 
-  // Toggle between SignUp and LogIn
   const flipPage = () => {
     setFlipThePage((prev) => !prev);
   };
 
   const signUp = async () => {
+    setLoading(true);
     if (!Email || !Password || !ConfirmPassword) {
       toast.warning("Please fill out all fields");
       return;
@@ -55,8 +56,13 @@ const SignUp = () => {
       return;
     }
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth,Email,Password);
-      await sendEmailVerification(userCredential.user)
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        Email,
+        Password
+      );
+      await sendEmailVerification(userCredential.user);
+      setLoading(false);
       console.log("Sign-Up successful:", userCredential.user);
       handlePostSignUp(userCredential.user, userName);
     } catch (err) {
@@ -69,7 +75,6 @@ const SignUp = () => {
     }
   };
 
-  
   const logIn = async () => {
     if (!Email || !Password) {
       toast.warning("Please enter both email and password.");
@@ -106,7 +111,6 @@ const SignUp = () => {
     }
   };
 
-  
   const handlePostSignUp = (user, userName) => {
     console.log(`Welcome, ${userName || user.email}`);
     toast.info(`Welcome, ${userName || user.email}`);
@@ -146,127 +150,131 @@ const SignUp = () => {
 
   return (
     <>
-      <div
-        className={flipThePage ? "mainSignUpContainer" : "mainLogInContainer"}
-      >
-        {flipThePage ? (
-          <div className="signUpForm">
-            <div className="topSection">
-              <h3 className="userSignUpHeading">Sign Up</h3>
-              <div className="" onClick={flipPage}>
-                <div className="goTOLogIn">
-                  {/* <label>login</label> */}
-                  <FaArrowRightLong />
+      {isLoading ? (
+        <LoadingBarSpinner />
+      ) : (
+        <div
+          className={flipThePage ? "mainSignUpContainer" : "mainLogInContainer"}
+        >
+          {flipThePage ? (
+            <div className="signUpForm">
+              <div className="topSection">
+                <h3 className="userSignUpHeading">Sign Up</h3>
+                <div className="" onClick={flipPage}>
+                  <div className="goTOLogIn">
+                    {/* <label>login</label> */}
+                    <FaArrowRightLong />
+                  </div>
                 </div>
               </div>
-            </div>
-            <label htmlFor="username">Username</label>
-            <div className="inputContainers">
-              <input
-                id="username"
-                type="text"
-                placeholder="Choose a username"
-                className="userName"
-                onChange={(e) => setUserName(e.target.value)}
-              />
-              <FaUser className="signUpPageIcons" />
-            </div>
-            <label htmlFor="email">Email</label>
-            <div className="inputContainers">
-              <input
-                id="email"
-                type="email"
-                placeholder="Email"
-                className="userEmail"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <IoIosMail className="signUpPageIcons" />
-            </div>
-            <label htmlFor="password">Password</label>
-            <div className="inputContainers">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                className="userPassword"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="passwordToggleIcon"
-              >
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              <label htmlFor="username">Username</label>
+              <div className="inputContainers">
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Choose a username"
+                  className="userName"
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+                <FaUser className="signUpPageIcons" />
               </div>
-            </div>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <div className="inputContainers">
-              <input
-                id="confirmPassword"
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirm password"
-                className="confirmPassword"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              <div
-                onClick={() => setShowConfirmPassword((prev) => !prev)}
-                className="passwordToggleIcon"
-              >
-                {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+              <label htmlFor="email">Email</label>
+              <div className="inputContainers">
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  className="userEmail"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <IoIosMail className="signUpPageIcons" />
               </div>
-            </div>
-            <button onClick={signUp} className="signUpBtn">
-              Sign Up
-            </button>
-            <ToastContainer autoClose={2000} />
-            <span>OR</span>
-            <button onClick={googleSignUp} className="googleSignUPBtn">
+              <label htmlFor="password">Password</label>
+              <div className="inputContainers">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="userPassword"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="passwordToggleIcon"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </div>
+              </div>
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <div className="inputContainers">
+                <input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm password"
+                  className="confirmPassword"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="passwordToggleIcon"
+                >
+                  {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                </div>
+              </div>
+              <button onClick={signUp} className="signUpBtn">
+                Sign Up
+              </button>
               <ToastContainer autoClose={2000} />
-              <FcGoogle className="googleSignUPBtnIcon" />
-              <span>Sign Up with Google</span>
-            </button>
-          </div>
-        ) : (
-          <div className="logInForm">
-            <div className="topSection">
-              <h3 className="userSignUpHeading">Log In</h3>
-              <div className="goTOLogIn">
-                <FaArrowRightLong onClick={flipPage} />
+              <span>OR</span>
+              <button onClick={googleSignUp} className="googleSignUPBtn">
+                <ToastContainer autoClose={2000} />
+                <FcGoogle className="googleSignUPBtnIcon" />
+                <span>Sign Up with Google</span>
+              </button>
+            </div>
+          ) : (
+            <div className="logInForm">
+              <div className="topSection">
+                <h3 className="userSignUpHeading">Log In</h3>
+                <div className="goTOLogIn">
+                  <FaArrowRightLong onClick={flipPage} />
+                </div>
               </div>
-            </div>
-            <label htmlFor="email">Email</label>
-            <div className="inputContainers">
-              <input
-                id="email"
-                type="email"
-                placeholder="Email"
-                className="userEmail"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <IoIosMail className="signUpPageIcons" />
-            </div>
-            <label htmlFor="password">Password</label>
-            <div className="inputContainers">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                className="userPassword"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="passwordToggleIcon"
-              >
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              <label htmlFor="email">Email</label>
+              <div className="inputContainers">
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  className="userEmail"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <IoIosMail className="signUpPageIcons" />
               </div>
+              <label htmlFor="password">Password</label>
+              <div className="inputContainers">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="userPassword"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="passwordToggleIcon"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </div>
+              </div>
+              <button onClick={logIn} className="logInBtn">
+                Log In
+              </button>
             </div>
-            <button onClick={logIn} className="logInBtn">
-              Log In
-            </button>
-            <ToastContainer autoClose={2000} />
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
+      <ToastContainer autoClose={2000} />
     </>
   );
 };
