@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Root -->
+  <url>
+    <loc>https://www.shekharrawal.com.np/</loc>
+    <priority>1.0</priority>    
+  </url>
+  
+  <!-- Auth & Utility -->
+  <url>
+    <loc>https://www.shekharrawal.com.np/auth</loc>
+  </url>
+  <url>
+    <loc>https://www.shekharrawal.com.np/AttendanceHistory</loc>
+  </url>
+
+  <!-- BSc CSIT -->
+  <url>
+    <loc>https://www.shekharrawal.com.np/Bsc_Csit</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- First Semester -->
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/firstSem</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/firstSem/C-Programming</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/firstSem/Digital-Logic</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/firstSem/Introduction-to-Information-Technology</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/firstSem/Mathematics-I</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/firstSem/Physics</loc></url>
+
+  <!-- Third Semester -->
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/thirdSem</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/thirdSem/Computer-Architecture</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/thirdSem/Computer-Graphics</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/thirdSem/Data-Structure-and-Algorithm</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/thirdSem/Numerical-Method</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/thirdSem/Statistics-II</loc></url>
+
+  <!-- Fifth Semester -->
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/fifthSem</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/fifthSem/Cryptography</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/fifthSem/DAA</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/fifthSem/SAD</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/fifthSem/WebTechnology</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/fifthSem/SM</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/fifthSem/Multimedia</loc></url>
+
+  <!-- Seventh Semester -->
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/seventhSem</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/seventhSem/Advanced-Java-Programming</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/seventhSem/Database-Administrator</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/seventhSem/International-Marketing</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/seventhSem/Network-Security</loc></url>
+  <url><loc>https://www.shekharrawal.com.np/Bsc_Csit/seventhSem/Project-Work</loc></url>
+
+</urlset>

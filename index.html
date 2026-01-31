@@ -1,28 +1,35 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/logo" href="/homePageLogo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Attendance System</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx">
-    </script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/serviceWorker.js') // Corrected path
-        .then((reg) => {
-          console.log('Service Worker Registered: ', reg.scope);
-        })
-        .catch((err) => {  
-          console.log('Service Worker Registration Failed: ', err);
-        });
-    });
-  }
-</script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  </body>
+  <title>Siddhanath Multiple Campus (SNSC) | Smart Attendance Management System</title>
+
+  <meta name="description" content="Official Attendance Management System of Siddhanath Multiple Campus (SNSC). A secure, smart solution developed by Shekhar Rawal." />
+  <meta name="author" content="Shekhar Rawal" />
+  <link rel="canonical" href="https://www.shekharrawal.com.np/" />
+
+
+  <meta property="og:title" content="SNSC Smart Attendance System" />
+  <meta property="og:description" content="Digital attendance tracking for Siddhanath Multiple Campus." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.facebook.com/shekhar.rawal.16/" />
+  <meta property="og:image" content="https://www.facebook.com/photo/?f  bid=971278441634784&set=a.110406491055321" />
+
+</head>
+
+<body>
+  <noscript>
+    <div style="color: white; text-align: center; margin-top: 20%;">
+      <h1>JavaScript Disabled</h1>
+      <p>Please enable JavaScript to use the SNSC Attendance System.</p>
+    </div>
+  </noscript>
+
+  <div id="root"></div>
+
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
