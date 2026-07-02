@@ -694,14 +694,14 @@
   position: fixed;
   top: 0;
   right: -300px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: right 2s ease-in-out;
   z-index: 1000;
   display: flex;
-  flex-wrap: wrap;
+  align-items: flex-start;
   overflow: hidden;
   animation: fadeIn 1s ease-out forwards;
 }
@@ -784,4 +784,198 @@
   font-weight: 600;
   word-spacing: 2px;
   letter-spacing: 0.4px;
+}
+
+/* new changes  */
+
+.dashboard{
+display:flex;
+flex-direction: column;
+min-height:100vh;
+}
+
+/* Sidebar */
+.profile{
+display:flex;
+gap:15px;
+align-items:center;
+margin:40px 0;
+}
+
+.profileImage{
+height:55px;
+width:55px;
+border-radius:50%;
+background:#1f2937;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+font-weight:bold;
+}
+
+.profile h4{
+font-size:15px;
+}
+
+.profile p{
+font-size:12px;
+color:gray;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menuItem{
+display:flex;
+align-items:center;
+gap:15px;
+padding:15px;
+border-radius:10px;
+cursor:pointer;
+color:#4b5563;
+}
+
+.menuItem:hover{
+background:#f3f4f6;
+}
+
+.active{
+background:#eef2ff;
+border-left:4px solid black;
+}
+
+.authSection{
+  width: 99%;
+  margin-top:auto;
+  /* padding-top:20px; */
+}
+
+.userLogOutBtn,
+.userSignUpBtn{
+  width:100%;
+  height: 40px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size: 1.4rem;
+}
+
+/* Main */
+
+.dashboardContent{
+flex:1;
+padding:40px;
+}
+
+.topHeader{
+margin-bottom:50px;
+}
+
+.welcomeSection{
+text-align:center;
+margin-bottom:50px;
+}
+
+.welcomeSection h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.welcomeSection p{
+color:#6b7280;
+}
+
+/* Cards */
+
+.cardsContainer{
+display:flex;
+gap:30px;
+justify-content:center;
+}
+
+.dashboardCard{
+width:300px;
+background:white;
+padding:40px;
+border-radius:16px;
+border:1px solid #e5e7eb;
+color:black;
+transition:.3s;
+}
+
+.dashboardCard:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.cardIcon{
+width:50px;
+height:50px;
+border-radius:12px;
+display:flex;
+justify-content:center;
+align-items:center;
+margin-bottom:20px;
+font-size:22px;
+}
+
+.BscCsitIcon{
+background:#dbeafe;
+color:#2563eb;
+}
+
+.blueIcon{
+background:#dbeafe;
+color:#2563eb;
+}
+
+.dashboardCard p{
+margin-top:15px;
+color:gray;
+font-size:14px;
+}
+
+/* Bottom cards */
+
+.bottomActions{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-top:60px;
+}
+
+.smallCard{
+background:white;
+padding:20px;
+border-radius:10px;
+display:flex;
+gap:10px;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+border:1px solid #e5e7eb;
+}
+
+.smallCard:hover{
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+
+@media(max-width:900px){
+
+
+.cardsContainer{
+flex-direction:column;
+align-items:center;
+}
+
+.bottomActions{
+grid-template-columns:repeat(2,1fr);
+}
+
 }

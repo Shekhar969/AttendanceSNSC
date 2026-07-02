@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaUserAlt } from "react-icons/fa";
-import { IoCloseSharp } from "react-icons/io5";
 import homeLogo from "../../public/homePageLogo.webp";
 import { auth } from "../config/fireBase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import "../App.css";
+
+import {
+  FaHome,
+  FaClipboardList,
+  FaCog,
+  FaQuestionCircle,
+} from "react-icons/fa";
 
 const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -13,18 +20,25 @@ const useAuth = () => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
     });
+
     return () => unsubscribe();
   }, []);
 
-  return { user, userName: user?.displayName, setUser };
+  return {
+    user,
+    userName: user?.displayName,
+    setUser,
+  };
 };
 
 const Navbar = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
   const { user, userName, setUser } = useAuth();
 
+  const sidebarRef = useRef(null);
+
   const LogOutUser = async () => {
-    
     try {
       await signOut(auth);
       console.log("Successfully logged out");
@@ -39,12 +53,28 @@ const Navbar = () => {
   };
 
   const displayName = userName || user?.displayName || "User";
+
   const email = user?.email || "No email provided";
 
-useEffect(() => {
-  const preloadImage = new Image();
-  preloadImage.src = homeLogo;
-}, []);
+  useEffect(() => {
+    const preloadImage = new Image();
+    preloadImage.src = homeLogo;
+  }, []);
+
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsSidebarVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="navbarHome">
@@ -53,12 +83,59 @@ useEffect(() => {
       </div>
 
       {isSidebarVisible ? (
-        <div className="sideBar visible">
-          <IoCloseSharp className="closeNavBar" onClick={toggleSidebar} />
-          <div>
-            <p className="userName">Hello, {displayName}</p>
-            <p className="userEmail">{email}</p>
+        <div ref={sidebarRef} className="sideBar visible">
+          <div className="profile">
+            <div className="profileImage">{displayName?.charAt(0) || "U"}</div>
+
+            <div>
+              <h4>{displayName || "User"}</h4>
+
+              <p>{email}</p>
+            </div>
           </div>
+
+          <div className="menu">
+            <NavLink
+              to="/Bsc_Csit"
+              className={({ isActive }) =>
+                isActive ? "menuItem active" : "menuItem"
+              }
+            >
+              <FaHome />
+              <span>Bsc Csit</span>
+            </NavLink>
+
+            <NavLink
+              to="/AttendanceHistory"
+              className={({ isActive }) =>
+                isActive ? "menuItem active" : "menuItem"
+              }
+            >
+              <FaClipboardList />
+              <span>Attendance</span>
+            </NavLink>
+
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                isActive ? "menuItem active" : "menuItem"
+              }
+            >
+              <FaCog />
+              <span>Settings</span>
+            </NavLink>
+
+            <NavLink
+              to="/support"
+              className={({ isActive }) =>
+                isActive ? "menuItem active" : "menuItem"
+              }
+            >
+              <FaQuestionCircle />
+              <span>Support</span>
+            </NavLink>
+          </div>
+<div className="authSection">
           {user ? (
             <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
               Log Out
@@ -67,7 +144,7 @@ useEffect(() => {
             <Link to="/auth" className="userSignUpBtn">
               Verify You
             </Link>
-          )}
+          )}</div>
         </div>
       ) : (
         <FaUserAlt className="userPhoto" onClick={toggleSidebar} />
