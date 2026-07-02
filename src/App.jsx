@@ -1,19 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Components/navBar";
 
 import {
   FaLaptopCode,
   FaClipboardList,
-  FaCalendarAlt,
-  FaStar,
-  FaMoneyBill,
-  FaBullhorn,
 } from "react-icons/fa";
+
+import { auth } from "./config/fireBase";
+import { onAuthStateChanged } from "firebase/auth";
 
 import "./App.css";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (firebaseUser) => {
+        setUser(firebaseUser);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  // Same extraction style as Navbar
+  const username =
+    user?.displayName ||
+    user?.email?.split("@")[0] ||
+    "User";
+
   return (
     <div className="dashboard">
       <div className="navbarSection">
@@ -21,29 +39,47 @@ function App() {
       </div>
 
       <div className="dashboardContent">
+
         <div className="welcomeSection">
-          <h1>Welcome back, Shekhar.</h1>
+
+          <h1>
+            {user
+              ? `Welcome back, ${username} `
+              : "Welcome to SNSC Attendance System"}
+          </h1>
+
           <p>
-            Select a module to manage your academic progress and track your
-            records.
+            {user
+              ? "Select a module to manage your academic progress and track your records."
+              : "Login to access attendance records, course materials, and academic resources."}
           </p>
+
         </div>
 
         <div className="cardsContainer">
-          <Link to="/Bsc_Csit" className="dashboardCard">
-            <div className="BscCsitIcon cardIcon ">
+
+          <Link
+            to="/Bsc_Csit"
+            className="dashboardCard"
+          >
+            <div className="BscCsitIcon cardIcon">
               <FaLaptopCode />
             </div>
 
             <h3>Bsc CSIT</h3>
 
             <p>
-              Access your course materials, syllabus, and academic resources for
-              the Computer Science program.
+              Access your course materials,
+              syllabus, and academic resources
+              for the Computer Science program.
             </p>
+
           </Link>
 
-          <Link to="/AttendanceHistory" className="dashboardCard">
+          <Link
+            to="/AttendanceHistory"
+            className="dashboardCard"
+          >
             <div className="cardIcon blueIcon">
               <FaClipboardList />
             </div>
@@ -51,35 +87,15 @@ function App() {
             <h3>Check Attendance</h3>
 
             <p>
-              View your real-time attendance logs, percentage status, and
-              detailed lecture history.
+              View your real-time attendance logs,
+              percentage status, and detailed
+              lecture history.
             </p>
+
           </Link>
+
         </div>
-        {/* 
-          <div className="bottomActions">
 
-            <div className="smallCard">
-              <FaCalendarAlt />
-              <span>Timetable</span>
-            </div>
-
-            <div className="smallCard">
-              <FaStar />
-              <span>Grades</span>
-            </div>
-
-            <div className="smallCard">
-              <FaMoneyBill />
-              <span>Fees</span>
-            </div>
-
-            <div className="smallCard">
-              <FaBullhorn />
-              <span>Notices</span>
-            </div>
-
-          </div> */}
       </div>
     </div>
   );
