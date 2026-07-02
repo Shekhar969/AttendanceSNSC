@@ -9,7 +9,6 @@ import { TbSpeakerphone } from "react-icons/tb";
 import {
   FaHome,
   FaClipboardList,
-  FaCog,
   FaQuestionCircle,
 } from "react-icons/fa";
 
@@ -53,7 +52,6 @@ const Navbar = () => {
   };
 
   const displayName = userName || user?.displayName || "User";
-
   const email = user?.email || "No email provided";
 
   useEffect(() => {
@@ -64,7 +62,10 @@ const Navbar = () => {
   // Close sidebar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
         setIsSidebarVisible(false);
       }
     };
@@ -72,30 +73,42 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
     };
   }, []);
 
   return (
     <div className="navbarHome">
-<div className="logoScsn">
-  <Link to="/">
-    <img
-      src={homeLogo}
-      className="homeLogo"
-      alt="MainLogo"
-    />
-  </Link>
-</div>
+      <div className="logoScsn">
+        <Link to="/">
+          <img
+            src={homeLogo}
+            className="homeLogo"
+            alt="MainLogo"
+          />
+        </Link>
+      </div>
 
       {isSidebarVisible ? (
         <div ref={sidebarRef} className="sideBar visible">
           <div className="profile">
-            <div className="profileImage">{displayName?.charAt(0) || "U"}</div>
+            <div className="profileImage">
+              {user?.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="Profile"
+                  className="profileImagePhoto"
+                />
+              ) : (
+                displayName?.charAt(0) || "U"
+              )}
+            </div>
 
             <div>
-              <h4>{displayName || "User"}</h4>
-
+              <h4>{displayName}</h4>
               <p>{email}</p>
             </div>
           </div>
@@ -141,19 +154,38 @@ const Navbar = () => {
               <span>Support</span>
             </NavLink>
           </div>
-<div className="authSection">
-          {user ? (
-            <Link to="/auth" className="userLogOutBtn" onClick={LogOutUser}>
-              Log Out
-            </Link>
-          ) : (
-            <Link to="/auth" className="userSignUpBtn">
-              Verify You
-            </Link>
-          )}</div>
+
+          <div className="authSection">
+            {user ? (
+              <Link
+                to="/auth"
+                className="userLogOutBtn"
+                onClick={LogOutUser}
+              >
+                Log Out
+              </Link>
+            ) : (
+              <Link
+                to="/auth"
+                className="userSignUpBtn"
+              >
+                Verify You
+              </Link>
+            )}
+          </div>
         </div>
+      ) : user?.photoURL ? (
+        <img
+          src={user.photoURL}
+          alt="Profile"
+          className="userPhoto userPhotoImg"
+          onClick={toggleSidebar}
+        />
       ) : (
-        <FaUserAlt className="userPhoto" onClick={toggleSidebar} />
+        <FaUserAlt
+          className="userPhoto"
+          onClick={toggleSidebar}
+        />
       )}
     </div>
   );
