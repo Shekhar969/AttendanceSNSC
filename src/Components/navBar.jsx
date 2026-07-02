@@ -5,7 +5,7 @@ import { auth } from "../config/fireBase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Link, NavLink } from "react-router-dom";
 import "../App.css";
-
+import { TbSpeakerphone } from "react-icons/tb";
 import {
   FaHome,
   FaClipboardList,
@@ -116,13 +116,13 @@ const Navbar = () => {
             </NavLink>
 
             <NavLink
-              to="/settings"
+              to="/support"
               className={({ isActive }) =>
                 isActive ? "menuItem active" : "menuItem"
               }
             >
-              <FaCog />
-              <span>Settings</span>
+              <TbSpeakerphone />
+              <span>Notices</span>
             </NavLink>
 
             <NavLink
