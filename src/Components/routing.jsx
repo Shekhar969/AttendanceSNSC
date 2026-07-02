@@ -39,7 +39,8 @@ import Assignment from "./subjects/BSC_CSIT/AssignmentHandeler.jsx";
 import Classes from './classLInks.jsx'
 import AH from './attendanceHistory/lastMonthAttendance.jsx'
 import SignUpHandler from './auth/signUp.jsx';
-import Support from './pages/support.jsx'
+import Support from './pages/support.jsx';
+import Notices from "./pages/notices.jsx"
 
 const routes = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const routes = createBrowserRouter([
   {
     path: "/support",
     element: <Support/>,
+  },
+  {
+    path: "/notices",
+    element: <Notices/>,
   },
   {
     path: "/AttendanceHistory",
