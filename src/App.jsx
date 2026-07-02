@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Components/navBar";
 
-import {
-  FaLaptopCode,
-  FaClipboardList,
-} from "react-icons/fa";
+import { FaLaptopCode, FaClipboardList } from "react-icons/fa";
 
 import { auth } from "./config/fireBase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -16,21 +13,15 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (firebaseUser) => {
-        setUser(firebaseUser);
-      }
-    );
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+    });
 
     return () => unsubscribe();
   }, []);
 
   // Same extraction style as Navbar
-  const username =
-    user?.displayName ||
-    user?.email?.split("@")[0] ||
-    "User";
+  const username = user?.displayName || user?.email?.split("@")[0] || "User";
 
   return (
     <div className="dashboard">
@@ -39,9 +30,7 @@ function App() {
       </div>
 
       <div className="dashboardContent">
-
         <div className="welcomeSection">
-
           <h2>
             {user
               ? `Welcome back, ${username} `
@@ -53,15 +42,10 @@ function App() {
               ? "Select a module to manage your academic progress and track your records."
               : "Login to access attendance records, course materials, and academic resources."}
           </p>
-
         </div>
 
         <div className="cardsContainer">
-
-          <Link
-            to="/Bsc_Csit"
-            className="dashboardCard"
-          >
+          <Link to="/Bsc_Csit" className="dashboardCard">
             <div className="BscCsitIcon cardIcon">
               <FaLaptopCode />
             </div>
@@ -69,17 +53,13 @@ function App() {
             <h3>Bsc CSIT</h3>
 
             <p>
-              Access your course materials,
-              syllabus, and academic resources
-              for the Computer Science program.
+              Select your semester to 
+              manage attendance records for
+              the Bsc CSIT program.
             </p>
-
           </Link>
 
-          <Link
-            to="/AttendanceHistory"
-            className="dashboardCard"
-          >
+          <Link to="/AttendanceHistory" className="dashboardCard">
             <div className="cardIcon blueIcon">
               <FaClipboardList />
             </div>
@@ -87,15 +67,11 @@ function App() {
             <h3>Check Attendance</h3>
 
             <p>
-              View your real-time attendance logs,
-              percentage status, and detailed
-              lecture history.
+              View your real-time attendance logs,filtered to a specific semester logs,  exported to an Excel file and
+              detailed  history.
             </p>
-
           </Link>
-
         </div>
-
       </div>
     </div>
   );
