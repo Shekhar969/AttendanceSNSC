@@ -42,11 +42,11 @@ function App() {
 
         <div className="welcomeSection">
 
-          <h1>
+          <h2>
             {user
               ? `Welcome back, ${username} `
               : "Welcome to SNSC Attendance System"}
-          </h1>
+          </h2>
 
           <p>
             {user
