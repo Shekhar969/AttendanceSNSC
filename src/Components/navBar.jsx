@@ -78,9 +78,15 @@ const Navbar = () => {
 
   return (
     <div className="navbarHome">
-      <div className="logoScsn">
-        <img src={homeLogo} className="homeLogo" alt="MainLogo" />
-      </div>
+<div className="logoScsn">
+  <Link to="/">
+    <img
+      src={homeLogo}
+      className="homeLogo"
+      alt="MainLogo"
+    />
+  </Link>
+</div>
 
       {isSidebarVisible ? (
         <div ref={sidebarRef} className="sideBar visible">

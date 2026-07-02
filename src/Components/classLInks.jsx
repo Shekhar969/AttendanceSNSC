@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import Navbar from "./navBar";
 
 function classLInks() {
   return (
     <>
+   
       <Link to="/">
         <button type="button" className="back-button , subject ">
           Back

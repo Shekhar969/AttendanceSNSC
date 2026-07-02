@@ -828,6 +828,7 @@ color:gray;
 display:flex;
 flex-direction:column;
 gap:10px;
+width: 100%;
 }
 
 .menuItem{
@@ -838,6 +839,7 @@ padding:15px;
 border-radius:10px;
 cursor:pointer;
 color:#4b5563;
+
 }
 
 .menuItem:hover{
