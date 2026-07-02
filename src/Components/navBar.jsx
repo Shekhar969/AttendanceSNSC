@@ -116,7 +116,7 @@ const Navbar = () => {
             </NavLink>
 
             <NavLink
-              to="/support"
+              to="/notices"
               className={({ isActive }) =>
                 isActive ? "menuItem active" : "menuItem"
               }
