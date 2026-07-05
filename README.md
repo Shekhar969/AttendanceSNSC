@@ -44,3 +44,10 @@ This project is open-source software licensed under the MIT License. You are fre
 Assets Disclaimer:
 All images/photos used in this project are publicly available materials downloaded from the internet. These assets are included for demonstration purposes only and do not carry any specific licensing claims from this repository. If you are a copyright holder of any included media and wish to have it removed, please open an issue and it will be promptly addressed.
 
+## Future Enhancements
+
+- Add email notifications.
+- Improve attendance analytics.
+- Add QR code-based attendance.
+- Enhance mobile responsiveness.
+
