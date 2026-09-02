@@ -1,48 +1,160 @@
 # AttendanceSNSC
 
-A simple attendance app allows users to mark attendance, track records, and generate reports. It typically includes features like user authentication, a dashboard to view attendance logs, and export options.
+A web-based attendance management system for managing student attendance, attendance records, and reports across BSc CSIT semesters and subjects.
+
+## Features
+
+* Firebase authentication
+* Semester and subject-based attendance management
+* Student-wise attendance marking
+* Attendance review before submission
+* Attendance history
+* Attendance records stored in Cloud Firestore
+* Excel report export
+* Notices and support pages
+
+## Tech Stack
+
+* React 19
+* Vite
+* JavaScript
+* React Router
+* Firebase Authentication
+* Cloud Firestore
+* XLSX
+* FileSaver.js
 
 ## Getting Started
 
 ### Prerequisites
+
 Ensure you have [Node.js](https://nodejs.org/) installed.
 
 ### Installation
 
 1. Clone the repository:
+
    ```sh
-   git clone https://github.com/yourusername/AttendanceSNSC.git
+   git clone https://github.com/Shekhar969/AttendanceSNSC.git
    cd AttendanceSNSC
    ```
+
 2. Install dependencies:
+
    ```sh
    yarn
    ```
 
+### Firebase Configuration
+
+This project uses Firebase Authentication and Cloud Firestore.
+
+Configure your Firebase project and update the Firebase configuration in:
+
+```text
+src/config/fireBase.jsx
+```
+
+For production use, Firebase credentials should be managed using environment variables rather than being committed directly to the repository.
+
 ### Running the Application
 
-- To start the development server:
-  ```sh
-  yarn run dev
-  ```
-- To host locally:
-  ```sh
-  yarn run dev --host
-  ```
+Start the development server:
 
-## React + Vite Setup
-Currently, two official plugins are available:
+```sh
+yarn dev
+```
 
-- `@vitejs/plugin-react`: Uses Babel for Fast Refresh.
-- `@vitejs/plugin-react-swc`: Uses SWC for Fast Refresh.
+To expose the development server on the local network:
 
+```sh
+yarn dev --host
+```
+
+## Build
+
+Create a production build:
+
+```sh
+yarn build
+```
+
+Preview the production build locally:
+
+```sh
+yarn preview
+```
+
+## Project Structure
+
+```text
+src/
+├── Components/
+│   ├── auth/
+│   ├── attendanceHistory/
+│   ├── pages/
+│   ├── subjects/
+│   │   └── BSC_CSIT/
+│   ├── attendanceHandler.jsx
+│   ├── navBar.jsx
+│   └── routing.jsx
+├── config/
+│   └── fireBase.jsx
+├── App.jsx
+└── main.jsx
+```
+
+## Application Flow
+
+```text
+Authentication
+      ↓
+Dashboard
+      ↓
+Semester & Subject
+      ↓
+Student Attendance
+      ↓
+Review
+      ↓
+Submit
+      ↓
+Cloud Firestore
+      ↓
+Attendance History / Export
+```
+
+## Future Improvements
+
+* Role-based access for teachers, students, and administrators
+* Centralized student management
+* Attendance analytics
+* Automated attendance notifications
+* QR/NFC-based attendance
+* Mobile application
 
 ## License
 
-This project is open-source software licensed under the MIT License. You are free to use, modify, and distribute the code for any purpose, provided you include the original license and copyright notice. For full details, see the LICENSE file.
+This project is intended to be open-source under the MIT License.
 
-Assets Disclaimer:
-All images/photos used in this project are publicly available materials downloaded from the internet. These assets are included for demonstration purposes only and do not carry any specific licensing claims from this repository. If you are a copyright holder of any included media and wish to have it removed, please open an issue and it will be promptly addressed.
+If distributing the project under MIT, include a `LICENSE` file containing the official MIT license text.
+
+## Assets Disclaimer
+
+Some images and other media included in this project were sourced from publicly available materials and are used for demonstration purposes. This repository does not claim ownership of third-party assets.
+
+If you are the copyright holder of an included asset and believe it is being used improperly, please contact the repository owner for removal or appropriate attribution.
+
+## Author
+
+**Shekhar Singh Rawal**
+
+GitHub: https://github.com/Shekhar969
+
+## Repository
+
+https://github.com/Shekhar969/AttendanceSNSC
+
 
 ## Future Enhancements
 
